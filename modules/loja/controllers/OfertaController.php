@@ -34,12 +34,10 @@ class OfertaController extends LojaController
      */
     public function actionIndex()
     {
-        $searchModel = new OfertaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $ofertas = Oferta::findAll(["corrente" => 1]);
+        
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'ofertas' => $ofertas,
         ]);
     }
 

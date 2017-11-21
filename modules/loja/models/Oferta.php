@@ -12,7 +12,7 @@ use app\modules\base\models\Produtor;
  * @property integer $oferta_id
  * @property string $momento
  * @property integer $quantidade
- * @property double $preco_unidade
+ * @property double $preco
  * @property integer $corrente
  * @property integer $produto_id
  * @property integer $produtor_id
@@ -38,9 +38,9 @@ class Oferta extends \yii\db\ActiveRecord
     {
         return [
             [['momento'], 'safe'],
-            [['quantidade', 'preco_unidade', 'produto_id', 'produtor_id'], 'required'],
+            [['quantidade', 'preco', 'produto_id', 'produtor_id'], 'required'],
             [['quantidade', 'corrente', 'produto_id', 'produtor_id'], 'integer'],
-            [['preco_unidade'], 'number'],
+            [['preco'], 'number'],
             [['produto_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['produto_id' => 'produto_id']],
             [['produtor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produtor::className(), 'targetAttribute' => ['produtor_id' => 'produtor_id']],
         ];
@@ -54,8 +54,8 @@ class Oferta extends \yii\db\ActiveRecord
         return [
             'oferta_id' => 'Identificador',
             'momento' => 'Momento da criação',
-            'quantidade' => 'Quantidade',
-            'preco_unidade' => 'Preço por unidade',
+            'quantidade' => 'Quantidade em kg',
+            'preco' => 'Preço por kg',
             'corrente' => 'Corrente',
             'produto_id' => 'Produto associado',
             'produtor_id' => 'Produtor associado',

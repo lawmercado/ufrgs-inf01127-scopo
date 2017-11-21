@@ -172,28 +172,5 @@ body > section {
     padding: 30px;
     overflow: overlay;
     color: #000;
-}
-
-body > section > input {
-    position: relative;
-    display: block;
-    text-align: center;
-    width: 200px;
-    margin: 0px auto 10px auto;
-    padding: 5px;
-    border: 1px solid #a1bc70;
-    border-radius: 5px;
-}
-
-body > section > section {
-    position: relative;
-    display: block;
-}
-
-body > section > section > div {
-    display: block;
-    float: left;
-    width: 25%;
-    height: 400px;
-    border: 1px solid #a1bc70;
+    border-radius: 2px;
 }

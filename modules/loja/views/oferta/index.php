@@ -1,38 +1,31 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ActiveForm;
+use yii\helpers\VarDumper;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\loja\models\OfertaSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $ofertas array */
 
 $this->title = 'Ofertas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="oferta-index">
+    <div class="search-area">
+        <?php $form = ActiveForm::begin(); ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Oferta', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'oferta_id',
-            'momento',
-            'quantidade',
-            'preco_unidade',
-            'corrente',
-            // 'produto_id',
-            // 'produtor_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+        <?= Html::input("text", "pesquisa") ?><?= Html::submitButton("Pesquisar") ?>
+        
+        <?php ActiveForm::end(); ?>
+    </div>    
+    <div class="ofertas">
+    <?php foreach($ofertas as $oferta): ?>
+        <div class="oferta">
+            <div><img /></div>
+            <p class="oferta-quantidade"><?= $oferta->quantidade ?>Kg</p>
+            <p class="oferta-preco">R$<?= Yii::$app->formatter->asDecimal($oferta->preco) ?> por Kg</p>
+            <p class="oferta-local"><?= $oferta->produtor->pessoa->cidade ?>, <?= $oferta->produtor->pessoa->estado ?></p>
+        </div>
+    <?php endforeach; ?>
+    
 </div>

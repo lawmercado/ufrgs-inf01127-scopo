@@ -9,3 +9,49 @@ header > .menu-controller:hover, header > .menu-controller-active {
 header > nav.menu > ul {
     background-color: #59574b;
 }
+
+.search-area {
+    text-align: center;
+    width: 30%;
+    margin: 0 auto;
+    display: block;
+}
+
+.ofertas {
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    display: block;
+}
+
+div.oferta {
+    display: block;
+    float: left;
+    width: 25%;
+    height: 300px;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+div.oferta:hover {
+    background-color: #ddd6d4;
+}
+
+div.oferta > div {
+    display: block;
+    height: 50%;
+    width: 95%;
+    margin: 20px auto;
+    background-color: #5a554b;
+}
+
+div.oferta p {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+}
+
+div.oferta p.oferta-preco {
+    font-weight: bolder;
+    font-size: 1.2em;
+}

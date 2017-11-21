@@ -12,13 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'momento')->textInput() ?>
+    <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'quantidade')->textInput() ?>
-
-    <?= $form->field($model, 'preco_unidade')->textInput() ?>
-
-    <?= $form->field($model, 'corrente')->textInput() ?>
+    <?= $form->field($model, 'preco_unidade')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'produto_id')->textInput() ?>
 

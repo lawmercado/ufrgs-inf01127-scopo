@@ -81,8 +81,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `scopo`.`Oferta` (
   `oferta_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
   `momento` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Momento da criação',
-  `quantidade` INT NOT NULL COMMENT 'Quantidade',
-  `preco_unidade` FLOAT NOT NULL COMMENT 'Preço por unidade',
+  `quantidade` INT NOT NULL COMMENT 'Quantidade em kg',
+  `preco` FLOAT NOT NULL COMMENT 'Preço por kg',
   `corrente` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Corrente',
   `produto_id` INT NOT NULL COMMENT 'Produto associado',
   `produtor_id` INT NOT NULL COMMENT 'Produtor associado',
