@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quantidade') ?>
 
-    <?= $form->field($model, 'preco_unidade') ?>
+    <?= $form->field($model, 'preco') ?>
 
     <?= $form->field($model, 'corrente') ?>
 

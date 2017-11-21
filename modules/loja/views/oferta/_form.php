@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'preco_unidade')->textInput(['type' => 'number']) ?>
+    <?= $form->field($model, 'preco')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'produto_id')->textInput() ?>
 

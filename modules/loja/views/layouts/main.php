@@ -5,7 +5,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -34,6 +33,7 @@ $hotlinks = [
         
         <title><?= Html::encode(Yii::$app->name) ?></title>
         
+        <link href="/assets/bd815f68/css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/modules/base/main.css" type="text/css" />
         <link rel="stylesheet" href="css/modules/loja/main.css" type="text/css" />
     </head>

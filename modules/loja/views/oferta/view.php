@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'oferta_id',
             'momento',
             'quantidade',
-            'preco_unidade',
+            'preco',
             'corrente',
             'produto_id',
             'produtor_id',

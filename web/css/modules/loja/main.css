@@ -12,9 +12,25 @@ header > nav.menu > ul {
 
 .search-area {
     text-align: center;
-    width: 30%;
+    width: 40%;
+    height: 40px;
     margin: 0 auto;
     display: block;
+}
+
+.search-area input {
+    width: 70%;
+    height: 40px;
+    padding-left: 10px;
+}
+
+.search-area button {
+    width: 30%;
+    border: none;
+}
+
+.search-area button:hover {
+    text-decoration: underline;
 }
 
 .ofertas {
@@ -28,9 +44,10 @@ div.oferta {
     display: block;
     float: left;
     width: 25%;
-    height: 300px;
+    height: 350px;
     padding: 10px;
     border-radius: 2px;
+    transition: background-color 0.5s;
 }
 
 div.oferta:hover {
@@ -40,9 +57,9 @@ div.oferta:hover {
 div.oferta > div {
     display: block;
     height: 50%;
-    width: 95%;
-    margin: 20px auto;
-    background-color: #5a554b;
+    width: 100%;
+    margin: 10px auto;
+    background-color: #5a574b;
 }
 
 div.oferta p {
@@ -51,7 +68,18 @@ div.oferta p {
     margin: 10px 0;
 }
 
-div.oferta p.oferta-preco {
+div.oferta p.oferta-preco, div.oferta p.oferta-produto {
     font-weight: bolder;
     font-size: 1.2em;
+}
+
+.termo {
+    padding-bottom: 20px;
+    font-size: 0.9em;
+    font-weight: lighter;
+    color: #59574b;
+}
+
+.termo > p {
+    line-height: 1.2em;
 }
