@@ -2,18 +2,21 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\base\models\Produtor */
 
-$this->title = $model->produtor_id;
-$this->params['breadcrumbs'][] = ['label' => 'Produtors', 'url' => ['index']];
+$this->title = "Produtor {$model->produtor_id}";
+$this->params['breadcrumbs'][] = ['label' => 'Produtores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produtor-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
+    
+    <h1 class="titulo"><?= Html::encode($this->title) ?></h1>
+    
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->produtor_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->produtor_id], [
@@ -29,8 +32,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'produtor_id',
+            [
+                "label" => "Nome",
+                "value" => $model->pessoa->nome
+            ],
             'cnpj',
-            'pessoa_id',
+            [
+                "label" => "Endereço",
+                "value" => $model->pessoa->endereco
+            ],
+            [
+                "label" => "Cidade",
+                "value" => $model->pessoa->cidade
+            ],
+            [
+                "label" => "Estado",
+                "value" => $model->pessoa->estado
+            ],
+            [
+                "label" => "CEP",
+                "value" => $model->pessoa->cep
+            ],
+            
         ],
     ]) ?>
 

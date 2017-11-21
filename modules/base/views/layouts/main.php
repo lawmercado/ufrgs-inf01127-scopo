@@ -5,7 +5,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -30,6 +29,7 @@ $hotlinks = [
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8" />
+        <?= Html::csrfMetaTags() ?>
         
         <title><?= Html::encode(Yii::$app->name) ?></title>
                 

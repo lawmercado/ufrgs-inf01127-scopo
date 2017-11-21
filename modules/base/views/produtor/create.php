@@ -1,21 +1,25 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\base\models\Produtor */
+/* @var $pessoa app\modules\base\models\Pessoa */
 
-$this->title = 'Create Produtor';
-$this->params['breadcrumbs'][] = ['label' => 'Produtors', 'url' => ['index']];
+$this->title = 'Cadastrar Produtor';
+$this->params['breadcrumbs'][] = ['label' => 'Produtores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produtor-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
+    
+    <h1 class="titulo"><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'pessoa' => $pessoa
     ]) ?>
 
 </div>

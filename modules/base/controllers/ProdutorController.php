@@ -4,6 +4,7 @@ namespace app\modules\base\controllers;
 
 use Yii;
 use app\modules\base\models\Produtor;
+use app\modules\base\models\Pessoa;
 use app\modules\base\models\ProdutorSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,12 +64,20 @@ class ProdutorController extends BaseController
     public function actionCreate()
     {
         $model = new Produtor();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $pessoa = new Pessoa();
+        
+        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
+            $pessoa->save();
+            
+            $model->pessoa_id = $pessoa->pessoa_id;
+            
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->produtor_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'pessoa' => $pessoa
             ]);
         }
     }
@@ -82,12 +91,17 @@ class ProdutorController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $pessoa = $model->pessoa;
+        
+        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
+            $pessoa->save();
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->produtor_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'pessoa' => $pessoa
             ]);
         }
     }
@@ -100,7 +114,9 @@ class ProdutorController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->pessoa->delete();
+        $model->delete();
 
         return $this->redirect(['index']);
     }

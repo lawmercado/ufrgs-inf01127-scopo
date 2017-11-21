@@ -1,21 +1,25 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\base\models\Produtor */
 
-$this->title = 'Update Produtor: ' . $model->produtor_id;
-$this->params['breadcrumbs'][] = ['label' => 'Produtors', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->produtor_id, 'url' => ['view', 'id' => $model->produtor_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Atualização de Produtor';
+$this->params['breadcrumbs'][] = ['label' => 'Produtores', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => "Produtor {$model->produtor_id}", 'url' => ['view', 'id' => $model->produtor_id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produtor-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
+    
+    <h1 class="titulo"><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
+        'pessoa' => $model->pessoa
     ]) ?>
 
 </div>
