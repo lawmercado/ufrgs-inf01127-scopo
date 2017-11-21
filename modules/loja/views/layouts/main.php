@@ -36,6 +36,7 @@ $hotlinks = [
         
         <?php $this->head() ?>
         
+        <link rel="stylesheet" href="css/modules/base/main.css" type="text/css" />
         <link rel="stylesheet" href="css/modules/loja/main.css" type="text/css" />
     </head>
     <body>
