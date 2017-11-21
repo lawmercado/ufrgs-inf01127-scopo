@@ -32,9 +32,8 @@ $hotlinks = [
         <meta charset="utf-8" />
         
         <title><?= Html::encode(Yii::$app->name) ?></title>
-        
-        <?php $this->head() ?>
-        
+                
+        <link href="/assets/bd815f68/css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/modules/base/main.css" type="text/css" />
     </head>
     <body>
@@ -60,15 +59,7 @@ $hotlinks = [
         </header>
 
         <section>
-            <div>
-                <div class="container">
-                    <?= Breadcrumbs::widget([
-                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                    ]) ?>
-                    <?= $content ?>
-                </div>
-            </div>
-
+            <?= $content ?>
         </section>
         
         <script type="text/javascript">
