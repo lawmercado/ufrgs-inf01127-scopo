@@ -5,14 +5,13 @@ namespace app\modules\base\controllers;
 use Yii;
 use app\modules\base\models\Produtor;
 use app\modules\base\models\ProdutorSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ProdutorController implements the CRUD actions for Produtor model.
  */
-class ProdutorController extends Controller
+class ProdutorController extends BaseController
 {
     /**
      * @inheritdoc

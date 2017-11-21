@@ -2,12 +2,11 @@
 
 namespace app\modules\base\controllers;
 
-use yii\web\Controller;
 
 /**
  * Default controller for the `base` module
  */
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /**
      * Renders the index view for the module

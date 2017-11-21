@@ -5,14 +5,13 @@ namespace app\modules\loja\controllers;
 use Yii;
 use app\modules\loja\models\Consumidor;
 use app\modules\loja\models\ConsumidorSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ConsumidorController implements the CRUD actions for Consumidor model.
  */
-class ConsumidorController extends Controller
+class ConsumidorController extends LojaController
 {
     /**
      * @inheritdoc

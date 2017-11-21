@@ -5,8 +5,10 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'SCOPO',
+    'name' => 'SCOPO',
     'language' => 'pt-br',
     'sourceLanguage' => 'pt-br',
+    'defaultRoute' => 'loja/oferta',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [

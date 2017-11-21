@@ -5,14 +5,13 @@ namespace app\modules\base\controllers;
 use Yii;
 use app\modules\base\models\Produto;
 use app\modules\base\models\ProdutoSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
  */
-class ProdutoController extends Controller
+class ProdutoController extends BaseController
 {
     /**
      * @inheritdoc

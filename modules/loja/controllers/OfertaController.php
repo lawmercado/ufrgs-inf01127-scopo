@@ -5,14 +5,13 @@ namespace app\modules\loja\controllers;
 use Yii;
 use app\modules\loja\models\Oferta;
 use app\modules\loja\models\OfertaSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * OfertaController implements the CRUD actions for Oferta model.
  */
-class OfertaController extends Controller
+class OfertaController extends LojaController
 {
     /**
      * @inheritdoc

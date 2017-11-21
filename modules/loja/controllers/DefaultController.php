@@ -2,12 +2,10 @@
 
 namespace app\modules\loja\controllers;
 
-use yii\web\Controller;
-
 /**
  * Default controller for the `loja` module
  */
-class DefaultController extends Controller
+class DefaultController extends LojaController
 {
     /**
      * Renders the index view for the module

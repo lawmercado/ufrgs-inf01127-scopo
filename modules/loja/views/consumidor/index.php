@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\loja\models\ConsumidorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Consumidors';
+$this->title = 'Consumidores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="consumidor-index">

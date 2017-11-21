@@ -5,14 +5,13 @@ namespace app\modules\loja\controllers;
 use Yii;
 use app\modules\loja\models\Pedido;
 use app\modules\loja\models\PedidoSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * PedidoController implements the CRUD actions for Pedido model.
  */
-class PedidoController extends Controller
+class PedidoController extends LojaController
 {
     /**
      * @inheritdoc

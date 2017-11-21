@@ -5,14 +5,13 @@ namespace app\modules\loja\controllers;
 use Yii;
 use app\modules\loja\models\Mensagem;
 use app\modules\loja\models\MensagemSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * MensagemController implements the CRUD actions for Mensagem model.
  */
-class MensagemController extends Controller
+class MensagemController extends LojaController
 {
     /**
      * @inheritdoc
