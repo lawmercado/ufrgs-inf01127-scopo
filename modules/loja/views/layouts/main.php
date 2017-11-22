@@ -30,10 +30,11 @@ $hotlinks = [
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8" />
+        <?= Html::csrfMetaTags() ?>
         
         <title><?= Html::encode(Yii::$app->name) ?></title>
         
-        <link href="/assets/bd815f68/css/bootstrap.css" rel="stylesheet">
+        <?php $this->head() ?>
         <link rel="stylesheet" href="css/modules/base/main.css" type="text/css" />
         <link rel="stylesheet" href="css/modules/loja/main.css" type="text/css" />
     </head>

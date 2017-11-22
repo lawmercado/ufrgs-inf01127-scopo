@@ -33,7 +33,7 @@ $hotlinks = [
         
         <title><?= Html::encode(Yii::$app->name) ?></title>
                 
-        <link href="/assets/bd815f68/css/bootstrap.css" rel="stylesheet">
+        <?php $this->head() ?>
         <link rel="stylesheet" href="css/modules/base/main.css" type="text/css" />
     </head>
     <body>
