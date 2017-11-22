@@ -4,6 +4,7 @@ namespace app\modules\loja\controllers;
 
 use Yii;
 use app\modules\loja\models\Consumidor;
+use app\modules\base\models\Pessoa;
 use app\modules\loja\models\ConsumidorSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,12 +64,18 @@ class ConsumidorController extends LojaController
     public function actionCreate()
     {
         $model = new Consumidor();
+        $pessoa = new Pessoa();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
+            $pessoa->save();
+            $model->pessoa_id = $pessoa->pessoa_id;
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->consumidor_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'pessoa' => $pessoa
             ]);
         }
     }
@@ -82,12 +89,17 @@ class ConsumidorController extends LojaController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $pessoa = $model->pessoa;
+        
+        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $model->save()) {
+            $pessoa->save();
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->consumidor_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'pessoa' => $pessoa
             ]);
         }
     }
@@ -100,7 +112,9 @@ class ConsumidorController extends LojaController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->pessoa->delete();
+        $model->delete();
 
         return $this->redirect(['index']);
     }
