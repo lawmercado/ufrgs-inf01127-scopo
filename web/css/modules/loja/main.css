@@ -21,6 +21,8 @@ header > nav.menu > ul {
 .search-area input {
     width: 70%;
     height: 40px;
+    border: none;
+    background-color: #ddd6d4;
     padding-left: 10px;
 }
 
