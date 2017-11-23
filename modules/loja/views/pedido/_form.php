@@ -12,20 +12,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'momento')->textInput() ?>
-
     <?= $form->field($model, 'quantidade')->textInput() ?>
 
     <?= $form->field($model, 'finalizado')->textInput() ?>
 
     <?= $form->field($model, 'cancelado')->textInput() ?>
 
-    <?= $form->field($model, 'oferta_id')->textInput() ?>
-
-    <?= $form->field($model, 'consumidor_id')->textInput() ?>
-
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

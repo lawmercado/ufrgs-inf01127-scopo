@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\base\models\Produtor */
 /* @var $pessoa app\modules\base\models\Pessoa */
 
-$this->title = 'Cadastrar Produtor';
+$this->title = 'Criar produtor';
 $this->params['breadcrumbs'][] = ['label' => 'Produtores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

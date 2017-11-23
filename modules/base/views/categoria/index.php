@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\base\models\CategoriaSearch */
@@ -12,11 +13,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categoria-index">
 
+    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
+    
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Categoria', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar categoria', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

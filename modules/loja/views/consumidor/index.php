@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
     
-    <h1 class="titulo"><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]);?>
 
     <p>
-        <?= Html::a('Create Consumidor', ['create'], ['class' => 'botao btn btn-success']) ?>
+        <?= Html::a('Criar consumidor', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     
     

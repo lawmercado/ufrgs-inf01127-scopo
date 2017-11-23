@@ -4,6 +4,7 @@ namespace app\modules\loja\controllers;
 
 use Yii;
 use app\modules\loja\models\Pedido;
+use app\modules\loja\models\Oferta;
 use app\modules\loja\models\PedidoSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,11 +65,14 @@ class PedidoController extends LojaController
     {
         $model = new Pedido();
 
+        $oferta = Oferta::findOne(Yii::$app->request->get('oferta_id'));
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pedido_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'oferta' => $oferta
             ]);
         }
     }

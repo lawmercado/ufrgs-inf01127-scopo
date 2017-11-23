@@ -37,7 +37,7 @@ class OfertaController extends LojaController
         $ofertas = Oferta::find()->where(['corrente' => TRUE])->orderBy(['preco'=> SORT_ASC])->all();
         
         return $this->render('index', [
-            'ofertas' => $ofertas,
+            'ofertas' => $ofertas
         ]);
     }
 
@@ -48,11 +48,7 @@ class OfertaController extends LojaController
      */
     public function actionView($id)
     {
-        /*return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);*/
-        
-        return $this->render('view_consumidor', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }

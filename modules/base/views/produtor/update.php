@@ -6,10 +6,10 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\base\models\Produtor */
 
-$this->title = 'Atualização de Produtor';
+$this->title = 'Atualizar produtor';
 $this->params['breadcrumbs'][] = ['label' => 'Produtores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => "Produtor {$model->produtor_id}", 'url' => ['view', 'id' => $model->produtor_id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="produtor-update">
 

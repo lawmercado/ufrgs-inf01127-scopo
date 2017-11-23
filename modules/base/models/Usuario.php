@@ -1,9 +1,13 @@
 <?php
 
-namespace app\models;
+namespace app\modules\base\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+class Usuario extends \yii\base\Object implements \yii\web\IdentityInterface
 {
+    const ROLE_CONSUMIDOR = 10;
+    const ROLE_PRODUTOR = 20;
+    const ROLE_ADMINISTRADOR = 30;
+    
     public $id;
     public $username;
     public $password;

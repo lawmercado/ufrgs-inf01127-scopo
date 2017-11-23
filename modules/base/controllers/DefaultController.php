@@ -2,6 +2,9 @@
 
 namespace app\modules\base\controllers;
 
+use Yii;
+
+use app\modules\base\models\LoginForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
