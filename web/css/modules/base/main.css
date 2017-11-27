@@ -58,7 +58,6 @@ table {
 
 strong {
     font-weight: bolder !important;
-    color: #000;
 }
 
 a, a:visited {
@@ -68,6 +67,20 @@ a, a:visited {
 
 a:hover {
     color: inherit;
+    text-decoration: underline;
+}
+
+.btn {
+    color: #fff;
+}
+
+.btn:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn:hover {
+    color: #fff;
     text-decoration: underline;
 }
 
@@ -213,6 +226,11 @@ body > section {
     display: block;
     text-align: center;
     border: none;
+    margin-bottom: 10px;
+}
+
+.botao-positivo {
+    background-color: #a1bc70;
 }
 
 .botao:visited {

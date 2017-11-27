@@ -28,7 +28,7 @@ class ConsumidorController extends LojaController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index','create','update', 'view', 'delete'],
+                'only' => ['index', 'create', 'update', 'view', 'delete'],
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'delete'],
@@ -36,10 +36,16 @@ class ConsumidorController extends LojaController
                         'roles' => [Usuario::PAPEL_ADMINISTRADOR],
                     ],
                     [
-                        'actions' => ['create', 'view', 'update'],
+                        'actions' => ['view', 'update', 'delete'],
                         'allow' => true,
                         'roles' => [Usuario::PAPEL_CONSUMIDOR],
                     ],
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                   
                 ],
             ],
             'verbs' => [
@@ -124,11 +130,10 @@ class ConsumidorController extends LojaController
         $model = $this->findModel($id);
         $pessoa = $model->pessoa;
         $usuario = Yii::$app->user->identity;
-        
-        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $usuario->load(Yii::$app->request->post()) ) {
+                
+        if ( $model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post() ) ) {
             $pessoa->save();
             $model->save();
-            $usuario->save();
             
             return $this->redirect(['view', 'id' => $model->consumidor_id]);
         } else {

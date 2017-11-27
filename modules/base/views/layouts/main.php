@@ -6,25 +6,41 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use app\modules\base\models\Usuario;
 
 AppAsset::register($this);
 
 $menu = [];
-$hotlinks = [];
+$hotlinks = [
+    "Início" => Url::home()
+];
 
 if( !Yii::$app->user->isGuest ) {
-    $menu = [
-        "Categorias" => Url::toRoute(['categoria/index']),
-        "Produtos" => Url::toRoute(['produto/index']),
-        "Produtores" => Url::toRoute(['produtor/index'])
-    ];
-
-    $hotlinks = [];
-}
-else {
+    
+    switch (Yii::$app->user->identity->papel_id) {
+        case Usuario::PAPEL_ADMINISTRADOR:
+            $menu = [
+                "Categorias" => Url::toRoute(['categoria/index']),
+                "Produtos" => Url::toRoute(['produto/index']),
+                "Produtores" => Url::toRoute(['produtor/index'])
+            ];
+            
+            break;
+        
+        case Usuario::PAPEL_PRODUTOR:
+            break;
+        
+        case Usuario::PAPEL_CONSUMIDOR:
+            break;
+        
+        default:
+    }
+    
+} else {
     $menu = [
         "Entrar" => Url::toRoute(['/base/default/login'])
     ];
+    
 }
 
 ?>
@@ -55,6 +71,8 @@ else {
                     <a href="<?= $link?>"><?= Html::encode($label) ?></a>
                 <?php endforeach ?>
                 
+                |
+                    
                 <?php if( !Yii::$app->user->isGuest ): ?>
                     <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute(['/base/default/logout']) ?>" data-method="post">Sair?</a></p>
                 <?php else: ?>

@@ -11,7 +11,9 @@ use app\modules\base\models\Usuario;
 AppAsset::register($this);
 
 $menu = [];
-$hotlinks = [];
+$hotlinks = [
+    "Início" => Url::home()
+];
 
 if( !Yii::$app->user->isGuest ) {
     
@@ -21,7 +23,7 @@ if( !Yii::$app->user->isGuest ) {
                 "Portal administrativo" => Url::toRoute("/base/default")
             ];
             
-            $hotlinks = [
+            $hotlinks = $hotlinks + [
                 "Portal administrativo" => Url::toRoute("/base/default")
             ];
             
@@ -35,11 +37,9 @@ if( !Yii::$app->user->isGuest ) {
                 "Meu perfil" => Url::toRoute("consumidor/view")
             ];
             
-            $hotlinks = [
+            $hotlinks =  $hotlinks + [
                 "Meu perfil" => Url::toRoute("consumidor/view")
             ];
-            
-            break;
             
             break;
         
@@ -81,6 +81,8 @@ else {
                     <a href="<?= $link?>"><?= Html::encode($label) ?></a>
                 <?php endforeach ?>
                 
+                |
+                    
                 <?php if( !Yii::$app->user->isGuest ): ?>
                     <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute(['/base/default/logout']) ?>" data-method="post">Sair?</a></p>
                 <?php else: ?>

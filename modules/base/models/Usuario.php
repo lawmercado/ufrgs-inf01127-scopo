@@ -26,7 +26,7 @@ class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * @inheritdoc
      */
     public static function tableName() {
-        return 'usuario';
+        return 'Usuario';
     }
 
     /**

@@ -5,6 +5,7 @@
 /* @var $model app\models\LoginForm */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
 
         <?= Html::submitButton('Login', ['class' => 'botao', 'name' => 'login-button']) ?>
-
+        <?= Html::a('Criar cadastro', ["/loja/consumidor/create"], ['class' => 'botao botao-positivo']) ?>
     </div>
     
     <?php ActiveForm::end(); ?>

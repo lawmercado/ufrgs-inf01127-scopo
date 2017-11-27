@@ -19,7 +19,7 @@ class Papel extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'papel';
+        return 'Papel';
     }
 
     /**

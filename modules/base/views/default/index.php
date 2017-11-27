@@ -8,8 +8,6 @@ use yii\helpers\Html;
     <h1>Olá. Para onde você quer ir?</h1>
     
     <p><?= Html::a("Categorias", ["categoria/index"], ["class" => "botao"]) ?></p>
-    <br/>
     <p><?= Html::a("Produtos", ["produto/index"], ["class" => "botao"]) ?><p>
-    <br/>
     <p><?= Html::a("Produtores", ["produtor/index"], ["class" => "botao"]) ?></p>
 </div>

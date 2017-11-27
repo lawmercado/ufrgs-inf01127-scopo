@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Pedido */
 /* @var $oferta app\modules\loja\models\Oferta */
+/* @var $consumidor app\modules\loja\models\Consumidor */
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = 'Confirmação do pedido';
@@ -38,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']); ?>
     
-        <?= $form->field($model, 'consumidor_id')->textInput(); ?>
+        <?= $form->field($model, 'consumidor_id')->hiddenInput(['value' => $consumidor->consumidor_id])->label(false); ?>
 
         <?= $form->field($model, 'oferta_id')->hiddenInput(['value' => $oferta->oferta_id])->label(false); ?>
     

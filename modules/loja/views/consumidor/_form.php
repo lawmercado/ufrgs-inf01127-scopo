@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($pessoa, 'nome')->textInput() ?>
     
-    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true, "readonly" => !$model->isNewRecord]) ?>
     
-    <?= $form->field($usuario, 'senha')->passwordInput(["label" => "Senha de acesso"]) ?>
+    <?= $form->field($usuario, 'senha')->passwordInput(["readonly" => !$model->isNewRecord]) ?>
     
     <?= $form->field($pessoa, 'email')->textInput() ?>
     
