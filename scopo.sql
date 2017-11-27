@@ -36,8 +36,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Produto` (
   `categoria_id` INT NOT NULL COMMENT 'Categoria',
   PRIMARY KEY (`produto_id`),
   INDEX `fk_categoria_id_idx` (`categoria_id` ASC),
-  CONSTRAINT `fk_categoria_id`
-    FOREIGN KEY (`categoria_id`)
+  FOREIGN KEY (`categoria_id`)
     REFERENCES `scopo`.`Categoria` (`categoria_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -50,10 +49,11 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `scopo`.`Pessoa` (
   `pessoa_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
   `nome` VARCHAR(100) NOT NULL COMMENT 'Nome',
+  `email` VARCHAR(50) NOT NULL COMMENT 'Email',
   `endereco` VARCHAR(100) NOT NULL COMMENT 'Endereço',
   `cidade` VARCHAR(50) NOT NULL COMMENT 'Cidade',
-  `cep` INT(11) NOT NULL COMMENT 'CEP',
-  `estado` VARCHAR(2) NOT NULL,
+  `cep` VARCHAR(8) NOT NULL COMMENT 'CEP',
+  `estado` VARCHAR(2) NOT NULL COMMENT 'Estado',
   PRIMARY KEY (`pessoa_id`))
 ENGINE = InnoDB;
 
@@ -67,8 +67,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Produtor` (
   `pessoa_id` INT NOT NULL COMMENT 'Pessoa associada',
   PRIMARY KEY (`produtor_id`),
   INDEX `fk_produtor_pessoa_id_idx` (`pessoa_id` ASC),
-  CONSTRAINT `fk_produtor_pessoa_id`
-    FOREIGN KEY (`pessoa_id`)
+  FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -89,13 +88,11 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Oferta` (
   PRIMARY KEY (`oferta_id`),
   INDEX `fk_produto_id_idx` (`produto_id` ASC),
   INDEX `fk_produtor_id_idx` (`produtor_id` ASC),
-  CONSTRAINT `fk_produto_id`
-    FOREIGN KEY (`produto_id`)
+  FOREIGN KEY (`produto_id`)
     REFERENCES `scopo`.`Produto` (`produto_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_produtor_id`
-    FOREIGN KEY (`produtor_id`)
+  FOREIGN KEY (`produtor_id`)
     REFERENCES `scopo`.`Produtor` (`produtor_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -111,8 +108,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Consumidor` (
   `pessoa_id` INT NOT NULL COMMENT 'Pessoa associada',
   PRIMARY KEY (`consumidor_id`),
   INDEX `fk_consumidor_pesssoa_id_idx` (`pessoa_id` ASC),
-  CONSTRAINT `fk_consumidor_pessoa_id`
-    FOREIGN KEY (`pessoa_id`)
+  FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -133,13 +129,11 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
   PRIMARY KEY (`pedido_id`),
   INDEX `fk_oferta_id_idx` (`oferta_id` ASC),
   INDEX `fk_consumidor_id_idx` (`consumidor_id` ASC),
-  CONSTRAINT `fk_oferta_id`
-    FOREIGN KEY (`oferta_id`)
+  FOREIGN KEY (`oferta_id`)
     REFERENCES `scopo`.`Oferta` (`oferta_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_consumidor_id`
-    FOREIGN KEY (`consumidor_id`)
+  FOREIGN KEY (`consumidor_id`)
     REFERENCES `scopo`.`Consumidor` (`consumidor_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -158,18 +152,50 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Mensagem` (
   PRIMARY KEY (`mensagem_id`),
   INDEX `fk_pedido_id_idx` (`pedido_id` ASC),
   INDEX `fk_pessoa_id_idx` (`pessoa_id` ASC),
-  CONSTRAINT `fk_pedido_id`
-    FOREIGN KEY (`pedido_id`)
+  FOREIGN KEY (`pedido_id`)
     REFERENCES `scopo`.`Pedido` (`pedido_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_pessoa_id`
-    FOREIGN KEY (`pessoa_id`)
+  FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `scopo`.`Papel`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scopo`.`Papel` (
+  `papel_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
+  `descricao` VARCHAR(20) NOT NULL COMMENT 'Descrição',
+  PRIMARY KEY (`papel_id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `scopo`.`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scopo`.`Usuario` (
+  `usuario_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
+  `login` VARCHAR(20) NOT NULL COMMENT 'Login',
+  `senha` VARCHAR(32) NOT NULL COMMENT 'Senha',
+  `pessoa_id` INT NOT NULL COMMENT 'Pessoa associada',
+  `papel_id` INT NOT NULL COMMENT 'Papel associado',
+  PRIMARY KEY (`usuario_id`),
+  INDEX `fk_usuario_pessoa_id_idx` (`pessoa_id` ASC),
+  FOREIGN KEY (`pessoa_id`)
+    REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  INDEX `fk_papel_id_idx` (`papel_id` ASC),
+  FOREIGN KEY (`papel_id`)
+    REFERENCES `scopo`.`Papel` (`papel_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+INSERT INTO `scopo`.`Papel` (`descricao`) VALUES ('Administrador'), ('Produtor'), ('Consumidor');
+INSERT INTO `scopo`.`Pessoa` (`nome`, `email`, `endereco`, `cidade`, `cep`, `estado`) VALUES ('Administrador', 'admin@scopo.com.br', 'Av. Borges de Medeiros, 1501', 'Porto Alegre', '90111970', 'RS');
+INSERT INTO `scopo`.`Usuario` (`login`, `senha`, `pessoa_id`, `papel_id`) VALUES ('admin', '4a86bbb9b0811e4e1b2fa6d4d538375f', 1, 1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

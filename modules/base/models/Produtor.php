@@ -32,7 +32,8 @@ class Produtor extends \yii\db\ActiveRecord
         return [
             [['cnpj', 'pessoa_id'], 'required'],
             [['pessoa_id'], 'integer'],
-            [['cnpj'], 'string', 'max' => 14],
+            [['cnpj'], 'integer'],
+            [['cnpj'], 'string', 'max' => 14, 'min' => 14],
             [['pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => ['pessoa_id' => 'pessoa_id']],
         ];
     }

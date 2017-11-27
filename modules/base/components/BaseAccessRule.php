@@ -4,7 +4,7 @@ namespace app\modules\base\components;
 
 use app\modules\base\models\Usuario;
 
-class AccessRule extends \yii\filters\AccessRule
+class BaseAccessRule extends \yii\filters\AccessRule
 {
 
     /**
@@ -25,7 +25,13 @@ class AccessRule extends \yii\filters\AccessRule
                     return true;
                 }
             }
-            elseif( !$user->getIsGuest() && $role == $user->identity->role )
+            elseif ( $role == '@' ) {
+                if( !$user->getIsGuest() )
+                {
+                    return true;
+                }
+            }
+            elseif( !$user->getIsGuest() && $role == $user->identity->papel_id )
             { // Check if the user is logged in, and the roles match
                 return true;
             }

@@ -6,7 +6,10 @@ use Yii;
 use app\modules\base\models\Produto;
 use app\modules\base\models\ProdutoSearch;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use app\modules\base\components\BaseAccessRule;
+use app\modules\base\models\Usuario;
 
 /**
  * ProdutoController implements the CRUD actions for Produto model.
@@ -19,6 +22,19 @@ class ProdutoController extends BaseController
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => BaseAccessRule::className(),
+                ],
+                'only' => ['index','create','update','view', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

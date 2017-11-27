@@ -9,7 +9,7 @@ use app\modules\base\models\Usuario;
 /**
  * LoginForm is the model behind the login form.
  *
- * @property Usuario|null $user This property is read-only.
+ * @property Usuario $user This property is read-only.
  *
  */
 class LoginForm extends Model
@@ -37,6 +37,18 @@ class LoginForm extends Model
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Usuário',
+            'password' => 'Senha',
+            'rememberMe' => 'Lembrar-me'
+        ];
+    }
+    
+    /**
      * Validates the password.
      * This method serves as the inline validation for password.
      *
@@ -49,7 +61,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Usuário ou senha incorretos!');
             }
         }
     }

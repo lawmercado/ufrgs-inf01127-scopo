@@ -5,8 +5,9 @@ use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Consumidor */
+/* @var $usuario app\modules\loja\models\Consumidor */
 
-$this->title = 'Atualizar consumidor';
+$this->title = 'Atualizar cadastro';
 $this->params['breadcrumbs'][] = ['label' => 'Consumidores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => "Consumidor {$model->consumidor_id}", 'url' => ['view', 'id' => $model->consumidor_id]];
 $this->params['breadcrumbs'][] = 'Atualizar';
@@ -19,6 +20,8 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'pessoa' => $model->pessoa,
+        'usuario' => $usuario
     ]) ?>
 
 </div>

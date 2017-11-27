@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700,900');
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -94,7 +96,7 @@ body {
     padding: 0;
 
     background-color: #ddd6d4;
-    font-family: 'Montserrat', sans;
+    font-family: 'Montserrat', sans-serif;
 
     font-size: 14px;
     color: #fff;
@@ -186,7 +188,6 @@ header > nav.menu > ul > li:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-
 body > section {
     position: relative;
     display: block;
@@ -231,4 +232,9 @@ body > section {
     text-align: center;
     background-color: #a1bc70;
     border: none;
+}
+
+.block-center {
+    width: 50%;
+    margin: 0 auto;
 }

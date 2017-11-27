@@ -5,9 +5,11 @@ namespace app\modules\base\controllers;
 use Yii;
 use app\modules\base\models\Categoria;
 use app\modules\base\models\CategoriaSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use app\modules\base\components\BaseAccessRule;
+use app\modules\base\models\Usuario;
 
 /**
  * CategoriaController implements the CRUD actions for Categoria model.
@@ -20,6 +22,19 @@ class CategoriaController extends BaseController
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => BaseAccessRule::className(),
+                ],
+                'only' => ['index','create','update','view', 'delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -33,7 +33,8 @@ class Consumidor extends \yii\db\ActiveRecord
         return [
             [['cpf', 'pessoa_id'], 'required'],
             [['pessoa_id'], 'integer'],
-            [['cpf'], 'string', 'max' => 11],
+            [['cpf'], 'integer'],
+            [['cpf'], 'string', 'max' => 11, 'min' => 11],
             [['pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => ['pessoa_id' => 'pessoa_id']],
         ];
     }

@@ -6,21 +6,52 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use app\modules\base\models\Usuario;
 
 AppAsset::register($this);
 
-$menu = [
-    "Consumidor" => Url::toRoute(['consumidor/index']),
-    "Pedido" => Url::toRoute(['pedido/index']),
-    "Oferta" => Url::toRoute(['oferta/index']),
-    "Mensagem" => Url::toRoute(['mensagem/index']),
-];
+$menu = [];
+$hotlinks = [];
 
-$hotlinks = [
-    "Consumidor" => Url::toRoute(['consumidor/index']),
-    "Pedido" => Url::toRoute(['pedido/index'])
-];
-
+if( !Yii::$app->user->isGuest ) {
+    
+    switch (Yii::$app->user->identity->papel_id) {
+        case Usuario::PAPEL_ADMINISTRADOR:
+            $menu = [
+                "Portal administrativo" => Url::toRoute("/base/default")
+            ];
+            
+            $hotlinks = [
+                "Portal administrativo" => Url::toRoute("/base/default")
+            ];
+            
+            break;
+        
+        case Usuario::PAPEL_PRODUTOR:
+            
+        
+        case Usuario::PAPEL_CONSUMIDOR:
+            $menu = [
+                "Meu perfil" => Url::toRoute("consumidor/view")
+            ];
+            
+            $hotlinks = [
+                "Meu perfil" => Url::toRoute("consumidor/view")
+            ];
+            
+            break;
+            
+            break;
+        
+        default:
+    }
+    
+}
+else {
+    $menu = [
+        "Entrar" => Url::toRoute(['/base/default/login'])
+    ];
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -45,10 +76,17 @@ $hotlinks = [
                 <h1><?= Html::encode(Yii::$app->name) ?></h1>
             </div>
 
-            <div class="row-right">
+            <div class="row-right navigation">
                 <?php foreach($hotlinks as $label => $link): ?>
                     <a href="<?= $link?>"><?= Html::encode($label) ?></a>
                 <?php endforeach ?>
+                
+                <?php if( !Yii::$app->user->isGuest ): ?>
+                    <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute(['/base/default/logout']) ?>" data-method="post">Sair?</a></p>
+                <?php else: ?>
+                    <a href="<?= Url::toRoute(['/base/default/login']) ?>" data-method="post">Entrar</a></p>
+                <?php endif; ?>
+                    
             </div>
 
             <nav class="menu">

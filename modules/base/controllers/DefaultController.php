@@ -7,6 +7,8 @@ use Yii;
 use app\modules\base\models\LoginForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use app\modules\base\components\BaseAccessRule;
+use app\modules\base\models\Usuario;
 
 /**
  * Default controller for the `base` module
@@ -21,14 +23,22 @@ class DefaultController extends BaseController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'ruleConfig' => [
+                    'class' => BaseAccessRule::className(),
+                ],
+                'only' => ['index', 'logout'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                    ],
+                ]
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

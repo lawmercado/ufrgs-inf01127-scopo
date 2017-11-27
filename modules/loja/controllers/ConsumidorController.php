@@ -5,9 +5,12 @@ namespace app\modules\loja\controllers;
 use Yii;
 use app\modules\loja\models\Consumidor;
 use app\modules\base\models\Pessoa;
+use app\modules\base\models\Usuario;
 use app\modules\loja\models\ConsumidorSearch;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use app\modules\base\components\BaseAccessRule;
 
 /**
  * ConsumidorController implements the CRUD actions for Consumidor model.
@@ -20,6 +23,25 @@ class ConsumidorController extends LojaController
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => BaseAccessRule::className(),
+                ],
+                'only' => ['index','create','update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'delete'],
+                        'allow' => true,
+                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                    ],
+                    [
+                        'actions' => ['create', 'view', 'update'],
+                        'allow' => true,
+                        'roles' => [Usuario::PAPEL_CONSUMIDOR],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -46,13 +68,16 @@ class ConsumidorController extends LojaController
 
     /**
      * Displays a single Consumidor model.
-     * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
+        $usuario = Yii::$app->user->identity;
+        
+        $consumidor = Consumidor::findOne(["pessoa_id" => $usuario->pessoa_id]);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $consumidor,
         ]);
     }
 
@@ -65,17 +90,25 @@ class ConsumidorController extends LojaController
     {
         $model = new Consumidor();
         $pessoa = new Pessoa();
+        $usuario = new Usuario();
 
-        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $usuario->load(Yii::$app->request->post())) {
             $pessoa->save();
+            
             $model->pessoa_id = $pessoa->pessoa_id;
             $model->save();
             
-            return $this->redirect(['view', 'id' => $model->consumidor_id]);
+            $usuario->pessoa_id = $pessoa->pessoa_id;
+            $usuario->login = $model->cpf;
+            $usuario->papel_id = Usuario::PAPEL_CONSUMIDOR;
+            $usuario->save();
+            
+            return $this->goBack();
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'pessoa' => $pessoa
+                'pessoa' => $pessoa,
+                'usuario' => $usuario
             ]);
         }
     }
@@ -90,16 +123,19 @@ class ConsumidorController extends LojaController
     {
         $model = $this->findModel($id);
         $pessoa = $model->pessoa;
+        $usuario = Yii::$app->user->identity;
         
-        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $usuario->load(Yii::$app->request->post()) ) {
             $pessoa->save();
             $model->save();
+            $usuario->save();
             
             return $this->redirect(['view', 'id' => $model->consumidor_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'pessoa' => $pessoa
+                'pessoa' => $pessoa,
+                'usuario' => $usuario
             ]);
         }
     }
@@ -107,7 +143,6 @@ class ConsumidorController extends LojaController
     /**
      * Deletes an existing Consumidor model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)

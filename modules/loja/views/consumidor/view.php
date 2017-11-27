@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Consumidor */
 
-$this->title = "Consumidor {$model->consumidor_id}";
+$this->title = "Perfil";
 $this->params['breadcrumbs'][] = ['label' => 'Consumidores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Remover', ['delete', 'id' => $model->consumidor_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja remover esse item?',
                 'method' => 'post',
             ],
         ]) ?>

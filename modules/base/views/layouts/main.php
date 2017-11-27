@@ -9,16 +9,23 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 
-$menu = [
-    "Categoria" => Url::toRoute(['categoria/index']),
-    "Produtos" => Url::toRoute(['produto/index']),
-    "Produtor" => Url::toRoute(['produtor/index']),
-];
+$menu = [];
+$hotlinks = [];
 
-$hotlinks = [
-    "Produtos" => Url::toRoute(['produto/index']),
-    "Produtor" => Url::toRoute(['produtor/index'])
-];
+if( !Yii::$app->user->isGuest ) {
+    $menu = [
+        "Categorias" => Url::toRoute(['categoria/index']),
+        "Produtos" => Url::toRoute(['produto/index']),
+        "Produtores" => Url::toRoute(['produtor/index'])
+    ];
+
+    $hotlinks = [];
+}
+else {
+    $menu = [
+        "Entrar" => Url::toRoute(['/base/default/login'])
+    ];
+}
 
 ?>
 <?php $this->beginPage() ?>
@@ -47,6 +54,13 @@ $hotlinks = [
                 <?php foreach($hotlinks as $label => $link): ?>
                     <a href="<?= $link?>"><?= Html::encode($label) ?></a>
                 <?php endforeach ?>
+                
+                <?php if( !Yii::$app->user->isGuest ): ?>
+                    <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute(['/base/default/logout']) ?>" data-method="post">Sair?</a></p>
+                <?php else: ?>
+                    <a href="<?= Url::toRoute(['/base/default/login']) ?>" data-method="post">Entrar</a></p>
+                <?php endif; ?>
+                    
             </div>
 
             <nav class="menu">

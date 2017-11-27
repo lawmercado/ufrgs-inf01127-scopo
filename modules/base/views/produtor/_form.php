@@ -17,13 +17,15 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'cnpj')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($pessoa, 'email')->textInput() ?>
+    
     <?= $form->field($pessoa, 'endereco')->textInput() ?>
+    
+    <?= $form->field($pessoa, 'cep')->textInput() ?>
     
     <?= $form->field($pessoa, 'cidade')->textInput() ?>
     
     <?= $form->field($pessoa, 'estado')->textInput() ?>
-    
-    <?= $form->field($pessoa, 'cep')->textInput() ?>
     
 
     <div class="form-group">

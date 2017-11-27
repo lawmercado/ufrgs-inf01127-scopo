@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Consumidor */
 /* @var $pessoa app\modules\base\models\Pessoa */
+/* @var $usuario app\modules\base\models\Usuario */
 
-$this->title = 'Criar consumidor';
+$this->title = 'Cadastro';
 $this->params['breadcrumbs'][] = ['label' => 'Consumidores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'pessoa' => $pessoa
+        'pessoa' => $pessoa,
+        'usuario' => $usuario
     ]) ?>
 
 </div>

@@ -9,14 +9,15 @@ use Yii;
  *
  * @property integer $pessoa_id
  * @property string $nome
+ * @property string $email
  * @property string $endereco
  * @property string $cidade
- * @property integer $cep
+ * @property string $cep
  * @property string $estado
  *
- * @property Consumidor[] $consumidors
- * @property Mensagem[] $mensagems
- * @property Produtor[] $produtors
+ * @property Consumidor[] $consumidores
+ * @property Mensagem[] $mensagens
+ * @property Produtor[] $produtores
  */
 class Pessoa extends \yii\db\ActiveRecord
 {
@@ -34,8 +35,10 @@ class Pessoa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'endereco', 'cidade', 'cep', 'estado'], 'required'],
+            [['nome', 'email', 'endereco', 'cidade', 'cep', 'estado'], 'required'],
             [['cep'], 'integer'],
+            [['cep'], 'string', 'max' => 8, 'min' => 8],
+            [['email'], 'email'],
             [['nome', 'endereco'], 'string', 'max' => 100],
             [['cidade'], 'string', 'max' => 50],
             [['estado'], 'string', 'max' => 2],
@@ -50,6 +53,7 @@ class Pessoa extends \yii\db\ActiveRecord
         return [
             'pessoa_id' => 'Identificador',
             'nome' => 'Nome',
+            'email' => 'E-mail',
             'endereco' => 'Endereço',
             'cidade' => 'Cidade',
             'cep' => 'CEP',
@@ -60,7 +64,7 @@ class Pessoa extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getConsumidors()
+    public function getConsumidores()
     {
         return $this->hasMany(Consumidor::className(), ['pessoa_id' => 'pessoa_id']);
     }
@@ -68,7 +72,7 @@ class Pessoa extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMensagems()
+    public function getMensagens()
     {
         return $this->hasMany(Mensagem::className(), ['pessoa_id' => 'pessoa_id']);
     }
@@ -76,7 +80,7 @@ class Pessoa extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProdutors()
+    public function getProdutores()
     {
         return $this->hasMany(Produtor::className(), ['pessoa_id' => 'pessoa_id']);
     }
