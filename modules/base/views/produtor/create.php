@@ -5,6 +5,7 @@ use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\base\models\Produtor */
+/* @var $usuario app\modules\base\models\Usuario */
 /* @var $pessoa app\modules\base\models\Pessoa */
 
 $this->title = 'Criar produtor';
@@ -19,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'pessoa' => $pessoa
+        'pessoa' => $pessoa,
+        'usuario' => $usuario
     ]) ?>
 
 </div>

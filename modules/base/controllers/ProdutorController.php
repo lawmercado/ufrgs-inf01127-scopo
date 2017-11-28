@@ -65,10 +65,14 @@ class ProdutorController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $senha = 'Indisponivel')
     {
+        $model = $this->findModel($id);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'senha' => $senha,
+            
         ]);
     }
 
@@ -81,19 +85,29 @@ class ProdutorController extends BaseController
     {
         $model = new Produtor();
         $pessoa = new Pessoa();
+        $usuario = new Usuario();
         
         if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
             $pessoa->save();
             
-            $model->pessoa_id = $pessoa->pessoa_id;
-            
+            $model->pessoa_id = $pessoa->pessoa_id;            
             $model->save();
             
-            return $this->redirect(['view', 'id' => $model->produtor_id]);
+            $usuario->pessoa_id = $pessoa->pessoa_id;
+            $usuario->login = $model->cnpj;
+            
+            $senha = $this->geraSenha(6, true, true, false);
+            $usuario->senha = $senha;  
+            
+            $usuario->papel_id = Usuario::PAPEL_PRODUTOR;
+            $usuario->save();
+            
+            return $this->redirect(['view', 'id' => $model->produtor_id, 'senha' => $senha]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'pessoa' => $pessoa
+                'pessoa' => $pessoa,
+                'usuario' => $usuario
             ]);
         }
     }
@@ -151,5 +165,43 @@ class ProdutorController extends BaseController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+
+    
+    function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = false)
+    {
+        $lmin = 'abcdefghijklmnopqrstuvwxyz';
+        $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num = '1234567890';
+        $simb = '!@#$%*-';
+        $retorno = '';
+        $caracteres = '';
+        $caracteres .= $lmin;
+        
+        if ($maiusculas) $caracteres .= $lmai;
+        if ($numeros) $caracteres .= $num;
+        if ($simbolos) $caracteres .= $simb;
+        
+        $len = strlen($caracteres);
+        
+        for ($n = 1; $n <= $tamanho; $n++) {
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand-1];
+        }
+        return $retorno;
+    }
+    
+    function debug($mensagem = 'teste'){
+        Yii::trace($mensagem);
+        $this->debug_to_console("TESTE");
+    }
+    
+    function debug_to_console( $data ) {
+    $output = $data;
+    if ( is_array( $output ) )
+        $output = implode( ',', $output);
+
+    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
     }
 }
