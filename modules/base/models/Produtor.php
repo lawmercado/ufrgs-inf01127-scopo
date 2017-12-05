@@ -44,7 +44,7 @@ class Produtor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'produtor_id' => 'Identificador',
+            'produtor_id' => 'ID',
             'cnpj' => 'CNPJ',
             'pessoa_id' => 'Pessoa associada',
         ];
@@ -65,4 +65,9 @@ class Produtor extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
     }
+    
+    public function getRelPessoa()
+{
+        return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
+}
 }

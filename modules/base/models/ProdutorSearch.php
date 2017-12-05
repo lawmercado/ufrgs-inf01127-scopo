@@ -42,6 +42,7 @@ class ProdutorSearch extends Produtor
     public function search($params)
     {
         $query = Produtor::find();
+        $query->joinWith(['relPessoa']);
 
         // add conditions that should always apply here
 

@@ -28,9 +28,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'produtor_id',
-            'cnpj',
-            'pessoa_id',
+            [
+                'attribute' => 'produtor_id',
+                'headerOptions' => ['style' => 'width:5%'],
+            ],
+            [
+                'label' => 'Nome',
+                'attribute' => 'pessoa_id',
+                'value' => 'relPessoa.nome',
+                'headerOptions' => ['style' => 'width:30%'],
+            ],
+            [
+                'attribute' => 'cnpj',
+                'headerOptions' => ['style' => 'width:10%'],
+            ],            
+            [
+                'attribute' => 'relPessoa.email',
+                'headerOptions' => ['style' => 'width:30%'],                
+            ],
+            [
+                'attribute' => 'relPessoa.cidade', 
+                'headerOptions' => ['style' => 'width:10%'],                
+            ],
+            [
+                'label' => 'UF',
+                'attribute' => 'relPessoa.estado',
+                'value' => 'relPessoa.estado',  
+                'headerOptions' => ['style' => 'width:5%'],                
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
