@@ -20,6 +20,7 @@ class ProdutoSearch extends Produto
         return [
             [['produto_id', 'categoria_id'], 'integer'],
             [['nome'], 'safe'],
+            [['Categoria.descricao'], 'safe'],
         ];
     }
 
@@ -49,6 +50,7 @@ class ProdutoSearch extends Produto
             'query' => $query,
         ]);
 
+        $query->joinWith(['categoria']); 
         $this->load($params);
 
         if (!$this->validate()) {
@@ -61,10 +63,18 @@ class ProdutoSearch extends Produto
         $query->andFilterWhere([
             'produto_id' => $this->produto_id,
             'categoria_id' => $this->categoria_id,
+            
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome]);
+        $query->andFilterWhere(['like','Categoria.descricao',$this->getAttribute('Categoria.descricao')]);
 
         return $dataProvider;
+    }
+    
+    public function attributes()
+    {
+        // add related fields to searchable attributes
+        return array_merge(parent::attributes(), ['Categoria.descricao']);
     }
 }

@@ -53,7 +53,8 @@ class ProdutorController extends BaseController
     {
         $searchModel = new ProdutorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -107,7 +108,7 @@ class ProdutorController extends BaseController
             return $this->render('create', [
                 'model' => $model,
                 'pessoa' => $pessoa,
-                'usuario' => $usuario
+                'usuario' => $usuario,
             ]);
         }
     }
@@ -122,6 +123,7 @@ class ProdutorController extends BaseController
     {
         $model = $this->findModel($id);
         $pessoa = $model->pessoa;
+        $usuario = $model->usuario;
         
         if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
             $pessoa->save();
@@ -131,7 +133,8 @@ class ProdutorController extends BaseController
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'pessoa' => $pessoa
+                'pessoa' => $pessoa,
+                'usuario' => $usuario
             ]);
         }
     }

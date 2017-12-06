@@ -47,6 +47,10 @@ class Produtor extends \yii\db\ActiveRecord
             'produtor_id' => 'ID',
             'cnpj' => 'CNPJ',
             'pessoa_id' => 'Pessoa associada',
+            'Pessoa.nome' => 'Nome',
+            'Pessoa.cidade' => 'Cidade',
+            'Pessoa.estado' => 'UF',
+            'Pessoa.email' => 'E-mail',
         ];
     }
 
@@ -64,6 +68,11 @@ class Produtor extends \yii\db\ActiveRecord
     public function getPessoa()
     {
         return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
+    }
+    
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuario::className(), ['pessoa_id' => 'pessoa_id']);
     }
     
     public function getRelPessoa()

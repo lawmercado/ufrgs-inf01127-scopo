@@ -43,9 +43,11 @@ class Produto extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'produto_id' => 'Identificador',
+            'produto_id' => 'ID',
             'nome' => 'Nome',
             'categoria_id' => 'Categoria',
+            'Categoria.descricao' => 'Categoria',
+            'categoria.descricao' => 'Categoria',
         ];
     }
 
@@ -64,4 +66,5 @@ class Produto extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Categoria::className(), ['categoria_id' => 'categoria_id']);
     }
+    
 }
