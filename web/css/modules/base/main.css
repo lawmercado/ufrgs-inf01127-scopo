@@ -187,6 +187,10 @@ header > nav.menu > ul {
     text-align: center;
 }
 
+header > nav.menu > ul > li {
+    transition: background-color 0.5s;
+}
+
 header > nav.menu > ul > li > a {
     display: block;
     width: 100%;
@@ -227,6 +231,8 @@ body > section {
     text-align: center;
     border: none;
     margin-bottom: 10px;
+    border: none;
+    border-radius: 2px;
 }
 
 .botao-positivo {
@@ -250,6 +256,7 @@ body > section {
     text-align: center;
     background-color: #a1bc70;
     border: none;
+    border-radius: 2px;
 }
 
 .block-center {
