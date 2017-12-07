@@ -13,22 +13,37 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     
-    <?= $form->field($pessoa, 'nome')->textInput() ?>
+    <div class="filtro-header">
+        
+        
+        <div class="filtro-cnpj">
+            <?= $form->field($model, 'cnpj')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="filtro-nome">    
+            <?= $form->field($pessoa, 'nome')->textInput() ?>
+        </div>
+        <div class="filtro-email">
+            <?= $form->field($pessoa, 'email')->textInput() ?>
+        </div>
+  
+        
+        <div class="filtro-endereco">
+            <?= $form->field($pessoa, 'endereco')->textInput() ?>
+        </div>
+        <div class="filtro-cep">
+            <?= $form->field($pessoa, 'cep')->textInput() ?>
+        </div>
+        <div class="filtro-cidade">
+            <?= $form->field($pessoa, 'cidade')->textInput() ?>
+        </div>
+        <div class="filtro-estado">
+            <?= $form->field($pessoa, 'estado')->textInput() ?>
+        </div>
+    </div>
     
-    <?= $form->field($model, 'cnpj')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($pessoa, 'email')->textInput() ?>
-    
-    <?= $form->field($pessoa, 'endereco')->textInput() ?>
-    
-    <?= $form->field($pessoa, 'cep')->textInput() ?>
-    
-    <?= $form->field($pessoa, 'cidade')->textInput() ?>
-    
-    <?= $form->field($pessoa, 'estado')->textInput() ?>
+    </br></br></br></br></br></br>
 
-
-    <div class="form-group">
+    <div class="form-group filtro-botao">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
