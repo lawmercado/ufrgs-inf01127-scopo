@@ -6,6 +6,8 @@ use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\base\models\Produtor */
+/* @var $senha string */
+
 
 $this->title = "Produtor {$model->produtor_id}";
 $this->params['breadcrumbs'][] = ['label' => 'Produtores', 'url' => ['index']];
@@ -29,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= DetailView::widget([
-        'model' => $model,
+        'model' => $model,  
         'attributes' => [
             'produtor_id',
             [
@@ -37,6 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 "value" => $model->pessoa->nome
             ],
             'cnpj',
+            [
+                "label" => "Senha",
+                "value" => $senha
+            ],
             [
                 "label" => "Endereço",
                 "value" => $model->pessoa->endereco

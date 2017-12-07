@@ -263,3 +263,64 @@ body > section {
     width: 50%;
     margin: 0 auto;
 }
+
+.filtro-header{
+
+    width: 100%;
+    margin-top: 30px;
+}
+
+.filtro-id{
+    width: 50px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-cnpj{
+    width: 150px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-nome{
+    width: 500px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-cidade{
+    width: 200px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-estado{
+    width: 50px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-email{
+    width: 500px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-descricao{
+    width: 90%;
+    float: left;
+    margin-right: 2%;
+    
+}
+
+.preenche{
+    width: 50%;
+}
+
+.filtro-botao{
+    margin-top: 50px;
+}
+
+table.detail-view th {
+    width: 15%;
+}

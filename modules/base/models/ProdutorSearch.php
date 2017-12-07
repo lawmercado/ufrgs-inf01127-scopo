@@ -20,6 +20,8 @@ class ProdutorSearch extends Produtor
         return [
             [['produtor_id', 'pessoa_id'], 'integer'],
             [['cnpj'], 'safe'],
+            [['Pessoa.nome', 'Pessoa.estado', 'Pessoa.cidade', 'Pessoa.email'], 'safe'],
+            
         ];
     }
 
@@ -42,13 +44,16 @@ class ProdutorSearch extends Produtor
     public function search($params)
     {
         $query = Produtor::find();
-
+        
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
+        $query->joinWith(['pessoa']); 
+        
+        
         $this->load($params);
 
         if (!$this->validate()) {
@@ -64,7 +69,18 @@ class ProdutorSearch extends Produtor
         ]);
 
         $query->andFilterWhere(['like', 'cnpj', $this->cnpj]);
+        $query->andFilterWhere(['like','Pessoa.nome',$this->getAttribute('Pessoa.nome')]);
+        $query->andFilterWhere(['like','Pessoa.estado',$this->getAttribute('Pessoa.estado')]);
+        $query->andFilterWhere(['like','Pessoa.cidade',$this->getAttribute('Pessoa.cidade')]);
+        $query->andFilterWhere(['like','Pessoa.email',$this->getAttribute('Pessoa.email')]);
 
         return $dataProvider;
     }
+    
+    public function attributes()
+    {
+        // add related fields to searchable attributes
+        return array_merge(parent::attributes(), ['Pessoa.nome', 'Pessoa.cidade', 'Pessoa.email', 'Pessoa.estado']);
+    }
+    
 }

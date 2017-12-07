@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($pessoa, 'nome')->textInput() ?>
     
     <?= $form->field($model, 'cnpj')->textInput(['maxlength' => true]) ?>
-
+    
     <?= $form->field($pessoa, 'email')->textInput() ?>
     
     <?= $form->field($pessoa, 'endereco')->textInput() ?>
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($pessoa, 'cidade')->textInput() ?>
     
     <?= $form->field($pessoa, 'estado')->textInput() ?>
-    
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

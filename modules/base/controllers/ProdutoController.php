@@ -98,12 +98,16 @@ class ProdutoController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $categoria = $model->categoria;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $categoria->save();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->produto_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'categoria' => $categoria
             ]);
         }
     }

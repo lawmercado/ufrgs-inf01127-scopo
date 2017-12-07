@@ -15,10 +15,10 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'categoria_id') ?>
-
-    <?= $form->field($model, 'descricao') ?>
-
+    <div class="filtro-header">
+        <div class="filtro-id"> <?= $form->field($model, 'categoria_id') ?></div>
+        <div class="filtro-descricao"><?= $form->field($model, 'descricao') ?></div>
+    </div>
     <div class="form-group">
         <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Limpar', ['class' => 'btn btn-default']) ?>
