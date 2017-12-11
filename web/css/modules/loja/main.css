@@ -37,7 +37,7 @@ header > nav.menu > ul {
 
 .ofertas {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 60px;
     position: relative;
     display: block;
 }
@@ -84,4 +84,16 @@ div.oferta p.oferta-preco, div.oferta p.oferta-produto {
 
 .termo > p {
     line-height: 1.2em;
+}
+
+.campo-oferta-preco, .campo-oferta-quantidade, .campo-oferta-produtor, .campo-oferta-produto{
+    width: 200px;
+}
+
+.filtro-pesquisa{
+    margin-top: 10px;
+}
+
+.filtro-quantidade{
+    width: 10%;
 }

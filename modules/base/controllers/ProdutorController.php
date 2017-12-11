@@ -34,6 +34,11 @@ class ProdutorController extends BaseController
                         'allow' => true,
                         'roles' => [Usuario::PAPEL_ADMINISTRADOR],
                     ],
+                    [
+                        'actions' => ['view'],
+                        'allow' => true,
+                        'roles' => [Usuario::PAPEL_PRODUTOR],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -66,8 +71,12 @@ class ProdutorController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id, $senha = 'Indisponivel')
+    public function actionView($id = 99999, $senha = 'Indisponivel')
     {
+        if($id == 99999){
+            $id = Produtor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
+        }
+        
         $model = $this->findModel($id);
         
         return $this->render('view', [

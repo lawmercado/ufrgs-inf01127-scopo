@@ -52,7 +52,7 @@ class Oferta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'oferta_id' => 'Identificador',
+            'oferta_id' => 'ID',
             'momento' => 'Momento da criação',
             'quantidade' => 'Quantidade em kg',
             'preco' => 'Preço por kg',
