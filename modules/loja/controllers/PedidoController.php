@@ -12,7 +12,6 @@ use app\modules\base\models\Usuario;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\base\components\BaseAccessRule;
-use yii\web\Session;
 
 /**
  * PedidoController implements the CRUD actions for Pedido model.

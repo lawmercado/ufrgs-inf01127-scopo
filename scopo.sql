@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Produtor` (
   `cnpj` VARCHAR(14) NOT NULL COMMENT 'CNPJ',
   `pessoa_id` INT NOT NULL COMMENT 'Pessoa associada',
   PRIMARY KEY (`produtor_id`),
+  UNIQUE (`cnpj`),
   INDEX `fk_produtor_pessoa_id_idx` (`pessoa_id` ASC),
   FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
@@ -107,6 +108,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Consumidor` (
   `cpf` VARCHAR(11) NOT NULL COMMENT 'CPF',
   `pessoa_id` INT NOT NULL COMMENT 'Pessoa associada',
   PRIMARY KEY (`consumidor_id`),
+  UNIQUE (`cpf`),
   INDEX `fk_consumidor_pesssoa_id_idx` (`pessoa_id` ASC),
   FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
@@ -135,8 +137,8 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
     ON UPDATE CASCADE,
   FOREIGN KEY (`consumidor_id`)
     REFERENCES `scopo`.`Consumidor` (`consumidor_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -154,8 +156,8 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Mensagem` (
   INDEX `fk_pessoa_id_idx` (`pessoa_id` ASC),
   FOREIGN KEY (`pedido_id`)
     REFERENCES `scopo`.`Pedido` (`pedido_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
     ON DELETE CASCADE
@@ -181,6 +183,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Usuario` (
   `pessoa_id` INT NOT NULL COMMENT 'Pessoa associada',
   `papel_id` INT NOT NULL COMMENT 'Papel associado',
   PRIMARY KEY (`usuario_id`),
+  UNIQUE (`login`),
   INDEX `fk_usuario_pessoa_id_idx` (`pessoa_id` ASC),
   FOREIGN KEY (`pessoa_id`)
     REFERENCES `scopo`.`Pessoa` (`pessoa_id`)
@@ -193,9 +196,19 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Usuario` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Administrator user insert
+-- -----------------------------------------------------
 INSERT INTO `scopo`.`Papel` (`descricao`) VALUES ('Administrador'), ('Produtor'), ('Consumidor');
 INSERT INTO `scopo`.`Pessoa` (`nome`, `email`, `endereco`, `cidade`, `cep`, `estado`) VALUES ('Administrador', 'admin@scopo.com.br', 'Av. Borges de Medeiros, 1501', 'Porto Alegre', '90111970', 'RS');
 INSERT INTO `scopo`.`Usuario` (`login`, `senha`, `pessoa_id`, `papel_id`) VALUES ('admin', '4a86bbb9b0811e4e1b2fa6d4d538375f', 1, 1);
+
+-- -----------------------------------------------------
+-- Products inserts
+-- -----------------------------------------------------
+
+INSERT INTO `scopo`.`Categoria` (`descricao`) VALUES ('Grãos');
+INSERT INTO `scopo`.`Produto` (`descricao`, `categoria_id`) VALUES ('Amendoim', 1), ('Arroz', 1), ('Aveia', 1), ('Centeio', 1), ('Cevada', 1), ('Feijão', 1), ('Milho', 1), ('Soja', 1), ('Trigo', 1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
