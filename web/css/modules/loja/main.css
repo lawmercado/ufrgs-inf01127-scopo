@@ -24,11 +24,14 @@ header > nav.menu > ul {
     border: none;
     background-color: #ddd6d4;
     padding-left: 10px;
+    border: none;
+    border-radius: 2px 0px 0px 2px;
 }
 
 .search-area button {
     width: 30%;
     border: none;
+    border-radius: 0px 2px 2px 0px;
 }
 
 .search-area button:hover {
@@ -37,7 +40,7 @@ header > nav.menu > ul {
 
 .ofertas {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 60px;
     position: relative;
     display: block;
 }
@@ -84,4 +87,96 @@ div.oferta p.oferta-preco, div.oferta p.oferta-produto {
 
 .termo > p {
     line-height: 1.2em;
+}
+
+.campo-oferta-preco, .campo-oferta-quantidade, .campo-oferta-produtor, .campo-oferta-produto{
+    width: 200px;
+}
+
+.filtro-pesquisa{
+    margin-top: 10px;
+}
+
+.filtro-quantidade{
+    width: 10%;
+}
+
+
+.messages-chat {
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+    max-height: 250px;
+    overflow: auto;
+}
+
+p.message {
+    width: 75%;
+    margin: 10px 5px 0px 5px;
+
+    padding: 10px;
+
+    clear: both;
+
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+p.message-momento {
+    margin: 0px 5px 0px 5px;
+
+    padding: 0px;
+
+    clear: both;
+
+    background-color: transparent !important;
+    
+    color: #59574b;
+    
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+p.message-momento::before, p.message-momento::after {
+    display: none;
+}
+
+p.other-message {
+    float: left;
+    background-color: #c84a6b;
+}
+
+p.other-message::before {
+    content: " ";
+    color: white;
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+
+    border-right: 5px solid #c84a6b;
+
+}
+
+p.viewer-message::after {
+    content: " ";
+    color: white;
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+
+    border-left: 5px solid #a1bc70;
+
+}
+
+p.viewer-message {
+    background: #a1bc70;
+    float: right;
 }
