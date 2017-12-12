@@ -94,7 +94,7 @@ class PedidoController extends LojaController
     {
         $model = new Pedido();
         
-        $oferta = Oferta::findOne(Yii::$app->request->get('oferta_id') ? Yii::$app->request->get('oferta_id') : $session["oferta_id"]);
+        $oferta = Oferta::findOne(Yii::$app->request->get('oferta_id'));
             
         $consumidor = Consumidor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
 
