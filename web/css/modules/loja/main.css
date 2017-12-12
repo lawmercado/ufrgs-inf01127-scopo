@@ -12,7 +12,7 @@ header > nav.menu > ul {
 
 .search-area {
     text-align: center;
-    width: 40%;
+    width: 100%;
     height: 40px;
     margin: 0 auto;
     display: block;
@@ -48,7 +48,7 @@ header > nav.menu > ul {
 div.oferta {
     display: block;
     float: left;
-    width: 25%;
+    width: 100%;
     height: 370px;
     padding: 10px;
     border-radius: 2px;
@@ -63,6 +63,7 @@ div.oferta > div {
     display: block;
     height: 50%;
     width: 100%;
+    max-width: 265px;
     margin: 10px auto;
     background-color: #5a574b;
 }
@@ -178,4 +179,29 @@ p.viewer-message::after {
 p.viewer-message {
     background: #a1bc70;
     float: right;
+}
+
+@media (min-width: 600px)
+{
+    .search-area {
+        width: 50%;
+    }
+    
+    div.oferta {
+        width: 50%;
+    }
+}
+
+@media (min-width: 900px)
+{
+    div.oferta {
+        width: 33.33333333%;
+    }
+}
+
+@media (min-width: 1000px) 
+{
+    div.oferta {
+        width: 25%;
+    }
 }

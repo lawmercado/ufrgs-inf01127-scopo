@@ -141,6 +141,7 @@ header > .row-left {
 header > .row-right {
     float: right;
     margin-right: 1%;
+    display: none;
 }
 
 header > .row-left > *, header > .row-right > * {
@@ -210,11 +211,11 @@ body > section {
     display: block;
     margin-top: 70px;
     background-color: #ffffff;
-    width: 75%;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    padding: 30px;
+    padding: 20px;
     overflow: auto;
     color: #000;
     border-radius: 2px;
@@ -260,7 +261,8 @@ body > section {
 }
 
 .block-center {
-    width: 50%;
+    width: 100%;
+    max-width: 400px;
     margin: 0 auto;
 }
 .filtro-header{
@@ -339,6 +341,9 @@ table.detail-view th {
     width: 15%;
 }
 
-
-
-
+@media (min-width: 1000px) 
+{
+    header > .row-right {
+        display: block;
+    }
+}
