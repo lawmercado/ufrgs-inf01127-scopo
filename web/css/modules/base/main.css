@@ -263,7 +263,6 @@ body > section {
     width: 50%;
     margin: 0 auto;
 }
-
 .filtro-header{
 
     width: 100%;
@@ -301,10 +300,24 @@ body > section {
 }
 
 .filtro-email{
+    width: 320px;
+    float: left;
+    margin-right: 2%;
+}
+
+.filtro-endereco{
     width: 500px;
     float: left;
     margin-right: 2%;
 }
+
+.filtro-cep{
+    width: 200px;
+    float: left;
+    margin-right: 2%;
+}
+
+
 
 .filtro-descricao{
     width: 90%;
@@ -319,8 +332,13 @@ body > section {
 
 .filtro-botao{
     margin-top: 50px;
+
 }
 
 table.detail-view th {
     width: 15%;
 }
+
+
+
+

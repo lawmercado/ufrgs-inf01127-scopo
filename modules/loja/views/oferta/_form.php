@@ -2,6 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+
+use app\modules\base\models\Produtor;
+use app\modules\base\models\Pessoa;
+use app\modules\base\models\Usuario;
+
+use app\modules\base\models\Produto;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Oferta */
@@ -11,19 +18,41 @@ use yii\widgets\ActiveForm;
 <div class="oferta-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <div class="campo-oferta">
+        <div class="campo-oferta-quantidade">
+            <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']) ?>
+        </div>   
+        
 
-    <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']) ?>
+        <div class="campo-oferta-preco">
+            <?= $form->field($model, 'preco')->textInput(['type' => 'number']) ?>
+        </div>    
+    
+    <?php 
 
-    <?= $form->field($model, 'preco')->textInput(['type' => 'number']) ?>
+        $produtos = ArrayHelper::map(Produto::find()->all(), 'produto_id', 'nome');
 
-    <?= $form->field($model, 'produto_id')->textInput() ?>
+        ?>
+        <div class="campo-oferta-produto">
+            <?= $form->field($model, 'produto_id')->dropDownList($produtos); ?> 
+        </div>
+    
+        <?php $id = Produtor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
+              $model->produtor_id = $id->produtor_id;
 
-    <?= $form->field($model, 'produtor_id')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
-
+        ?>
+    
+        <div class="campo-oferta-produtor">
+            <?= $form->field($model, 'produtor_id')->hiddenInput(['value' =>$id->produtor_id])->label(false); ?> 
+           
+        </div>
+        
+   </div>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+        
     <?php ActiveForm::end(); ?>
 
 </div>

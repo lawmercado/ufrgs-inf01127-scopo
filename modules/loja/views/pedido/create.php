@@ -37,7 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
     
      <?php $form = ActiveForm::begin(); ?>
         
-        <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']); ?>
+        <div class='filtro-quantidade'>
+            <?= $form->field($model, 'quantidade')->textInput(['type' => 'number']); ?>
+        </div>
+        
     
         <?= $form->field($model, 'consumidor_id')->hiddenInput(['value' => $consumidor->consumidor_id])->label(false); ?>
 
