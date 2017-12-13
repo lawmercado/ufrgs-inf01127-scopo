@@ -181,7 +181,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `scopo`.`StatusPedido` (
   `status_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
-  `descricao` VARCHAR(20) NOT NULL COMMENT 'Status',
+  `d` VARCHAR(20) NOT NULL COMMENT 'Status',
   PRIMARY KEY (`status_id`))
 ENGINE = InnoDB;
 
@@ -210,6 +210,8 @@ ENGINE = InnoDB;
 INSERT INTO `scopo`.`Papel` (`descricao`) VALUES ('Administrador'), ('Produtor'), ('Consumidor');
 INSERT INTO `scopo`.`Pessoa` (`nome`, `email`, `endereco`, `cidade`, `cep`, `estado`) VALUES ('Administrador', 'admin@scopo.com.br', 'Av. Borges de Medeiros, 1501', 'Porto Alegre', '90111970', 'RS');
 INSERT INTO `scopo`.`Usuario` (`login`, `senha`, `pessoa_id`, `papel_id`) VALUES ('admin', '4a86bbb9b0811e4e1b2fa6d4d538375f', 1, 1);
+
+INSERT INTO `scopo`.`StatusPedido` (`descricao`) VALUES ('Pendente'), ('Em andamento'), ('Finalizado'),  ('Cancelado');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
