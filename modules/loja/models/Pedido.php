@@ -117,7 +117,7 @@ class Pedido extends \yii\db\ActiveRecord
                     $this->atualizarPedidosRelacionados($oferta_id);
 
                     $this->status_id = $status_id;
-                    $this->oferta_id = $new_oferta_id;
+                    $this->oferta_id = $oferta_id;
 
                     $this->save();
 
