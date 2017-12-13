@@ -12,7 +12,7 @@ header > nav.menu > ul {
 
 .search-area {
     text-align: center;
-    width: 40%;
+    width: 100%;
     height: 40px;
     margin: 0 auto;
     display: block;
@@ -24,11 +24,14 @@ header > nav.menu > ul {
     border: none;
     background-color: #ddd6d4;
     padding-left: 10px;
+    border: none;
+    border-radius: 2px 0px 0px 2px;
 }
 
 .search-area button {
     width: 30%;
     border: none;
+    border-radius: 0px 2px 2px 0px;
 }
 
 .search-area button:hover {
@@ -45,7 +48,7 @@ header > nav.menu > ul {
 div.oferta {
     display: block;
     float: left;
-    width: 25%;
+    width: 100%;
     height: 370px;
     padding: 10px;
     border-radius: 2px;
@@ -60,6 +63,7 @@ div.oferta > div {
     display: block;
     height: 50%;
     width: 100%;
+    max-width: 265px;
     margin: 10px auto;
     background-color: #5a574b;
 }
@@ -96,4 +100,108 @@ div.oferta p.oferta-preco, div.oferta p.oferta-produto {
 
 .filtro-quantidade{
     width: 10%;
+}
+
+.messages-chat {
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0 auto;
+    max-height: 250px;
+    overflow: auto;
+}
+
+p.message {
+    width: 75%;
+    margin: 10px 5px 0px 5px;
+
+    padding: 10px;
+
+    clear: both;
+
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+p.message-momento {
+    margin: 0px 5px 0px 5px;
+
+    padding: 0px;
+
+    clear: both;
+
+    background-color: transparent !important;
+    
+    color: #59574b;
+    
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+p.message-momento::before, p.message-momento::after {
+    display: none;
+}
+
+p.other-message {
+    float: left;
+    background-color: #c84a6b;
+}
+
+p.other-message::before {
+    content: " ";
+    color: white;
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+
+    border-right: 5px solid #c84a6b;
+
+}
+
+p.viewer-message::after {
+    content: " ";
+    color: white;
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+
+    border-left: 5px solid #a1bc70;
+
+}
+
+p.viewer-message {
+    background: #a1bc70;
+    float: right;
+}
+
+@media (min-width: 600px)
+{
+    .search-area {
+        width: 50%;
+    }
+    
+    div.oferta {
+        width: 50%;
+    }
+}
+
+@media (min-width: 900px)
+{
+    div.oferta {
+        width: 33.33333333%;
+    }
+}
+
+@media (min-width: 1000px) 
+{
+    div.oferta {
+        width: 25%;
+    }
 }

@@ -49,6 +49,7 @@ $config = [
         'db' => $db,
         'formatter' => [
             'dateFormat' => 'dd/MM/yyyy',
+            'datetimeFormat' => 'HH:mm, dd/MM/yyyy',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'BRL',
