@@ -124,15 +124,24 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
   `pedido_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
   `momento` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Momento da criação',
   `quantidade` INT NOT NULL COMMENT 'Quantidade',
+<<<<<<< HEAD
+=======
+  `status_id` INT NOT NULL DEFAULT 1 COMMENT 'Status associado',
+>>>>>>> 44b736ebfd69c9719dcc68a149d2121fd8f9b559
   `oferta_id` INT NOT NULL COMMENT 'Oferta associada',
   `consumidor_id` INT NOT NULL COMMENT 'Consumidor associado',
   `status_id` INT NOT NULL COMMENT 'Status associado',
   PRIMARY KEY (`pedido_id`),
   INDEX `fk_oferta_id_idx` (`oferta_id` ASC),
+  INDEX `fk_status_id_idx` (`status_id` ASC),
   INDEX `fk_consumidor_id_idx` (`consumidor_id` ASC),
   INDEX `fk_status_id_idx` (`status_id` ASC),
   FOREIGN KEY (`oferta_id`)
     REFERENCES `scopo`.`Oferta` (`oferta_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+FOREIGN KEY (`status_id`)
+    REFERENCES `scopo`.`StatusPedido` (`status_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   FOREIGN KEY (`consumidor_id`)
@@ -153,6 +162,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`StatusPedido` (
   `descricao` VARCHAR(20) NOT NULL COMMENT 'Descrição',
   PRIMARY KEY (`status_id`))
 ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `scopo`.`Mensagem`
@@ -186,6 +196,15 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Papel` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
+-- Table `scopo`.`StatusPedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scopo`.`StatusPedido` (
+  `status_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
+  `d` VARCHAR(20) NOT NULL COMMENT 'Status',
+  PRIMARY KEY (`status_id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
 -- Table `scopo`.`Usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `scopo`.`Usuario` (
@@ -215,6 +234,9 @@ INSERT INTO `scopo`.`Papel` (`descricao`) VALUES ('Administrador'), ('Produtor')
 INSERT INTO `scopo`.`Pessoa` (`nome`, `email`, `endereco`, `cidade`, `cep`, `estado`) VALUES ('Administrador', 'admin@scopo.com.br', 'Av. Borges de Medeiros, 1501', 'Porto Alegre', '90111970', 'RS');
 INSERT INTO `scopo`.`Usuario` (`login`, `senha`, `pessoa_id`, `papel_id`) VALUES ('admin', '4a86bbb9b0811e4e1b2fa6d4d538375f', 1, 1);
 
+<<<<<<< HEAD
+INSERT INTO `scopo`.`StatusPedido` (`descricao`) VALUES ('Pendente'), ('Em andamento'), ('Finalizado'),  ('Cancelado');
+=======
 -- -----------------------------------------------------
 -- Status inserts
 -- -----------------------------------------------------
@@ -225,7 +247,12 @@ INSERT INTO `scopo`.`StatusPedido` (`descricao`) VALUES ('Pendente'), ('Em andam
 -- -----------------------------------------------------
 
 INSERT INTO `scopo`.`Categoria` (`descricao`) VALUES ('Grãos');
+<<<<<<< HEAD
 INSERT INTO `scopo`.`Produto` (`nome`, `categoria_id`) VALUES ('Amendoim', 1), ('Arroz', 1), ('Aveia', 1), ('Centeio', 1), ('Cevada', 1), ('Feijão', 1), ('Milho', 1), ('Soja', 1), ('Trigo', 1);
+=======
+INSERT INTO `scopo`.`Produto` (`descricao`, `categoria_id`) VALUES ('Amendoim', 1), ('Arroz', 1), ('Aveia', 1), ('Centeio', 1), ('Cevada', 1), ('Feijão', 1), ('Milho', 1), ('Soja', 1), ('Trigo', 1);
+>>>>>>> 810803bcac1977f56a4630709b7b2949c441ae42
+>>>>>>> 44b736ebfd69c9719dcc68a149d2121fd8f9b559
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
