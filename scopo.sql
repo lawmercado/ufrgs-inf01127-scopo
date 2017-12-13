@@ -122,15 +122,19 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
   `pedido_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
   `momento` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Momento da criação',
   `quantidade` INT NOT NULL COMMENT 'Quantidade',
-  `finalizado` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Finalizado',
-  `cancelado` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Cancelado',
+  `status_id` INT NOT NULL DEFAULT 1 COMMENT 'Status associado',
   `oferta_id` INT NOT NULL COMMENT 'Oferta associada',
   `consumidor_id` INT NOT NULL COMMENT 'Consumidor associado',
   PRIMARY KEY (`pedido_id`),
   INDEX `fk_oferta_id_idx` (`oferta_id` ASC),
+  INDEX `fk_status_id_idx` (`status_id` ASC),
   INDEX `fk_consumidor_id_idx` (`consumidor_id` ASC),
   FOREIGN KEY (`oferta_id`)
     REFERENCES `scopo`.`Oferta` (`oferta_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+FOREIGN KEY (`status_id`)
+    REFERENCES `scopo`.`StatusPedido` (`status_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   FOREIGN KEY (`consumidor_id`)
@@ -138,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -169,6 +174,15 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Papel` (
   `papel_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
   `descricao` VARCHAR(20) NOT NULL COMMENT 'Descrição',
   PRIMARY KEY (`papel_id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `scopo`.`StatusPedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scopo`.`StatusPedido` (
+  `status_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
+  `descricao` VARCHAR(20) NOT NULL COMMENT 'Status',
+  PRIMARY KEY (`status_id`))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
