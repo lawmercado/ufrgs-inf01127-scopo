@@ -124,13 +124,13 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
   `pedido_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
   `momento` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Momento da criação',
   `quantidade` INT NOT NULL COMMENT 'Quantidade',
-  `finalizado` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Finalizado',
-  `cancelado` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Cancelado',
   `oferta_id` INT NOT NULL COMMENT 'Oferta associada',
   `consumidor_id` INT NOT NULL COMMENT 'Consumidor associado',
+  `status_id` INT NOT NULL COMMENT 'Status associado',
   PRIMARY KEY (`pedido_id`),
   INDEX `fk_oferta_id_idx` (`oferta_id` ASC),
   INDEX `fk_consumidor_id_idx` (`consumidor_id` ASC),
+  INDEX `fk_status_id_idx` (`status_id` ASC),
   FOREIGN KEY (`oferta_id`)
     REFERENCES `scopo`.`Oferta` (`oferta_id`)
     ON DELETE CASCADE
@@ -138,9 +138,21 @@ CREATE TABLE IF NOT EXISTS `scopo`.`Pedido` (
   FOREIGN KEY (`consumidor_id`)
     REFERENCES `scopo`.`Consumidor` (`consumidor_id`)
     ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (`status_id`)
+    REFERENCES `scopo`.`StatusPedido` (`status_id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `scopo`.`StatusPedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `scopo`.`StatusPedido` (
+  `status_id` INT NOT NULL AUTO_INCREMENT COMMENT 'Identificador',
+  `descricao` VARCHAR(20) NOT NULL COMMENT 'Descrição',
+  PRIMARY KEY (`status_id`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `scopo`.`Mensagem`
@@ -204,11 +216,16 @@ INSERT INTO `scopo`.`Pessoa` (`nome`, `email`, `endereco`, `cidade`, `cep`, `est
 INSERT INTO `scopo`.`Usuario` (`login`, `senha`, `pessoa_id`, `papel_id`) VALUES ('admin', '4a86bbb9b0811e4e1b2fa6d4d538375f', 1, 1);
 
 -- -----------------------------------------------------
+-- Status inserts
+-- -----------------------------------------------------
+INSERT INTO `scopo`.`StatusPedido` (`descricao`) VALUES ('Pendente'), ('Em andamento'), ('Finalizado'),  ('Cancelado');
+
+-- -----------------------------------------------------
 -- Products inserts
 -- -----------------------------------------------------
 
 INSERT INTO `scopo`.`Categoria` (`descricao`) VALUES ('Grãos');
-INSERT INTO `scopo`.`Produto` (`descricao`, `categoria_id`) VALUES ('Amendoim', 1), ('Arroz', 1), ('Aveia', 1), ('Centeio', 1), ('Cevada', 1), ('Feijão', 1), ('Milho', 1), ('Soja', 1), ('Trigo', 1);
+INSERT INTO `scopo`.`Produto` (`nome`, `categoria_id`) VALUES ('Amendoim', 1), ('Arroz', 1), ('Aveia', 1), ('Centeio', 1), ('Cevada', 1), ('Feijão', 1), ('Milho', 1), ('Soja', 1), ('Trigo', 1);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

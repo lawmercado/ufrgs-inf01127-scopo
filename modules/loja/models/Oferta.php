@@ -23,6 +23,7 @@ use app\modules\base\models\Produtor;
  */
 class Oferta extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -52,12 +53,12 @@ class Oferta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'oferta_id' => 'ID',
-            'momento' => 'Momento da criação',
-            'quantidade' => 'Quantidade em kg',
-            'preco' => 'Preço por kg',
-            'corrente' => 'Corrente',
-            'produto_id' => 'Produto associado',
+            'oferta_id'   => 'ID',
+            'momento'     => 'Momento da criação',
+            'quantidade'  => 'Quantidade em kg',
+            'preco'       => 'Preço por kg',
+            'corrente'    => 'Corrente',
+            'produto_id'  => 'Produto associado',
             'produtor_id' => 'Produtor associado',
         ];
     }
@@ -85,4 +86,21 @@ class Oferta extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Pedido::className(), ['oferta_id' => 'oferta_id']);
     }
+
+    public function alterarQuantidade($quantidade, $isReservation = true)
+    {
+        $newOferta              = new Oferta();
+        $newOferta->produto_id  = $this->produto_id;
+        $newOferta->produtor_id = $this->produtor_id;
+        $newOferta->preco       = $this->preco;
+        $newOferta->quantidade  = $isReservation ? $this->quantidade - $quantidade : $this->quantidade + $quantidade;
+
+        $this->corrente = false;
+
+        $newOferta->save();
+        $this->save();
+
+        return $newOferta->oferta_id;
+    }
+
 }
