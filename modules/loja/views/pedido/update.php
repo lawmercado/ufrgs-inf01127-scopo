@@ -19,7 +19,9 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <?= Html::error($model, "status_id", ["class" => "alert alert-danger"]) ?>
+    <?php if( count($model->getErrors("status_id")) > 0 ): ?>
+        <?= Html::error($model, "status_id", ["class" => "alert alert-danger"]) ?>
+    <?php endif; ?>
     
     <p>
         <?php $form = ActiveForm::begin(); ?>
