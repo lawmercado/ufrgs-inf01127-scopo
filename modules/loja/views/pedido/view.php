@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'momento',
             'quantidade',
             'oferta_id',
+            'status_id',
             'consumidor_id',
         ],
     ]) ?>

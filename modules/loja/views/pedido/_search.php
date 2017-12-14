@@ -21,9 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quantidade') ?>
 
-    <?= $form->field($model, 'finalizado') ?>
+    
 
-    <?= $form->field($model, 'cancelado') ?>
 
     <?php // echo $form->field($model, 'oferta_id') ?>
 

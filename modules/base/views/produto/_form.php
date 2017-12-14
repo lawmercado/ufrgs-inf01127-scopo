@@ -26,7 +26,7 @@ use app\modules\base\models\Categoria;
         $categorias = ArrayHelper::map(Categoria::find()->all(), 'categoria_id', 'descricao');
 
         ?>
-        <div class="filtro-cidade">
+        <div class="filtro-categoria">
             <?= $form->field($model, 'categoria_id')->dropDownList($categorias); ?> 
         </div>
     </div>
