@@ -19,7 +19,8 @@ use yii\widgets\ActiveForm;
         <div class="filtro-id"> <?= $form->field($model, 'categoria_id') ?></div>
         <div class="filtro-descricao"><?= $form->field($model, 'descricao') ?></div>
     </div>
-    <div class="form-group">
+    
+    <div class="form-group filtro-botao">
         <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Limpar', ['class' => 'btn btn-default']) ?>
     </div>

@@ -14,9 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quantidade')->textInput() ?>
 
-    <?= $form->field($model, 'finalizado')->textInput() ?>
+    <?= $form->field($model, 'status_id')->textInput() ?>
 
-    <?= $form->field($model, 'cancelado')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

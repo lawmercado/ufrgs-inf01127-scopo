@@ -33,50 +33,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => ['style' => 'width:50px; text-align: center' ],
+                'headerOptions' => ['style' => 'width:5%; text-align: center' ],
                 'contentOptions' => ['style' => 'text-align: center'],
             ],
 
             [
                 'attribute' => 'produtor_id',
-                'headerOptions' => ['style' => 'width:50px; text-align: center'],
+                'headerOptions' => ['style' => 'width:5%; text-align: center'],
                 'contentOptions' => ['style' => 'text-align: center'],
             ],
             [
                 "label" => "Nome",
-                "class" => yii\grid\DataColumn::className(),
-                'filter' => ArrayHelper::map(Pessoa::find()->orderBy('nome')->asArray()->all(), 'pessoa_id', 'nome'),
-                "value" => function($model){
-                    if ($rel = $model->getRelPessoa()->one()) {
-                        return $rel->nome;
-                    } else {
-                        return '';
-                    }
-                },
-                "format" => "raw",
-                'headerOptions' => ['style' => 'width:30%'], 
+                'attribute' => 'pessoa.nome', 
             ],
             [
                 'attribute' => 'cnpj',
-                'headerOptions' => ['style' => 'width:10%'],
+                'headerOptions' => ['style' => 'width:15%'],
             ],            
             [
                 "label" => "E-mail",
-                "class" => yii\grid\DataColumn::className(),
-                'filter' => ArrayHelper::map(Pessoa::find()->orderBy('pessoa_id')->asArray()->all(), 'pessoa_id', 'email'),
-                "value" => function($model){
-                    if ($rel = $model->getRelPessoa()->one()) {
-                        return $rel->email;
-                    } else {
-                        return '';
-                    }
-                },
-                "format" => "raw",    
-                'headerOptions' => ['style' => 'width:30%'],
+                'attribute' => 'pessoa.email',    
+                'headerOptions' => ['style' => 'width:25%'],
             ],
             [
-                'attribute' => 'relPessoa.cidade', 
-                'headerOptions' => ['style' => 'width:10%'],                
+                'attribute' => 'pessoa.cidade', 
+                'headerOptions' => ['style' => 'width:15%'],                
             ],
             [
                 'label' => 'UF',
@@ -84,13 +65,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'relPessoa.estado',  
                 'headerOptions' => ['style' => 'width:5%'],                
             ],
-            
-           
-            
-
             [
                 'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => ['style' => 'width:100px'],
+                'headerOptions' => ['style' => 'width:7%; text-align: center' ],
+                'contentOptions' => ['style' => 'text-align: center'],
             ],
         ],
     ]); ?>

@@ -17,11 +17,11 @@ use yii\widgets\ActiveForm;
 
     <div class="filtro-header">
         <div class="filtro-id"><?= $form->field($model, 'produto_id') ?></div>
-        <div class="filtro-nome"><?= $form->field($model, 'Categoria.descricao') ?></div>
+        <div class="filtro-categoria"><?= $form->field($model, 'Categoria.descricao') ?></div>
         <div class="filtro-nome"><?= $form->field($model, 'nome') ?></div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group filtro-botao">
         <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Limpar', ['class' => 'btn btn-default']) ?>
     </div>

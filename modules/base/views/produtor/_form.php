@@ -19,15 +19,15 @@ use yii\widgets\ActiveForm;
         <div class="filtro-cnpj">
             <?= $form->field($model, 'cnpj')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="filtro-nome">    
+        <div class="filtro-nome" style="width: 66%;">    
             <?= $form->field($pessoa, 'nome')->textInput() ?>
         </div>
-        <div class="filtro-email">
+        <div class="filtro-email" style="width: 98%;">
             <?= $form->field($pessoa, 'email')->textInput() ?>
         </div>
   
         
-        <div class="filtro-endereco">
+        <div class="filtro-endereco" style="width: 75%;">
             <?= $form->field($pessoa, 'endereco')->textInput() ?>
         </div>
         <div class="filtro-cep">

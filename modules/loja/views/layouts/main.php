@@ -32,12 +32,14 @@ if( !Yii::$app->user->isGuest ) {
         case Usuario::PAPEL_PRODUTOR:
             $menu = [
                 "Meu perfil" => Url::toRoute("/base/produtor/view"),
+                "Meus pedidos" => Url::toRoute("/loja/pedido"),
                 "Criar oferta" => Url::toRoute("/loja/oferta/create")
             ];
             
-            $hotlinks =  $hotlinks + [
+            $hotlinks =  $hotlinks + [                
+                "Meus pedidos" => Url::toRoute("/loja/pedido"),
+                "Criar oferta" => Url::toRoute("/loja/oferta/create"),
                 "Meu perfil" => Url::toRoute("/base/produtor/view"),
-                "Criar oferta" => Url::toRoute("/loja/oferta/create")
             ];
             
             break;

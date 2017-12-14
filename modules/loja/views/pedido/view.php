@@ -34,9 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'pedido_id',
             'momento',
             'quantidade',
-            'finalizado',
-            'cancelado',
             'oferta_id',
+            'status_id',
             'consumidor_id',
         ],
     ]) ?>

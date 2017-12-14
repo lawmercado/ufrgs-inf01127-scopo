@@ -21,21 +21,60 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Criar pedido', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    
+    <?php echo $this->render('_search', array('model'=>$searchModel)); ?>
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'headerOptions' => ['style' => 'width:5%; text-align: center' ],
+                'contentOptions' => ['style' => 'text-align: center'],
+            ],
 
-            'pedido_id',
-            'momento',
-            'quantidade',
-            'finalizado',
-            'cancelado',
+            [
+                'attribute' => 'pedido_id',
+                'headerOptions' => ['style' => 'width:5%; text-align: center'],
+                'contentOptions' => ['style' => 'text-align: center'],                
+            ],
+            [
+                'attribute' => 'momento',
+                'headerOptions' => ['style' => 'width:20%;'],             
+            ],
+            [
+                'label' => 'Consumidor',
+                'attribute' => 'consumidor.pessoa.nome',              
+            ],
+            [
+                'attribute' => 'consumidor.pessoa.cidade',
+                'headerOptions' => ['style' => 'width:15%;'],              
+            ],
+            [
+                'label' => 'Produto',
+                'attribute' => 'oferta.produto.nome',
+                'headerOptions' => ['style' => 'width:5%;'],               
+            ],
+            [
+                'attribute' => 'quantidade',
+                'headerOptions' => ['style' => 'width:1%; text-align: center'],
+                'contentOptions' => ['style' => 'text-align: center'],                
+            ],
+            [
+                'label' => 'Status',
+                'attribute' => 'statusPedido.descricao',
+                'headerOptions' => ['style' => 'width:5%; text-align: center'],
+                'contentOptions' => ['style' => 'text-align: center'],                
+            ],
+            
             // 'oferta_id',
             // 'consumidor_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'headerOptions' => ['style' => 'width:10%; text-align: center' ],
+                'contentOptions' => ['style' => 'text-align: center'],                
+            ],
         ],
     ]); ?>
 </div>
