@@ -87,16 +87,21 @@ class Oferta extends \yii\db\ActiveRecord
         return $this->hasMany(Pedido::className(), ['oferta_id' => 'oferta_id']);
     }
 
-    public function alterarQuantidade($quantidade, $isReservation = true)
+    public function alterarQuantidade($quantidade, $isReserva)
     {
         $newOferta              = new Oferta();
         $newOferta->produto_id  = $this->produto_id;
         $newOferta->produtor_id = $this->produtor_id;
         $newOferta->preco       = $this->preco;
-        $newOferta->quantidade  = $isReservation ? $this->quantidade - $quantidade : $this->quantidade + $quantidade;
+        $newOferta->quantidade  = $isReserva ? $this->quantidade - $quantidade : $this->quantidade + $quantidade;
 
-        $this->corrente = false;
+        if( $newOferta->quantidade < 0 )
+        {
+            throw new \yii\web\HttpException(500, "Quantidade de produtos atualmente ofertados ({$this->quantidade}) não é suficiente. Verifique os demais pedidos em andamento!");
+        }
 
+        $this->corrente = 0;
+        
         $newOferta->save();
         $this->save();
 

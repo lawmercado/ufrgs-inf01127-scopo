@@ -4,7 +4,6 @@ namespace app\modules\loja\controllers;
 
 use Yii;
 use app\modules\loja\models\Oferta;
-use app\modules\loja\models\OfertaSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -34,7 +33,7 @@ class OfertaController extends LojaController
      */
     public function actionIndex()
     {
-        $ofertas = Oferta::find()->where(['corrente' => TRUE])->orderBy(['preco'=> SORT_ASC])->all();
+        $ofertas = Oferta::find()->where(['corrente' => TRUE])->andFilterCompare("quantidade", 0, ">")->orderBy(['preco'=> SORT_ASC])->all();
         
         return $this->render('index', [
             'ofertas' => $ofertas

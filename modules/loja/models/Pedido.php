@@ -3,7 +3,6 @@
 namespace app\modules\loja\models;
 
 use Yii;
-use app\modules\base\models\Pessoa;
 
 /**
  * This is the model class for table "Pedido".
@@ -113,42 +112,47 @@ class Pedido extends \yii\db\ActiveRecord
             {
                 case Pedido::STATUS_EMANDAMENTO:
                     $oferta_id = $this->oferta->alterarQuantidade($this->quantidade, true);
-
+                                        
                     $this->atualizarPedidosRelacionados($oferta_id);
 
                     $this->status_id = $status_id;
                     $this->oferta_id = $oferta_id;
 
-                    $this->save();
+                    $this->save(false);
 
                     break;
 
                 case Pedido::STATUS_FINALIZADO:
                     $this->status_id = $status_id;
 
-                    $this->save();
+                    $this->save(false);
 
                     break;
 
                 case Pedido::STATUS_CANCELADO:
-                    $oferta_id = $this->oferta->alterarQuantidade($this->quantidade, false);
-                    
-                    $this->atualizarPedidosRelacionados($oferta_id);
-                    
+                    if( $this->status_id == Pedido::STATUS_EMANDAMENTO )
+                    {
+                        $oferta_id = $this->oferta->alterarQuantidade($this->quantidade, false);
+                                                
+                        $this->atualizarPedidosRelacionados($oferta_id);
+                    }
+
                     $this->status_id = $status_id;
 
-                    $this->save();
+                    $this->save(false);
 
                     break;
             }
 
             $transaction->commit();
+
+            return true;
         }
-        catch( Exception $ex )
+        catch( \yii\web\HttpException $ex )
         {
             $transaction->rollBack();
-
-            throw new \yii\db\IntegrityException($ex->getMessage());
+            
+            $this->addError("status_id", "Não foi possível alterar o status do pedido! {$ex->getMessage()}");
         }
     }
 
@@ -161,7 +165,7 @@ class Pedido extends \yii\db\ActiveRecord
             if( $this->pedido_id != $pedido->pedido_id && ( $pedido->status_id == Pedido::STATUS_PENDENTE || $pedido->status_id == Pedido::STATUS_EMANDAMENTO ) )
             {
                 $pedido->oferta_id = $oferta_id;
-                $pedido->save(true);
+                $pedido->save(false);
             }
         }
     }

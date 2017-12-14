@@ -119,13 +119,16 @@ class PedidoController extends LojaController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pedido_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $status_id = Yii::$app->request->post("status_id");
+        
+        if( $status_id )
+        {
+            $model->alterarStatus($status_id);
         }
+        
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**

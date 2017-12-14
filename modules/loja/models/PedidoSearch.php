@@ -18,7 +18,7 @@ class PedidoSearch extends Pedido
     public function rules()
     {
         return [
-            [['pedido_id', 'quantidade', 'finalizado', 'cancelado', 'oferta_id', 'consumidor_id'], 'integer'],
+            [['pedido_id', 'quantidade', 'oferta_id', 'consumidor_id', 'status_id'], 'integer'],
             [['momento'], 'safe'],
         ];
     }
@@ -62,10 +62,8 @@ class PedidoSearch extends Pedido
             'pedido_id' => $this->pedido_id,
             'momento' => $this->momento,
             'quantidade' => $this->quantidade,
-            'finalizado' => $this->finalizado,
-            'cancelado' => $this->cancelado,
             'oferta_id' => $this->oferta_id,
-            'consumidor_id' => $this->consumidor_id,
+            'consumidor_id' => $this->consumidor_id
         ]);
 
         return $dataProvider;
