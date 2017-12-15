@@ -19,10 +19,6 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <?php if( count($model->getErrors("status_id")) > 0 ): ?>
-        <?= Html::error($model, "status_id", ["class" => "alert alert-danger"]) ?>
-    <?php endif; ?>
-    
     <p>
         <?php $form = ActiveForm::begin(); ?>
             <?= Html::submitButton("Aprovar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_EMANDAMENTO, 'class' => 'btn btn-success']) ?>

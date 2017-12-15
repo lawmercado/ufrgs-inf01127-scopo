@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
 use app\modules\base\models\Usuario;
+use yii\bootstrap\Alert;
 
 AppAsset::register($this);
 
@@ -91,6 +92,18 @@ if( !Yii::$app->user->isGuest ) {
         </header>
 
         <section>
+            <?php if( Yii::$app->session->hasFlash('success') ): ?>
+                <?php Alert::begin(["options" => ["class" => "alert-success"]]); ?>
+                    <?= Yii::$app->session->getFlash('success') ?>
+                <?php Alert::end(); ?>
+            <?php endif; ?>
+
+            <?php if( Yii::$app->session->hasFlash('error') ): ?>
+                <?php Alert::begin(["options" => ["class" => "alert-danger"]]); ?>
+                    <?= Yii::$app->session->getFlash('error') ?>
+                <?php Alert::end(); ?>
+            <?php endif; ?>
+            
             <?= $content ?>
         </section>
         

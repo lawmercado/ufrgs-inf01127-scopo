@@ -152,7 +152,7 @@ class Pedido extends \yii\db\ActiveRecord
         {
             $transaction->rollBack();
             
-            $this->addError("status_id", "Não foi possível alterar o status do pedido! {$ex->getMessage()}");
+            return false;
         }
     }
 

@@ -123,7 +123,16 @@ class PedidoController extends LojaController
         
         if( $status_id )
         {
-            $model->alterarStatus($status_id);
+            if( $model->alterarStatus($status_id) )
+            {
+                Yii::$app->session->setFlash('success', "Pedido atualizado com sucesso!");
+                
+                return $this->redirect(['index']);
+            }
+            else
+            {
+                Yii::$app->session->setFlash('error', "Não foi possível alterar o status do pedido! Não há mais a quantidade necessária disponível!");
+            }
         }
         
         return $this->render('update', [
