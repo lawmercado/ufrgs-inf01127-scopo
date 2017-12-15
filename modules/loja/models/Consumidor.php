@@ -45,9 +45,13 @@ class Consumidor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'consumidor_id' => 'Identificador',
+            'consumidor_id' => 'ID',
             'cpf' => 'CPF',
             'pessoa_id' => 'Pessoa associada',
+            'Pessoa.nome' => 'Nome',
+            'Pessoa.cidade' => 'Cidade',
+            'Pessoa.estado' => 'UF',
+            'Pessoa.email' => 'E-mail',
         ];
     }
 

@@ -20,6 +20,7 @@ class ConsumidorSearch extends Consumidor
         return [
             [['consumidor_id', 'pessoa_id'], 'integer'],
             [['cpf'], 'safe'],
+            [['Pessoa.nome', 'Pessoa.estado', 'Pessoa.cidade', 'Pessoa.email'], 'safe'],
         ];
     }
 
@@ -49,6 +50,9 @@ class ConsumidorSearch extends Consumidor
             'query' => $query,
         ]);
 
+        $query->joinWith(['pessoa']); 
+        
+        
         $this->load($params);
 
         if (!$this->validate()) {
@@ -64,7 +68,19 @@ class ConsumidorSearch extends Consumidor
         ]);
 
         $query->andFilterWhere(['like', 'cpf', $this->cpf]);
+        $query->andFilterWhere(['like','Pessoa.nome',$this->getAttribute('Pessoa.nome')]);
+        $query->andFilterWhere(['like','Pessoa.estado',$this->getAttribute('Pessoa.estado')]);
+        $query->andFilterWhere(['like','Pessoa.cidade',$this->getAttribute('Pessoa.cidade')]);
+        $query->andFilterWhere(['like','Pessoa.email',$this->getAttribute('Pessoa.email')]);
 
         return $dataProvider;
     }
+    
+    public function attributes()
+    {
+        // add related fields to searchable attributes
+        return array_merge(parent::attributes(), ['Pessoa.nome', 'Pessoa.cidade', 'Pessoa.email', 'Pessoa.estado']);
+    }
+    
 }
+
