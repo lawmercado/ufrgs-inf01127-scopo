@@ -45,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php function mostraOferta($oferta, $filtro){
    
+    $filtro = strtolower($filtro);
+    
     if($filtro == 'sem filtro'){   
     
         echo '
@@ -58,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         ';
     } else{
-        if($filtro == $oferta->produto->nome || $filtro == $oferta->produto->categoria->descricao | $filtro == $oferta->produtor->pessoa->cidade || $filtro == $oferta->produtor->pessoa->estado){
+        if($filtro == strtolower($oferta->produto->nome) || $filtro == strtolower($oferta->produto->categoria->descricao) | $filtro == strtolower($oferta->produtor->pessoa->cidade) || $filtro == strtolower($oferta->produtor->pessoa->estado)){
             
             echo '
             <div class="oferta">
@@ -77,62 +79,4 @@ $this->params['breadcrumbs'][] = $this->title;
     }?>
 
 
-<?php function printaOferta(){
-    
-    if($filtro == 'Macho'){
-        $filtro = 'M';
-    } else if($filtro == 'Femea'){
-        $filtro = 'F';
-    }
-    
-    
-    if( $filtro == $tipos[$montaria->tipo_id-1]['tipo'] ||
-        $filtro == $montaria->sexo ||
-        $filtro == $qualidades[$montaria->qualidade1_id-1]['qualidade'] ||
-        $filtro == $qualidades[$montaria->qualidade2_id-1]['qualidade']
-       ){
-    
-    
-    
-    echo '<div class="linha-mont">
-            <div class="coluna-mont">
-                <div class="id-mont">
-                    ID: <span class="info-mont">'.$montaria->montaria_id.'
-                </div>
-
-                <div class="sexo-mont">
-                    Sexo: <span class="info-mont">'.$montaria->sexo.'
-                </div>  
-            </div>
-
-            <div class="coluna-mont">
-                <div class="tipo-mont">
-                    Tipo: <span class="info-mont">'.$tipos[$montaria->tipo_id-1]['tipo'].'</span>
-                </div>
-
-                <div class="pureza-mont">
-                    Pureza: <span class="info-mont">'.$montaria->pureza.'</span>
-                </div>  
-            </div>
-
-            <div class="coluna-mont">
-                <div class="qualidade-mont">
-                    Qualidade: <span class="info-mont">'.$qualidades[$montaria->qualidade1_id-1]['qualidade'].'</span>
-                </div>';
-    if(!($qualidades[$montaria->qualidade1_id-1]['qualidade'] == 'Normal' && $qualidades[$montaria->qualidade1_id-1]['qualidade'] == $qualidades[$montaria->qualidade2_id-1]['qualidade']) &&
-          !($qualidades[$montaria->qualidade2_id-1]['qualidade'] == 'Normal' && $qualidades[$montaria->qualidade1_id-1]['qualidade'] != 'Normal')
-            ){
-        echo    '<div class="qualidade-mont">
-                    Qualidade 2: <span class="info-mont">'.$qualidades[$montaria->qualidade2_id-1]['qualidade'].'</span>
-                </div>';
-        
-    };
-                      
-    echo '</div>
-        </div>';
-       };
-    
-};
-
-?>
 
