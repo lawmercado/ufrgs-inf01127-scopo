@@ -12,6 +12,7 @@ use app\modules\base\models\Usuario;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\base\components\BaseAccessRule;
+use yii\data\ActiveDataProvider;
 
 /**
  * PedidoController implements the CRUD actions for Pedido model.
@@ -64,15 +65,70 @@ class PedidoController extends LojaController
      */
     public function actionIndex()
     {
-        $searchModel = new PedidoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $pessoa_id = Yii::$app->user->identity->pessoa_id;
+        $papel_id = Yii::$app->user->identity->papel_id;
+        
+        switch($papel_id) {
+            case Usuario::PAPEL_PRODUTOR:
+                $ofertas = Oferta::findAll(["produtor_id" => \app\modules\base\models\Produtor::findOne(["pessoa_id" => $pessoa_id]), "corrente" => true]);
+                
+                $idsOfertas = [];
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+                foreach($ofertas as $oferta) {
+                    array_push($idsOfertas, $oferta->oferta_id);
+                }
+                
+                $dataProviderPendente = $this->filterPedidosProdutor(Pedido::STATUS_PENDENTE, $ofertas);
+                $dataProviderEmAndamento = $this->filterPedidosProdutor(Pedido::STATUS_EMANDAMENTO, $ofertas);
+                $dataProviderFinalizado = $this->filterPedidosProdutor(Pedido::STATUS_FINALIZADO, $ofertas);
+                $dataProviderCancelado = $this->filterPedidosProdutor(Pedido::STATUS_CANCELADO, $ofertas);
+                
+                return $this->render("index_produtor", [
+                    'dataProviderPendente' => $dataProviderPendente,
+                    'dataProviderEmAndamento' => $dataProviderEmAndamento,
+                    'dataProviderFinalizado' => $dataProviderFinalizado,
+                    'dataProviderCancelado' => $dataProviderCancelado,
+                ]);
+                
+                break;
+            
+            case Usuario::PAPEL_CONSUMIDOR:
+                $consumidor = Consumidor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
+                
+                $query = Pedido::find();
+        
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query,
+                ]);
+
+                $query->andFilterWhere([
+                    'consumidor_id' => $consumidor->consumidor_id
+                ]);
+                
+                return $this->render("index_consumidor", [
+                    'dataProvider' => $dataProvider,
+                ]);
+                
+                break;
+        }
     }
 
+    
+    private function filterPedidosProdutor($status_id, $idsOfertas) {
+        $query = Pedido::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $query->where([
+            'status_id' => $status_id,
+            'oferta_id' => $idsOfertas
+        ]);
+
+        return $dataProvider;
+    }
+    
     /**
      * Displays a single Pedido model.
      * @param integer $id
@@ -123,16 +179,7 @@ class PedidoController extends LojaController
         
         if( $status_id )
         {
-            if( $model->alterarStatus($status_id) )
-            {
-                Yii::$app->session->setFlash('success', "Pedido atualizado com sucesso!");
-                
-                return $this->redirect(['index']);
-            }
-            else
-            {
-                Yii::$app->session->setFlash('error', "Não foi possível alterar o status do pedido! Não há mais a quantidade necessária disponível!");
-            }
+            $model->alterarStatus($status_id);
         }
         
         return $this->render('update', [
