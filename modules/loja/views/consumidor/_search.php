@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
     <div class="form-group filtro-botao">
         
         <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Limpar', ['class' => 'btn btn-default']) ?>
+        <?= Html::a('Limpar', ['index'],['class' => 'btn btn-default']) ?>
     </div>
         
     
