@@ -80,9 +80,9 @@ class MensagemController extends LojaController
         $mensagens = Mensagem::findAll(["pedido_id" => $pedido_id]);
         
         $model = new Mensagem();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['create', 'id' => $pedido_id]);
+            return $this->redirect(['create', 'pedido_id' => $pedido_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,

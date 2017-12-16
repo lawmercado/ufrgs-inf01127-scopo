@@ -12,7 +12,7 @@ use app\modules\loja\models\Pedido;
 
 $this->title = 'Atualizar pedido';
 $this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => "Pedido {$model->pedido_id}", 'url' => ['view', 'id' => $model->pedido_id]];
+$this->params['breadcrumbs'][] = ['label' => "Pedido #{$model->pedido_id}", 'url' => ['view', 'id' => $model->pedido_id]];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="pedido-update">
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
                         ]);
                             
                 } elseif ( $status_id == Pedido::STATUS_EMANDAMENTO ) {
-                    echo Html::a('Chat', ['app/modules/loja/views/mensagem/create'], ['class'=>'btn btn-primary']); 
+                    echo Html::a('Chat', ['mensagem/create', 'pedido_id' => $model->pedido_id], ['class'=>'btn btn-primary']); 
                     echo Html::submitButton("Finalizar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_FINALIZADO, 'class' => 'btn btn-success']);
                     echo Html::submitButton("Cancelar", [
                         'name' => 'status_id', 
@@ -61,8 +61,16 @@ $this->params['breadcrumbs'][] = 'Atualizar';
                 
             case Usuario::PAPEL_CONSUMIDOR:
                 if ( $status_id == Pedido::STATUS_EMANDAMENTO ) {
-                    echo Html::a('Chat', ['app/modules/loja/views/mensagem/create'], ['class'=>'btn btn-primary']); 
-                } else {
+                    echo Html::a('Chat', ['mensagem/create', 'pedido_id' => $model->pedido_id], ['class'=>'btn btn-primary']); 
+                    echo Html::submitButton("Cancelar", [
+                        'name' => 'status_id', 
+                        'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
+                         ]
+                        ]);
+                } else if( $status_id == Pedido::STATUS_PENDENTE ) {
                     echo Html::submitButton("Cancelar", [
                         'name' => 'status_id', 
                         'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 

@@ -68,4 +68,21 @@ class PedidoSearch extends Pedido
 
         return $dataProvider;
     }
+    
+    public static function searchByStatusAndOffers($status_id, $ofertas) {
+        $query = Pedido::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $query->where([
+            'status_id' => $status_id,
+            'oferta_id' => $ofertas
+        ]);
+
+        $query->orderBy("momento DESC");
+        
+        return $dataProvider;
+    }
 }

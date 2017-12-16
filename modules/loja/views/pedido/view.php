@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\Breadcrumbs;
+use \app\modules\loja\models\Pedido;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Pedido */
@@ -16,10 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
     
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
+    <?php if( $model->status_id != Pedido::STATUS_CANCELADO && $model->status_id != Pedido::STATUS_FINALIZADO ): ?>
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->pedido_id], ['class' => 'btn btn-primary']) ?>
+        
+        <?php if( $model->status_id == Pedido::STATUS_EMANDAMENTO ): ?>
+            <?= Html::a('Chat', ['mensagem/create', 'pedido_id' => $model->pedido_id], ['class'=>'btn btn-primary']); ?>
+        <?php endif; ?>
     </p>
+    <?php endif; ?>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -30,16 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Status',
-                'value' => function($model){
+                'value' => function($model) {
                     switch ($model->status_id){
-                        case 1: return 'Pendente';
-                                break;
-                        case 2: return 'Em andamento';
-                                break;
-                        case 3: return 'Finalizado';
-                                break;
-                        case 4: return 'Cancelado';
-                                break;
+                        case Pedido::STATUS_PENDENTE: return 'Pendente';
+                        case Pedido::STATUS_EMANDAMENTO: return 'Em andamento';
+                        case Pedido::STATUS_FINALIZADO: return 'Finalizado';
+                        case Pedido::STATUS_CANCELADO: return 'Cancelado';
                     }
                     
                 }             

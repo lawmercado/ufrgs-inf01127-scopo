@@ -10,8 +10,9 @@ use yii\widgets\Breadcrumbs;
 /* @var $pedido app\modules\loja\models\Pedido */
 /* @var $mensagem app\modules\loja\models\Mensagem */
 
-$this->title = 'Mensagens';
-$this->params['breadcrumbs'][] = ['label' => 'Mensagens', 'url' => ['pedido/index', "id" => $pedido->pedido_id]];
+$this->title = 'Chat';
+$this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => "Pedido #{$pedido->pedido_id}", 'url' => ['pedido/view', "id" => $pedido->pedido_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mensagem-create">

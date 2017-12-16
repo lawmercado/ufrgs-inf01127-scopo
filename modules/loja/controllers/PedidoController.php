@@ -70,18 +70,12 @@ class PedidoController extends LojaController
         
         switch($papel_id) {
             case Usuario::PAPEL_PRODUTOR:
-                $ofertas = Oferta::findAll(["produtor_id" => \app\modules\base\models\Produtor::findOne(["pessoa_id" => $pessoa_id]), "corrente" => true]);
-                
-                $idsOfertas = [];
-
-                foreach($ofertas as $oferta) {
-                    array_push($idsOfertas, $oferta->oferta_id);
-                }
-                
-                $dataProviderPendente = $this->filterPedidosProdutor(Pedido::STATUS_PENDENTE, $ofertas);
-                $dataProviderEmAndamento = $this->filterPedidosProdutor(Pedido::STATUS_EMANDAMENTO, $ofertas);
-                $dataProviderFinalizado = $this->filterPedidosProdutor(Pedido::STATUS_FINALIZADO, $ofertas);
-                $dataProviderCancelado = $this->filterPedidosProdutor(Pedido::STATUS_CANCELADO, $ofertas);
+                $ofertas = Oferta::findAll(["produtor_id" => \app\modules\base\models\Produtor::findOne(["pessoa_id" => $pessoa_id])]);
+                                                
+                $dataProviderPendente = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_PENDENTE, $ofertas);
+                $dataProviderEmAndamento = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_EMANDAMENTO, $ofertas);
+                $dataProviderFinalizado = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_FINALIZADO, $ofertas);
+                $dataProviderCancelado = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_CANCELADO, $ofertas);
                 
                 return $this->render("index_produtor", [
                     'dataProviderPendente' => $dataProviderPendente,
@@ -89,8 +83,6 @@ class PedidoController extends LojaController
                     'dataProviderFinalizado' => $dataProviderFinalizado,
                     'dataProviderCancelado' => $dataProviderCancelado,
                 ]);
-                
-                break;
             
             case Usuario::PAPEL_CONSUMIDOR:
                 $consumidor = Consumidor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
@@ -105,28 +97,12 @@ class PedidoController extends LojaController
                     'consumidor_id' => $consumidor->consumidor_id
                 ]);
                 
+                $query->orderBy("momento DESC");
+                
                 return $this->render("index_consumidor", [
                     'dataProvider' => $dataProvider,
                 ]);
-                
-                break;
         }
-    }
-
-    
-    private function filterPedidosProdutor($status_id, $idsOfertas) {
-        $query = Pedido::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        $query->where([
-            'status_id' => $status_id,
-            'oferta_id' => $idsOfertas
-        ]);
-
-        return $dataProvider;
     }
     
     /**
@@ -174,7 +150,7 @@ class PedidoController extends LojaController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         $status_id = Yii::$app->request->post("status_id");
         
         if( $status_id )
