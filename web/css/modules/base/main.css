@@ -344,7 +344,7 @@ body > section {
 }
 
 table.detail-view th {
-    width: 15%;
+    width: 20%;
 }
 
 @media (min-width: 1000px) 

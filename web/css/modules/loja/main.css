@@ -91,7 +91,12 @@ div.oferta p.oferta-preco, div.oferta p.oferta-produto {
 }
 
 .campo-oferta-preco, .campo-oferta-quantidade, .campo-oferta-produtor, .campo-oferta-produto{
-    width: 200px;
+    width: 30%;
+    margin:auto;
+}
+
+.campo-oferta{
+    margin: auto;
 }
 
 .filtro-pesquisa{
@@ -204,4 +209,11 @@ p.viewer-message {
     div.oferta {
         width: 25%;
     }
+}
+
+.status-pedido{
+    font-weight: bolder;
+    font-size: 1em;
+    margin: 40px 0 20px 0;
+    text-align: left;
 }

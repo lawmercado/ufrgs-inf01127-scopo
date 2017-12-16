@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Pedido */
 
-$this->title = "Pedido {$model->pedido_id}";
+$this->title = "Pedido #{$model->pedido_id}";
 $this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,25 +19,99 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->pedido_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Remover', ['delete', 'id' => $model->pedido_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'pedido_id',
-            'momento',
-            'quantidade',
-            'oferta_id',
-            'status_id',
-            'consumidor_id',
+            [
+                'attribute' => 'momento',
+                'value' => Yii::$app->formatter->asDateTime($model->momento),
+            ],
+            [
+                'label' => 'Status',
+                'value' => function($model){
+                    switch ($model->status_id){
+                        case 1: return 'Pendente';
+                                break;
+                        case 2: return 'Em andamento';
+                                break;
+                        case 3: return 'Finalizado';
+                                break;
+                        case 4: return 'Cancelado';
+                                break;
+                    }
+                    
+                }             
+            ],
+            
         ],
     ]) ?>
+    
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [            
+            [
+                "label" => "Produtor",
+                "value" => $model->oferta->produtor->pessoa->nome
+            ],
+            [
+                "label" => "Endereço de origem",
+                "value" => function($model){
+                    return $model->oferta->produtor->pessoa->endereco.', '. $model->oferta->produtor->pessoa->cidade.', '. $model->oferta->produtor->pessoa->estado;
+                            
+                }
+            ],  
+            
+            
+        ],
+    ]) ?>
+    
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [            
+            [
+                "label" => "Consumidor",
+                "value" => $model->consumidor->pessoa->nome
+            ],
+            [
+                "label" => "Endereço de destino",
+                "value" => function($model){
+                    return $model->consumidor->pessoa->endereco.', '. $model->consumidor->pessoa->cidade.', '. $model->consumidor->pessoa->estado;
+                            
+                }
+            ],  
+            
+            
+        ],
+    ]) ?>
+    
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            
+            [
+                "label" => "Produto",
+                "value" => function($model){
+                    return $model->quantidade.' Kg x '.$model->oferta->produto->nome;
+                }
+            ],
+            [
+                "label" => "Preço por Kg",
+                "value" => "R$" . Yii::$app->formatter->asDecimal($model->oferta->preco)
+            ],
+            [
+                "label" => "Total",
+                "value" => function($model){
+                    return "R$" . Yii::$app->formatter->asDecimal($model->oferta->quantidade * $model->oferta->preco);
+                            
+                }
+            ],
+            
+            
+        ],
+    ]) ?>
+    
+    
 
 </div>

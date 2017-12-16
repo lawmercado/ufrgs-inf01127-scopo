@@ -24,14 +24,42 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $oferta,
         'attributes' => [
             [
+                "label" => "Produtor",
+                "value" => $oferta->produtor->pessoa->nome
+            ],
+            [
+                "label" => "Endereço de origem",
+                "value" => function($model){
+                    return $model->produtor->pessoa->endereco.', '. $model->produtor->pessoa->cidade.', '. $model->produtor->pessoa->estado;
+                            
+                }
+            ],            
+        ],
+    ]) ?>
+
+    
+    
+    <?= DetailView::widget([
+        'model' => $oferta,
+        'attributes' => [
+            [
+                "label" => "Produto",
+                "attribute" => 'produto.nome'
+                
+            ],
+            [
                 "label" => "Preço por Kg",
                 "value" => "R$" . Yii::$app->formatter->asDecimal($oferta->preco)
             ],
-            'quantidade',
             [
-                "label" => "Produto",
-                "value" => $oferta->produto->nome
-            ]
+                "label" => "Quantidade máxima",
+                "value" => function($model){
+                    return $model->quantidade.' Kg';
+                }
+                
+            ],
+            
+            
         ],
     ]) ?>
     

@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Oferta */
 
-$this->title = "Oferta {$model->oferta_id}";
+$this->title = "Oferta #{$model->oferta_id}";
 $this->params['breadcrumbs'][] = ['label' => 'Ofertas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -40,10 +40,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Produto',
                 'attribute' => 'produto.nome'
-            ],            
-            'quantidade',
-            'preco',
-            'corrente',  
+            ],           
+            
+            [
+                'label' => 'Quantidade',
+                "attribute" => "quantidade",
+                "value" => function($model){
+                    return $model->quantidade.' Kg';
+                }
+            ],
+            [
+                "attribute" => "preco",
+                "value" => function($model){
+                    return 'R$ '.$model->preco;
+                }
+            ],
         ],
     ]) ?>
 

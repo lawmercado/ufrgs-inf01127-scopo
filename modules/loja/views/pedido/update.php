@@ -35,12 +35,26 @@ $this->params['breadcrumbs'][] = 'Atualizar';
             case Usuario::PAPEL_PRODUTOR:
                 if( $status_id == Pedido::STATUS_PENDENTE ) {
                     echo Html::submitButton("Aprovar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_EMANDAMENTO, 'class' => 'btn btn-success']);
-                    echo Html::submitButton("Cancelar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 'class' => 'btn btn-danger']);
+                    echo Html::submitButton("Cancelar", [
+                        'name' => 'status_id', 
+                        'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
+                         ],
+                        ]);
                             
                 } elseif ( $status_id == Pedido::STATUS_EMANDAMENTO ) {
                     echo Html::a('Chat', ['app/modules/loja/views/mensagem/create'], ['class'=>'btn btn-primary']); 
                     echo Html::submitButton("Finalizar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_FINALIZADO, 'class' => 'btn btn-success']);
-                    echo Html::submitButton("Cancelar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 'class' => 'btn btn-danger']);     
+                    echo Html::submitButton("Cancelar", [
+                        'name' => 'status_id', 
+                        'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 
+                        'class' => 'btn btn-danger' ,
+                        'data' => [
+                            'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
+                         ]
+                        ]);     
                 }
                 
                 break;
@@ -49,7 +63,14 @@ $this->params['breadcrumbs'][] = 'Atualizar';
                 if ( $status_id == Pedido::STATUS_EMANDAMENTO ) {
                     echo Html::a('Chat', ['app/modules/loja/views/mensagem/create'], ['class'=>'btn btn-primary']); 
                 } else {
-                    echo Html::submitButton("Cancelar", ['name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 'class' => 'btn btn-danger']);
+                    echo Html::submitButton("Cancelar", [
+                        'name' => 'status_id', 
+                        'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO, 
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
+                         ]
+                        ]);
                 }
                 
                 break;
@@ -60,12 +81,91 @@ $this->params['breadcrumbs'][] = 'Atualizar';
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'pedido_id',
-            'momento',
-            'quantidade',
-            'oferta_id',
-            'consumidor_id',
-            'status_id'
+            [
+                'attribute' => 'momento',
+                'value' => Yii::$app->formatter->asDateTime($model->momento),
+            ],
+            [
+                'label' => 'Status',
+                'value' => function($model){
+                    switch ($model->status_id){
+                        case 1: return 'Pendente';
+                                break;
+                        case 2: return 'Em andamento';
+                                break;
+                        case 3: return 'Finalizado';
+                                break;
+                        case 4: return 'Cancelado';
+                                break;
+                    }
+                    
+                }             
+            ],
+            
+        ],
+    ]) ?>
+    
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [            
+            [
+                "label" => "Produtor",
+                "value" => $model->oferta->produtor->pessoa->nome
+            ],
+            [
+                "label" => "Endereço de origem",
+                "value" => function($model){
+                    return $model->oferta->produtor->pessoa->endereco.', '. $model->oferta->produtor->pessoa->cidade.', '. $model->oferta->produtor->pessoa->estado;
+                            
+                }
+            ],  
+            
+            
+        ],
+    ]) ?>
+    
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [            
+            [
+                "label" => "Consumidor",
+                "value" => $model->consumidor->pessoa->nome
+            ],
+            [
+                "label" => "Endereço de destino",
+                "value" => function($model){
+                    return $model->consumidor->pessoa->endereco.', '. $model->consumidor->pessoa->cidade.', '. $model->consumidor->pessoa->estado;
+                            
+                }
+            ],  
+            
+            
+        ],
+    ]) ?>
+    
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            
+            [
+                "label" => "Produto",
+                "value" => function($model){
+                    return $model->quantidade.' Kg x '.$model->oferta->produto->nome;
+                }
+            ],
+            [
+                "label" => "Preço por Kg",
+                "value" => "R$" . Yii::$app->formatter->asDecimal($model->oferta->preco)
+            ],
+            [
+                "label" => "Total",
+                "value" => function($model){
+                    return "R$" . Yii::$app->formatter->asDecimal($model->oferta->quantidade * $model->oferta->preco);
+                            
+                }
+            ],
+            
+            
         ],
     ]) ?>
 

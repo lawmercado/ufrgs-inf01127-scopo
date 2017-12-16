@@ -37,6 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'momento',
+                'value' => function($model){
+                    return Yii::$app->formatter->asDateTime($model->momento);
+                },
                 'headerOptions' => ['style' => 'width:20%;'],             
             ],
             [
@@ -83,6 +86,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'momento',
+                'value' => function($model){
+                    return Yii::$app->formatter->asDateTime($model->momento);
+                },
                 'headerOptions' => ['style' => 'width:20%;'],             
             ],
             [
@@ -129,6 +135,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'momento',
+                'value' => function($model){
+                    return Yii::$app->formatter->asDateTime($model->momento);
+                },
                 'headerOptions' => ['style' => 'width:20%;'],             
             ],
             [
@@ -175,6 +184,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'momento',
+                'value' => function($model){
+                    return Yii::$app->formatter->asDateTime($model->momento);
+                },
                 'headerOptions' => ['style' => 'width:20%;'],             
             ],
             [

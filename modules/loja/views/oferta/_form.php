@@ -46,13 +46,12 @@ use app\modules\base\models\Produto;
         <div class="campo-oferta-produtor">
             <?= $form->field($model, 'produtor_id')->hiddenInput(['value' =>$id->produtor_id])->label(false); ?> 
            
-        </div>
-        
-   </div>
+        </div>        
+   
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'display: block; margin: auto; width: 30%;']) ?>
         </div>
-        
+    </div>    
     <?php ActiveForm::end(); ?>
 
 </div>
