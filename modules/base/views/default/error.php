@@ -8,6 +8,7 @@
 use yii\helpers\Html;
 
 $this->title = $name;
+
 ?>
 <div class="site-error">
 
@@ -16,7 +17,7 @@ $this->title = $name;
     <div class="alert alert-danger">
         <?= nl2br(Html::encode($message)) ?>
     </div>
-    
+
     <p>O erro acima foi causado enquanto o servidor processava a sua requisição.</p>
     <p>Se caso a página requisitada deve existir, por favor, contate-nos. Obrigado.</p>
 

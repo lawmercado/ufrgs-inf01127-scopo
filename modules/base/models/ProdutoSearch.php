@@ -12,16 +12,18 @@ use app\modules\base\models\Produto;
  */
 class ProdutoSearch extends Produto
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['produto_id', 'categoria_id'], 'integer'],
-            [['nome'], 'safe'],
-            [['Categoria.descricao'], 'safe'],
+            [ [ 'produto_id', 'categoria_id' ], 'integer' ],
+            [ [ 'nome' ], 'safe' ],
+            [ [ 'Categoria.descricao' ], 'safe' ],
         ];
+
     }
 
     /**
@@ -31,6 +33,7 @@ class ProdutoSearch extends Produto
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+
     }
 
     /**
@@ -40,7 +43,7 @@ class ProdutoSearch extends Produto
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search( $params )
     {
         $query = Produto::find();
 
@@ -50,10 +53,11 @@ class ProdutoSearch extends Produto
             'query' => $query,
         ]);
 
-        $query->joinWith(['categoria']); 
+        $query->joinWith([ 'categoria' ]);
         $this->load($params);
 
-        if (!$this->validate()) {
+        if ( ! $this->validate() )
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -63,18 +67,20 @@ class ProdutoSearch extends Produto
         $query->andFilterWhere([
             'produto_id' => $this->produto_id,
             'categoria_id' => $this->categoria_id,
-            
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome]);
-        $query->andFilterWhere(['like','Categoria.descricao',$this->getAttribute('Categoria.descricao')]);
+        $query->andFilterWhere([ 'like', 'nome', $this->nome ]);
+        $query->andFilterWhere([ 'like', 'Categoria.descricao', $this->getAttribute('Categoria.descricao') ]);
 
         return $dataProvider;
+
     }
-    
+
     public function attributes()
     {
         // add related fields to searchable attributes
-        return array_merge(parent::attributes(), ['Categoria.descricao']);
+        return array_merge(parent::attributes(), [ 'Categoria.descricao' ]);
+
     }
+
 }

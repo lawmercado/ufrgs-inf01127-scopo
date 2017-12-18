@@ -137,9 +137,9 @@ p.message-momento {
     clear: both;
 
     background-color: transparent !important;
-    
+
     color: #59574b;
-    
+
     font-weight: bold;
     border-radius: 2px;
 }
@@ -191,7 +191,7 @@ p.viewer-message {
     .search-area {
         width: 50%;
     }
-    
+
     div.oferta {
         width: 50%;
     }

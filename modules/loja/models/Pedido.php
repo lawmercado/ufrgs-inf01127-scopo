@@ -22,16 +22,17 @@ use Yii;
 class Pedido extends \yii\db\ActiveRecord
 {
 
-    const STATUS_PENDENTE    = 1;
+    const STATUS_PENDENTE = 1;
     const STATUS_EMANDAMENTO = 2;
-    const STATUS_FINALIZADO  = 3;
-    const STATUS_CANCELADO   = 4;
+    const STATUS_FINALIZADO = 3;
+    const STATUS_CANCELADO = 4;
 
-    public function __construct($config = array())
+    public function __construct( $config = array () )
     {
         parent::__construct($config);
 
         $this->status_id = Pedido::STATUS_PENDENTE;
+
     }
 
     /**
@@ -40,6 +41,7 @@ class Pedido extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Pedido';
+
     }
 
     /**
@@ -48,14 +50,15 @@ class Pedido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['momento'], 'safe'],
-            [['quantidade', 'oferta_id', 'consumidor_id'], 'required'],
-            [['quantidade', 'status_id', 'oferta_id', 'consumidor_id'], 'integer'],
-            [['oferta_id'], 'exist', 'skipOnError' => true, 'targetClass' => Oferta::className(), 'targetAttribute' => ['oferta_id' => 'oferta_id']],
-            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => StatusPedido::className(), 'targetAttribute' => ['status_id' => 'status_id']],
-            [['consumidor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Consumidor::className(), 'targetAttribute' => ['consumidor_id' => 'consumidor_id']],
-            ['quantidade', 'validateQuantidade'],
+            [ [ 'momento' ], 'safe' ],
+            [ [ 'quantidade', 'oferta_id', 'consumidor_id' ], 'required' ],
+            [ [ 'quantidade', 'status_id', 'oferta_id', 'consumidor_id' ], 'integer' ],
+            [ [ 'oferta_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Oferta::className(), 'targetAttribute' => [ 'oferta_id' => 'oferta_id' ] ],
+            [ [ 'status_id' ], 'exist', 'skipOnError' => true, 'targetClass' => StatusPedido::className(), 'targetAttribute' => [ 'status_id' => 'status_id' ] ],
+            [ [ 'consumidor_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Consumidor::className(), 'targetAttribute' => [ 'consumidor_id' => 'consumidor_id' ] ],
+            [ 'quantidade', 'validateQuantidade' ],
         ];
+
     }
 
     /**
@@ -64,13 +67,14 @@ class Pedido extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pedido_id'     => 'Identificador',
-            'momento'       => 'Momento da criação',
-            'quantidade'    => 'Quantidade',
-            'status_id'     => 'Status',
-            'oferta_id'     => 'Oferta associada',
+            'pedido_id' => 'Identificador',
+            'momento' => 'Momento da criação',
+            'quantidade' => 'Quantidade',
+            'status_id' => 'Status',
+            'oferta_id' => 'Oferta associada',
             'consumidor_id' => 'Consumidor associado',
         ];
+
     }
 
     /**
@@ -80,13 +84,13 @@ class Pedido extends \yii\db\ActiveRecord
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validateQuantidade($attribute, $params)
+    public function validateQuantidade( $attribute, $params )
     {
-        if( !$this->hasErrors() )
+        if ( ! $this->hasErrors() )
         {
-            $oferta = Oferta::findOne(["oferta_id" => $this->oferta_id]);
+            $oferta = Oferta::findOne([ "oferta_id" => $this->oferta_id ]);
 
-            if( $this->quantidade > $oferta->quantidade )
+            if ( $this->quantidade > $oferta->quantidade )
             {
                 $this->addError($attribute, 'Quantidade informada é maior que oferecida!');
 
@@ -95,11 +99,12 @@ class Pedido extends \yii\db\ActiveRecord
         }
 
         return true;
+
     }
 
-    public function alterarStatus($status_id)
+    public function alterarStatus( $status_id )
     {
-        if( $this->isNewRecord )
+        if ( $this->isNewRecord )
         {
             return false;
         }
@@ -108,11 +113,11 @@ class Pedido extends \yii\db\ActiveRecord
 
         try
         {
-            switch( $status_id )
+            switch ( $status_id )
             {
                 case Pedido::STATUS_EMANDAMENTO:
                     $oferta_id = $this->oferta->alterarQuantidade($this->quantidade, true);
-                                        
+
                     $this->atualizarPedidosRelacionados($oferta_id);
 
                     $this->status_id = $status_id;
@@ -130,10 +135,10 @@ class Pedido extends \yii\db\ActiveRecord
                     break;
 
                 case Pedido::STATUS_CANCELADO:
-                    if( $this->status_id == Pedido::STATUS_EMANDAMENTO )
+                    if ( $this->status_id == Pedido::STATUS_EMANDAMENTO )
                     {
                         $oferta_id = $this->oferta->alterarQuantidade($this->quantidade, false);
-                                                
+
                         $this->atualizarPedidosRelacionados($oferta_id);
                     }
 
@@ -148,26 +153,28 @@ class Pedido extends \yii\db\ActiveRecord
 
             return true;
         }
-        catch( \yii\web\HttpException $ex )
+        catch ( \yii\web\HttpException $ex )
         {
             $transaction->rollBack();
-            
+
             return false;
         }
+
     }
 
-    private function atualizarPedidosRelacionados($oferta_id)
+    private function atualizarPedidosRelacionados( $oferta_id )
     {
-        $pedidos = Pedido::findAll(["oferta_id" => $this->oferta_id]);
+        $pedidos = Pedido::findAll([ "oferta_id" => $this->oferta_id ]);
 
-        foreach( $pedidos as $pedido )
+        foreach ( $pedidos as $pedido )
         {
-            if( $this->pedido_id != $pedido->pedido_id && ( $pedido->status_id == Pedido::STATUS_PENDENTE || $pedido->status_id == Pedido::STATUS_EMANDAMENTO ) )
+            if ( $this->pedido_id != $pedido->pedido_id && ( $pedido->status_id == Pedido::STATUS_PENDENTE || $pedido->status_id == Pedido::STATUS_EMANDAMENTO ) )
             {
                 $pedido->oferta_id = $oferta_id;
                 $pedido->save(false);
             }
         }
+
     }
 
     /**
@@ -175,7 +182,8 @@ class Pedido extends \yii\db\ActiveRecord
      */
     public function getMensagens()
     {
-        return $this->hasMany(Mensagem::className(), ['pedido_id' => 'pedido_id']);
+        return $this->hasMany(Mensagem::className(), [ 'pedido_id' => 'pedido_id' ]);
+
     }
 
     /**
@@ -183,7 +191,8 @@ class Pedido extends \yii\db\ActiveRecord
      */
     public function getStatus()
     {
-        return $this->hasOne(StatusPedido::className(), ['status_id' => 'status_id']);
+        return $this->hasOne(StatusPedido::className(), [ 'status_id' => 'status_id' ]);
+
     }
 
     /**
@@ -191,7 +200,8 @@ class Pedido extends \yii\db\ActiveRecord
      */
     public function getOferta()
     {
-        return $this->hasOne(Oferta::className(), ['oferta_id' => 'oferta_id']);
+        return $this->hasOne(Oferta::className(), [ 'oferta_id' => 'oferta_id' ]);
+
     }
 
     /**
@@ -199,7 +209,8 @@ class Pedido extends \yii\db\ActiveRecord
      */
     public function getConsumidor()
     {
-        return $this->hasOne(Consumidor::className(), ['consumidor_id' => 'consumidor_id']);
+        return $this->hasOne(Consumidor::className(), [ 'consumidor_id' => 'consumidor_id' ]);
+
     }
 
 }

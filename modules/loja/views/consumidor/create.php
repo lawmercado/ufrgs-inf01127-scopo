@@ -9,19 +9,24 @@ use yii\widgets\Breadcrumbs;
 /* @var $usuario app\modules\base\models\Usuario */
 
 $this->title = 'Cadastro';
-$this->params['breadcrumbs'][] = ['label' => 'Consumidores', 'url' => ['index']];
+$this->params['breadcrumbs'][] = [ 'label' => 'Consumidores', 'url' => [ 'index' ] ];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="consumidor-create">
 
-    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
-    
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+
     <h1 class="titulo"><h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'pessoa' => $pessoa,
-        'usuario' => $usuario
-    ]) ?>
+        <?=
+
+        $this->render('_form', [
+            'model' => $model,
+            'pessoa' => $pessoa,
+            'usuario' => $usuario
+        ])
+
+        ?>
 
 </div>

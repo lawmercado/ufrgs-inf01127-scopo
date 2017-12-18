@@ -12,16 +12,18 @@ use app\modules\loja\models\Oferta;
  */
 class OfertaSearch extends Oferta
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['oferta_id', 'quantidade', 'corrente', 'produto_id', 'produtor_id'], 'integer'],
-            [['momento'], 'safe'],
-            [['preco_unidade'], 'number'],
+            [ [ 'oferta_id', 'quantidade', 'corrente', 'produto_id', 'produtor_id' ], 'integer' ],
+            [ [ 'momento' ], 'safe' ],
+            [ [ 'preco_unidade' ], 'number' ],
         ];
+
     }
 
     /**
@@ -31,6 +33,7 @@ class OfertaSearch extends Oferta
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+
     }
 
     /**
@@ -40,7 +43,7 @@ class OfertaSearch extends Oferta
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search( $params )
     {
         $query = Oferta::find();
 
@@ -52,7 +55,8 @@ class OfertaSearch extends Oferta
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if ( ! $this->validate() )
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -70,5 +74,7 @@ class OfertaSearch extends Oferta
         ]);
 
         return $dataProvider;
+
     }
+
 }

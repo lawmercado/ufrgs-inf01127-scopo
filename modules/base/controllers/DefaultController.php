@@ -3,7 +3,6 @@
 namespace app\modules\base\controllers;
 
 use Yii;
-
 use app\modules\base\models\LoginForm;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -15,6 +14,7 @@ use app\modules\base\models\Usuario;
  */
 class DefaultController extends BaseController
 {
+
     /**
      * @inheritdoc
      */
@@ -26,27 +26,28 @@ class DefaultController extends BaseController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index', 'logout'],
+                'only' => [ 'index', 'logout' ],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => [ 'logout' ],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => [ '@' ],
                     ],
                     [
-                        'actions' => ['index'],
+                        'actions' => [ 'index' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
                     ],
                 ]
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => [ 'post' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -63,8 +64,9 @@ class DefaultController extends BaseController
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+
     }
-    
+
     /**
      * Renders the index view for the module
      * @return string
@@ -72,8 +74,9 @@ class DefaultController extends BaseController
     public function actionIndex()
     {
         return $this->render('index');
+
     }
-    
+
     /**
      * Login action.
      *
@@ -81,17 +84,20 @@ class DefaultController extends BaseController
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
+        if ( ! Yii::$app->user->isGuest )
+        {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ( $model->load(Yii::$app->request->post()) && $model->login() )
+        {
             return $this->goBack();
         }
         return $this->render('login', [
             'model' => $model,
         ]);
+
     }
 
     /**
@@ -104,5 +110,7 @@ class DefaultController extends BaseController
         Yii::$app->user->logout();
 
         return $this->goHome();
+
     }
+
 }

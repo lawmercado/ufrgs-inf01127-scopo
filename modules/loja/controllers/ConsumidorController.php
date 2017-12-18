@@ -17,6 +17,7 @@ use app\modules\base\components\BaseAccessRule;
  */
 class ConsumidorController extends LojaController
 {
+
     /**
      * @inheritdoc
      */
@@ -28,33 +29,33 @@ class ConsumidorController extends LojaController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index', 'create', 'update', 'view', 'delete'],
+                'only' => [ 'index', 'create', 'update', 'view', 'delete' ],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'delete'],
+                        'actions' => [ 'index', 'view', 'delete' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
                     ],
                     [
-                        'actions' => ['view', 'update', 'delete'],
+                        'actions' => [ 'view', 'update', 'delete' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_CONSUMIDOR],
+                        'roles' => [ Usuario::PAPEL_CONSUMIDOR ],
                     ],
                     [
-                        'actions' => ['create'],
+                        'actions' => [ 'create' ],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => [ '?' ],
                     ],
-                   
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => [ 'POST' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -70,6 +71,7 @@ class ConsumidorController extends LojaController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
 
     /**
@@ -79,12 +81,13 @@ class ConsumidorController extends LojaController
     public function actionView()
     {
         $usuario = Yii::$app->user->identity;
-        
-        $consumidor = Consumidor::findOne(["pessoa_id" => $usuario->pessoa_id]);
-        
+
+        $consumidor = Consumidor::findOne([ "pessoa_id" => $usuario->pessoa_id ]);
+
         return $this->render('view', [
             'model' => $consumidor,
         ]);
+
     }
 
     /**
@@ -98,25 +101,29 @@ class ConsumidorController extends LojaController
         $pessoa = new Pessoa();
         $usuario = new Usuario();
 
-        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $usuario->load(Yii::$app->request->post())) {
+        if ( $model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) && $usuario->load(Yii::$app->request->post()) )
+        {
             $pessoa->save();
-            
+
             $model->pessoa_id = $pessoa->pessoa_id;
             $model->save();
-            
+
             $usuario->pessoa_id = $pessoa->pessoa_id;
             $usuario->login = $model->cpf;
             $usuario->papel_id = Usuario::PAPEL_CONSUMIDOR;
             $usuario->save();
-            
+
             return $this->goBack();
-        } else {
+        }
+        else
+        {
             return $this->render('create', [
                 'model' => $model,
                 'pessoa' => $pessoa,
                 'usuario' => $usuario
             ]);
         }
+
     }
 
     /**
@@ -125,24 +132,28 @@ class ConsumidorController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate( $id )
     {
         $model = $this->findModel($id);
         $pessoa = $model->pessoa;
         $usuario = Yii::$app->user->identity;
-                
-        if ( $model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post() ) ) {
+
+        if ( $model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) )
+        {
             $pessoa->save();
             $model->save();
-            
-            return $this->redirect(['view', 'id' => $model->consumidor_id]);
-        } else {
+
+            return $this->redirect([ 'view', 'id' => $model->consumidor_id ]);
+        }
+        else
+        {
             return $this->render('update', [
                 'model' => $model,
                 'pessoa' => $pessoa,
                 'usuario' => $usuario
             ]);
         }
+
     }
 
     /**
@@ -150,13 +161,14 @@ class ConsumidorController extends LojaController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete( $id )
     {
         $model = $this->findModel($id);
         $model->pessoa->delete();
         $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect([ 'index' ]);
+
     }
 
     /**
@@ -166,12 +178,17 @@ class ConsumidorController extends LojaController
      * @return Consumidor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel( $id )
     {
-        if (($model = Consumidor::findOne($id)) !== null) {
+        if ( ($model = Consumidor::findOne($id)) !== null )
+        {
             return $model;
-        } else {
+        }
+        else
+        {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
     }
+
 }

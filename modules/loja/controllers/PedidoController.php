@@ -19,6 +19,7 @@ use yii\data\ActiveDataProvider;
  */
 class PedidoController extends LojaController
 {
+
     /**
      * @inheritdoc
      */
@@ -30,33 +31,33 @@ class PedidoController extends LojaController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index', 'create', 'update', 'view'],
+                'only' => [ 'index', 'create', 'update', 'view' ],
                 'rules' => [
                     [
-                        'actions' => ['view'],
+                        'actions' => [ 'view' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
                     ],
                     [
-                        'actions' => ['index', 'view', 'update'],
+                        'actions' => [ 'index', 'view', 'update' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_CONSUMIDOR, Usuario::PAPEL_PRODUTOR],
+                        'roles' => [ Usuario::PAPEL_CONSUMIDOR, Usuario::PAPEL_PRODUTOR ],
                     ],
                     [
-                        'actions' => ['create'],
+                        'actions' => [ 'create' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_CONSUMIDOR],
+                        'roles' => [ Usuario::PAPEL_CONSUMIDOR ],
                     ],
-                   
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => [ 'POST' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -67,28 +68,29 @@ class PedidoController extends LojaController
     {
         $pessoa_id = Yii::$app->user->identity->pessoa_id;
         $papel_id = Yii::$app->user->identity->papel_id;
-        
-        switch($papel_id) {
+
+        switch ( $papel_id )
+        {
             case Usuario::PAPEL_PRODUTOR:
-                $ofertas = Oferta::findAll(["produtor_id" => \app\modules\base\models\Produtor::findOne(["pessoa_id" => $pessoa_id])]);
-                                                
+                $ofertas = Oferta::findAll([ "produtor_id" => \app\modules\base\models\Produtor::findOne([ "pessoa_id" => $pessoa_id ]) ]);
+
                 $dataProviderPendente = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_PENDENTE, $ofertas);
                 $dataProviderEmAndamento = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_EMANDAMENTO, $ofertas);
                 $dataProviderFinalizado = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_FINALIZADO, $ofertas);
                 $dataProviderCancelado = PedidoSearch::searchByStatusAndOffers(Pedido::STATUS_CANCELADO, $ofertas);
-                
+
                 return $this->render("index_produtor", [
                     'dataProviderPendente' => $dataProviderPendente,
                     'dataProviderEmAndamento' => $dataProviderEmAndamento,
                     'dataProviderFinalizado' => $dataProviderFinalizado,
                     'dataProviderCancelado' => $dataProviderCancelado,
                 ]);
-            
+
             case Usuario::PAPEL_CONSUMIDOR:
-                $consumidor = Consumidor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
-                
+                $consumidor = Consumidor::findOne([ "pessoa_id" => Yii::$app->user->identity->pessoa_id ]);
+
                 $query = Pedido::find();
-        
+
                 $dataProvider = new ActiveDataProvider([
                     'query' => $query,
                 ]);
@@ -96,25 +98,27 @@ class PedidoController extends LojaController
                 $query->andFilterWhere([
                     'consumidor_id' => $consumidor->consumidor_id
                 ]);
-                
+
                 $query->orderBy("momento DESC");
-                
+
                 return $this->render("index_consumidor", [
                     'dataProvider' => $dataProvider,
                 ]);
         }
+
     }
-    
+
     /**
      * Displays a single Pedido model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView( $id )
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+
     }
 
     /**
@@ -125,20 +129,24 @@ class PedidoController extends LojaController
     public function actionCreate()
     {
         $model = new Pedido();
-        
-        $oferta = Oferta::findOne(Yii::$app->request->get('oferta_id'));
-            
-        $consumidor = Consumidor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pedido_id]);
-        } else {
+        $oferta = Oferta::findOne(Yii::$app->request->get('oferta_id'));
+
+        $consumidor = Consumidor::findOne([ "pessoa_id" => Yii::$app->user->identity->pessoa_id ]);
+
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect([ 'view', 'id' => $model->pedido_id ]);
+        }
+        else
+        {
             return $this->render('create', [
                 'model' => $model,
                 'oferta' => $oferta,
                 'consumidor' => $consumidor
             ]);
         }
+
     }
 
     /**
@@ -147,28 +155,30 @@ class PedidoController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate( $id )
     {
         $model = $this->findModel($id);
-        
+
         $status_id = Yii::$app->request->post("status_id");
-        
-        if( $status_id )
+
+        if ( $status_id )
         {
-            if($model->alterarStatus($status_id)) {
+            if ( $model->alterarStatus($status_id) )
+            {
                 Yii::$app->session->setFlash("success", "Pedido atualizado com sucesso!");
-                
-                return $this->redirect(["index"]);
+
+                return $this->redirect([ "index" ]);
             }
             else
             {
                 Yii::$app->session->setFlash("error", "Pedido não pode ser atualizado: não há a quantidade disponível. Verifique os pedidos em andamento!");
             }
         }
-        
+
         return $this->render('update', [
             'model' => $model,
         ]);
+
     }
 
     /**
@@ -177,11 +187,12 @@ class PedidoController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete( $id )
     {
         //$this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect([ 'index' ]);
+
     }
 
     /**
@@ -191,12 +202,17 @@ class PedidoController extends LojaController
      * @return Pedido the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel( $id )
     {
-        if (($model = Pedido::findOne($id)) !== null) {
+        if ( ($model = Pedido::findOne($id)) !== null )
+        {
             return $model;
-        } else {
+        }
+        else
+        {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
     }
+
 }

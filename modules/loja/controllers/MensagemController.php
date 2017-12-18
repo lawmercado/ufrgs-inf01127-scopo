@@ -18,6 +18,7 @@ use app\modules\base\components\BaseAccessRule;
  */
 class MensagemController extends LojaController
 {
+
     /**
      * @inheritdoc
      */
@@ -29,28 +30,28 @@ class MensagemController extends LojaController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index', 'create'],
+                'only' => [ 'index', 'create' ],
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => [ 'index' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
                     ],
                     [
-                        'actions' => ['create'],
+                        'actions' => [ 'create' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_CONSUMIDOR, Usuario::PAPEL_PRODUTOR],
+                        'roles' => [ Usuario::PAPEL_CONSUMIDOR, Usuario::PAPEL_PRODUTOR ],
                     ],
-                   
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => [ 'POST' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -66,24 +67,28 @@ class MensagemController extends LojaController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
-    
+
     /**
      * Creates a new Mensagem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($pedido_id)
+    public function actionCreate( $pedido_id )
     {
-        $pedido = Pedido::findOne(["pedido_id" => $pedido_id]);
-        $pessoa = Pessoa::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
-        $mensagens = Mensagem::findAll(["pedido_id" => $pedido_id]);
-        
+        $pedido = Pedido::findOne([ "pedido_id" => $pedido_id ]);
+        $pessoa = Pessoa::findOne([ "pessoa_id" => Yii::$app->user->identity->pessoa_id ]);
+        $mensagens = Mensagem::findAll([ "pedido_id" => $pedido_id ]);
+
         $model = new Mensagem();
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['create', 'pedido_id' => $pedido_id]);
-        } else {
+
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect([ 'create', 'pedido_id' => $pedido_id ]);
+        }
+        else
+        {
             return $this->render('create', [
                 'model' => $model,
                 'pedido' => $pedido,
@@ -91,6 +96,7 @@ class MensagemController extends LojaController
                 'mensagens' => $mensagens
             ]);
         }
+
     }
 
     /**
@@ -100,12 +106,17 @@ class MensagemController extends LojaController
      * @return Mensagem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel( $id )
     {
-        if (($model = Mensagem::findOne($id)) !== null) {
+        if ( ($model = Mensagem::findOne($id)) !== null )
+        {
             return $model;
-        } else {
+        }
+        else
+        {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
     }
+
 }

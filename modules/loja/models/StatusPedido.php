@@ -14,12 +14,14 @@ use Yii;
  */
 class StatusPedido extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'StatusPedido';
+
     }
 
     /**
@@ -28,9 +30,10 @@ class StatusPedido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
-            [['descricao'], 'string', 'max' => 20],
+            [ [ 'descricao' ], 'required' ],
+            [ [ 'descricao' ], 'string', 'max' => 20 ],
         ];
+
     }
 
     /**
@@ -42,6 +45,7 @@ class StatusPedido extends \yii\db\ActiveRecord
             'status_id' => 'Identificador',
             'descricao' => 'Descrição',
         ];
+
     }
 
     /**
@@ -49,6 +53,8 @@ class StatusPedido extends \yii\db\ActiveRecord
      */
     public function getPedidos()
     {
-        return $this->hasMany(Pedido::className(), ['status_id' => 'status_id']);
+        return $this->hasMany(Pedido::className(), [ 'status_id' => 'status_id' ]);
+
     }
+
 }

@@ -12,15 +12,17 @@ use app\modules\loja\models\Pedido;
  */
 class PedidoSearch extends Pedido
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pedido_id', 'quantidade', 'oferta_id', 'consumidor_id', 'status_id'], 'integer'],
-            [['momento'], 'safe'],
+            [ [ 'pedido_id', 'quantidade', 'oferta_id', 'consumidor_id', 'status_id' ], 'integer' ],
+            [ [ 'momento' ], 'safe' ],
         ];
+
     }
 
     /**
@@ -30,6 +32,7 @@ class PedidoSearch extends Pedido
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+
     }
 
     /**
@@ -39,7 +42,7 @@ class PedidoSearch extends Pedido
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search( $params )
     {
         $query = Pedido::find();
 
@@ -51,7 +54,8 @@ class PedidoSearch extends Pedido
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if ( ! $this->validate() )
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -67,9 +71,11 @@ class PedidoSearch extends Pedido
         ]);
 
         return $dataProvider;
+
     }
-    
-    public static function searchByStatusAndOffers($status_id, $ofertas) {
+
+    public static function searchByStatusAndOffers( $status_id, $ofertas )
+    {
         $query = Pedido::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -82,7 +88,9 @@ class PedidoSearch extends Pedido
         ]);
 
         $query->orderBy("momento DESC");
-        
+
         return $dataProvider;
+
     }
+
 }

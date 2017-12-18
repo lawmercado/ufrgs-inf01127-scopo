@@ -10,43 +10,45 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = 'Categorias';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="categoria-index">
 
-    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
-    
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
     <p>
-        <?= Html::a('Criar categoria', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar categoria', [ 'create' ], [ 'class' => 'btn btn-success' ]) ?>
     </p>
-    
-    <?php echo $this->render('_search', array('model'=>$searchModel)); ?>
-    
-    <?= GridView::widget([
+
+    <?php echo $this->render('_search', array ( 'model' => $searchModel )); ?>
+
+    <?=
+
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => ['style' => 'width:50px'],
-                'contentOptions' => ['style' => 'text-align: center'],
+                'headerOptions' => [ 'style' => 'width:50px' ],
+                'contentOptions' => [ 'style' => 'text-align: center' ],
             ],
-
             [
                 'attribute' => 'categoria_id',
-                'headerOptions' => ['style' => 'width:50px'],
-                'contentOptions' => ['style' => 'text-align: center'],
-            ], 
+                'headerOptions' => [ 'style' => 'width:50px' ],
+                'contentOptions' => [ 'style' => 'text-align: center' ],
+            ],
             [
                 'attribute' => 'descricao',
-                
-            ], 
-
+            ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => ['style' => 'width:70px'],
+                'headerOptions' => [ 'style' => 'width:70px' ],
             ],
         ],
-    ]); ?>
+    ]);
+
+    ?>
 </div>

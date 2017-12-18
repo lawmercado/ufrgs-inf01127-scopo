@@ -8,27 +8,34 @@ use yii\widgets\Breadcrumbs;
 /* @var $model app\modules\loja\models\Consumidor */
 
 $this->title = "Perfil";
-$this->params['breadcrumbs'][] = ['label' => 'Consumidores', 'url' => ['index']];
+$this->params['breadcrumbs'][] = [ 'label' => 'Consumidores', 'url' => [ 'index' ] ];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="consumidor-view">
 
-    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
-    
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->consumidor_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Remover', ['delete', 'id' => $model->consumidor_id], [
+        <?= Html::a('Atualizar', [ 'update', 'id' => $model->consumidor_id ], [ 'class' => 'btn btn-primary' ]) ?>
+        <?=
+
+        Html::a('Remover', [ 'delete', 'id' => $model->consumidor_id ], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Tem certeza que deseja remover esse item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])
+
+        ?>
     </p>
 
-    <?= DetailView::widget([
+    <?=
+
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
             'consumidor_id',
@@ -54,6 +61,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 "value" => $model->pessoa->cep
             ],
         ],
-    ]) ?>
+    ])
+
+    ?>
 
 </div>

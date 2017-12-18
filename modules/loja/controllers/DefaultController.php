@@ -7,6 +7,7 @@ namespace app\modules\loja\controllers;
  */
 class DefaultController extends LojaController
 {
+
     /**
      * Renders the index view for the module
      * @return string
@@ -14,5 +15,7 @@ class DefaultController extends LojaController
     public function actionIndex()
     {
         return $this->render('index');
+
     }
+
 }

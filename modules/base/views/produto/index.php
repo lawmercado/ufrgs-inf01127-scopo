@@ -10,47 +10,50 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = 'Produtos';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="produto-index">
 
-    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
-    
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
     <p>
-        <?= Html::a('Criar produto', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar produto', [ 'create' ], [ 'class' => 'btn btn-success' ]) ?>
     </p>
-    
-    <?php echo $this->render('_search', array('model'=>$searchModel)); ?>
-    
-    <?= GridView::widget([
+
+    <?php echo $this->render('_search', array ( 'model' => $searchModel )); ?>
+
+    <?=
+
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => ['style' => 'width:5%; text-align: center' ],
-                'contentOptions' => ['style' => 'text-align: center'],
+                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
+                'contentOptions' => [ 'style' => 'text-align: center' ],
             ],
-
             [
                 'attribute' => 'produto_id',
-                'headerOptions' => ['style' => 'width:5%; text-align: center'],
-                'contentOptions' => ['style' => 'text-align: center'],                
+                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
+                'contentOptions' => [ 'style' => 'text-align: center' ],
             ],
             [
-                'attribute' => 'categoria.descricao',    
-                'headerOptions' => ['style' => 'width:15%'],
+                'attribute' => 'categoria.descricao',
+                'headerOptions' => [ 'style' => 'width:15%' ],
             ],
-            
             [
-                'attribute' => 'nome',               
+                'attribute' => 'nome',
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => ['style' => 'width:10%; text-align: center' ],
-                'contentOptions' => ['style' => 'text-align: center'],
+                'headerOptions' => [ 'style' => 'width:10%; text-align: center' ],
+                'contentOptions' => [ 'style' => 'text-align: center' ],
             ],
         ],
-    ]); ?>
+    ]);
+
+    ?>
 </div>

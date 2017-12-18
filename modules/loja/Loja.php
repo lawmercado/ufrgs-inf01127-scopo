@@ -7,6 +7,7 @@ namespace app\modules\loja;
  */
 class Loja extends \yii\base\Module
 {
+
     /**
      * @inheritdoc
      */
@@ -20,5 +21,7 @@ class Loja extends \yii\base\Module
         parent::init();
 
         // custom initialization code goes here
+
     }
+
 }

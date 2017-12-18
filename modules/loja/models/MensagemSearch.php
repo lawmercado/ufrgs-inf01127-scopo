@@ -12,15 +12,17 @@ use app\modules\loja\models\Mensagem;
  */
 class MensagemSearch extends Mensagem
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['mensagem_id', 'pedido_id', 'pessoa_id'], 'integer'],
-            [['momento', 'mensagem'], 'safe'],
+            [ [ 'mensagem_id', 'pedido_id', 'pessoa_id' ], 'integer' ],
+            [ [ 'momento', 'mensagem' ], 'safe' ],
         ];
+
     }
 
     /**
@@ -30,6 +32,7 @@ class MensagemSearch extends Mensagem
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+
     }
 
     /**
@@ -39,7 +42,7 @@ class MensagemSearch extends Mensagem
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search( $params )
     {
         $query = Mensagem::find();
 
@@ -51,7 +54,8 @@ class MensagemSearch extends Mensagem
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if ( ! $this->validate() )
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -65,8 +69,10 @@ class MensagemSearch extends Mensagem
             'pessoa_id' => $this->pessoa_id,
         ]);
 
-        $query->andFilterWhere(['like', 'mensagem', $this->mensagem]);
+        $query->andFilterWhere([ 'like', 'mensagem', $this->mensagem ]);
 
         return $dataProvider;
+
     }
+
 }

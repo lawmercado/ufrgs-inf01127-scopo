@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
  */
 class OfertaController extends LojaController
 {
+
     /**
      * @inheritdoc
      */
@@ -21,10 +22,11 @@ class OfertaController extends LojaController
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => [ 'POST' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -33,11 +35,12 @@ class OfertaController extends LojaController
      */
     public function actionIndex()
     {
-        $ofertas = Oferta::find()->where(['corrente' => TRUE])->andFilterCompare("quantidade", 0, ">")->orderBy(['preco'=> SORT_ASC])->all();
-        
+        $ofertas = Oferta::find()->where([ 'corrente' => TRUE ])->andFilterCompare("quantidade", 0, ">")->orderBy([ 'preco' => SORT_ASC ])->all();
+
         return $this->render('index', [
             'ofertas' => $ofertas
         ]);
+
     }
 
     /**
@@ -45,11 +48,12 @@ class OfertaController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView( $id )
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+
     }
 
     /**
@@ -61,13 +65,17 @@ class OfertaController extends LojaController
     {
         $model = new Oferta();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->oferta_id]);
-        } else {
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect([ 'view', 'id' => $model->oferta_id ]);
+        }
+        else
+        {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+
     }
 
     /**
@@ -76,17 +84,21 @@ class OfertaController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate( $id )
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->oferta_id]);
-        } else {
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect([ 'view', 'id' => $model->oferta_id ]);
+        }
+        else
+        {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
+
     }
 
     /**
@@ -95,11 +107,12 @@ class OfertaController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete( $id )
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect([ 'index' ]);
+
     }
 
     /**
@@ -109,12 +122,17 @@ class OfertaController extends LojaController
      * @return Oferta the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel( $id )
     {
-        if (($model = Oferta::findOne($id)) !== null) {
+        if ( ($model = Oferta::findOne($id)) !== null )
+        {
             return $model;
-        } else {
+        }
+        else
+        {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
     }
+
 }

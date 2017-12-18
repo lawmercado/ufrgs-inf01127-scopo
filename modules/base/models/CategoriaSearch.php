@@ -12,15 +12,17 @@ use app\modules\base\models\Categoria;
  */
 class CategoriaSearch extends Categoria
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['categoria_id'], 'integer'],
-            [['descricao'], 'safe'],
+            [ [ 'categoria_id' ], 'integer' ],
+            [ [ 'descricao' ], 'safe' ],
         ];
+
     }
 
     /**
@@ -30,6 +32,7 @@ class CategoriaSearch extends Categoria
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+
     }
 
     /**
@@ -39,7 +42,7 @@ class CategoriaSearch extends Categoria
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search( $params )
     {
         $query = Categoria::find();
 
@@ -51,7 +54,8 @@ class CategoriaSearch extends Categoria
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if ( ! $this->validate() )
+        {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -62,8 +66,10 @@ class CategoriaSearch extends Categoria
             'categoria_id' => $this->categoria_id,
         ]);
 
-        $query->andFilterWhere(['like', 'descricao', $this->descricao]);
+        $query->andFilterWhere([ 'like', 'descricao', $this->descricao ]);
 
         return $dataProvider;
+
     }
+
 }

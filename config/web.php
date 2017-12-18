@@ -10,10 +10,10 @@ $config = [
     'sourceLanguage' => 'pt-br',
     'defaultRoute' => 'loja/oferta',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [ 'log' ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
@@ -24,7 +24,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\modules\base\models\Usuario',
-            'loginUrl' => ['base/default/login'],
+            'loginUrl' => [ 'base/default/login' ],
             'enableAutoLogin' => false,
         ],
         'errorHandler' => [
@@ -42,7 +42,7 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => [ 'error', 'warning' ],
                 ],
             ],
         ],
@@ -54,14 +54,6 @@ $config = [
             'thousandSeparator' => ' ',
             'currencyCode' => 'BRL',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
     ],
     'modules' => [
         'base' => [
@@ -74,20 +66,16 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
+if ( YII_ENV_DEV )
+{
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

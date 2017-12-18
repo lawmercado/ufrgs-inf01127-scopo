@@ -16,12 +16,14 @@ use Yii;
  */
 class Produtor extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'Produtor';
+
     }
 
     /**
@@ -30,12 +32,13 @@ class Produtor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cnpj', 'pessoa_id'], 'required'],
-            [['pessoa_id'], 'integer'],
-            [['cnpj'], 'integer'],
-            [['cnpj'], 'string', 'max' => 14, 'min' => 14],
-            [['pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => ['pessoa_id' => 'pessoa_id']],
+            [ [ 'cnpj', 'pessoa_id' ], 'required' ],
+            [ [ 'pessoa_id' ], 'integer' ],
+            [ [ 'cnpj' ], 'integer' ],
+            [ [ 'cnpj' ], 'string', 'max' => 14, 'min' => 14 ],
+            [ [ 'pessoa_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => [ 'pessoa_id' => 'pessoa_id' ] ],
         ];
+
     }
 
     /**
@@ -52,6 +55,7 @@ class Produtor extends \yii\db\ActiveRecord
             'Pessoa.estado' => 'UF',
             'Pessoa.email' => 'E-mail',
         ];
+
     }
 
     /**
@@ -59,7 +63,8 @@ class Produtor extends \yii\db\ActiveRecord
      */
     public function getOfertas()
     {
-        return $this->hasMany(Oferta::className(), ['produtor_id' => 'produtor_id']);
+        return $this->hasMany(Oferta::className(), [ 'produtor_id' => 'produtor_id' ]);
+
     }
 
     /**
@@ -67,16 +72,20 @@ class Produtor extends \yii\db\ActiveRecord
      */
     public function getPessoa()
     {
-        return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
+        return $this->hasOne(Pessoa::className(), [ 'pessoa_id' => 'pessoa_id' ]);
+
     }
-    
+
     public function getUsuario()
     {
-        return $this->hasOne(Usuario::className(), ['pessoa_id' => 'pessoa_id']);
+        return $this->hasOne(Usuario::className(), [ 'pessoa_id' => 'pessoa_id' ]);
+
     }
-    
+
     public function getRelPessoa()
-{
-        return $this->hasOne(Pessoa::className(), ['pessoa_id' => 'pessoa_id']);
-}
+    {
+        return $this->hasOne(Pessoa::className(), [ 'pessoa_id' => 'pessoa_id' ]);
+
+    }
+
 }

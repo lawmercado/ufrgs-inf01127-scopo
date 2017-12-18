@@ -16,32 +16,34 @@ $hotlinks = [
     "Início" => Url::home()
 ];
 
-if( !Yii::$app->user->isGuest ) {
-    
-    switch (Yii::$app->user->identity->papel_id) {
+if ( ! Yii::$app->user->isGuest )
+{
+
+    switch ( Yii::$app->user->identity->papel_id )
+    {
         case Usuario::PAPEL_ADMINISTRADOR:
             $menu = [
-                "Categorias" => Url::toRoute(['categoria/index']),
-                "Produtos" => Url::toRoute(['produto/index']),
-                "Produtores" => Url::toRoute(['produtor/index'])
+                "Categorias" => Url::toRoute([ 'categoria/index' ]),
+                "Produtos" => Url::toRoute([ 'produto/index' ]),
+                "Produtores" => Url::toRoute([ 'produtor/index' ])
             ];
-            
+
             break;
-        
+
         case Usuario::PAPEL_PRODUTOR:
             break;
-        
+
         case Usuario::PAPEL_CONSUMIDOR:
             break;
-        
+
         default:
     }
-    
-} else {
+}
+else
+{
     $menu = [
-        "Entrar" => Url::toRoute(['/base/default/login'])
+        "Entrar" => Url::toRoute([ '/base/default/login' ])
     ];
-    
 }
 
 ?>
@@ -54,71 +56,71 @@ if( !Yii::$app->user->isGuest ) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8" />
         <?= Html::csrfMetaTags() ?>
-        
+
         <title><?= Html::encode(Yii::$app->name) ?></title>
-                
+
         <?php $this->head() ?>
         <link rel="stylesheet" href="css/modules/base/main.css" type="text/css" />
     </head>
     <body>
-    <?php $this->beginBody() ?>
+        <?php $this->beginBody() ?>
         <header>
             <div class="menu-controller row-left">
                 <h1><?= Html::encode(Yii::$app->name) ?></h1>
             </div>
 
             <div class="row-right">
-                <?php foreach($hotlinks as $label => $link): ?>
-                    <a href="<?= $link?>"><?= Html::encode($label) ?></a>
+                <?php foreach ( $hotlinks as $label => $link ): ?>
+                    <a href="<?= $link ?>"><?= Html::encode($label) ?></a>
                 <?php endforeach ?>
-                
+
                 |
-                    
-                <?php if( !Yii::$app->user->isGuest ): ?>
-                    <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute(['/base/default/logout']) ?>" data-method="post">Sair?</a></p>
+
+                <?php if ( ! Yii::$app->user->isGuest ): ?>
+                    <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute([ '/base/default/logout' ]) ?>" data-method="post">Sair?</a></p>
                 <?php else: ?>
-                    <a href="<?= Url::toRoute(['/base/default/login']) ?>" data-method="post">Entrar</a></p>
+                    <a href="<?= Url::toRoute([ '/base/default/login' ]) ?>" data-method="post">Entrar</a></p>
                 <?php endif; ?>
-                    
+
             </div>
 
             <nav class="menu">
                 <ul>
-                    <?php foreach($menu as $label => $link): ?>
-                        <li><a href="<?= $link?>"><?= Html::encode($label) ?></a></li>
+                    <?php foreach ( $menu as $label => $link ): ?>
+                        <li><a href="<?= $link ?>"><?= Html::encode($label) ?></a></li>
                     <?php endforeach ?>
                 </ul>
             </nav>
         </header>
 
         <section>
-            <?php if( Yii::$app->session->hasFlash('success') ): ?>
-                <?php Alert::begin(["options" => ["class" => "alert-success"]]); ?>
-                    <?= Yii::$app->session->getFlash('success') ?>
+            <?php if ( Yii::$app->session->hasFlash('success') ): ?>
+                <?php Alert::begin([ "options" => [ "class" => "alert-success" ] ]); ?>
+                <?= Yii::$app->session->getFlash('success') ?>
                 <?php Alert::end(); ?>
             <?php endif; ?>
 
-            <?php if( Yii::$app->session->hasFlash('error') ): ?>
-                <?php Alert::begin(["options" => ["class" => "alert-danger"]]); ?>
-                    <?= Yii::$app->session->getFlash('error') ?>
+            <?php if ( Yii::$app->session->hasFlash('error') ): ?>
+                <?php Alert::begin([ "options" => [ "class" => "alert-danger" ] ]); ?>
+                <?= Yii::$app->session->getFlash('error') ?>
                 <?php Alert::end(); ?>
             <?php endif; ?>
-            
+
             <?= $content ?>
         </section>
-        
+
         <script type="text/javascript">
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 // Cria o handler para o menu
-                document.querySelector(".menu-controller").addEventListener("click", function() {
+                document.querySelector(".menu-controller").addEventListener("click", function () {
                     this.classList.toggle("menu-controller-active");
                     this.parentElement.classList.toggle("menu-active");
                 });
-                
+
             });
         </script>
-        
-    <?php $this->endBody() ?>
+
+        <?php $this->endBody() ?>
     </body>
 </html>
 <?php $this->endPage() ?>

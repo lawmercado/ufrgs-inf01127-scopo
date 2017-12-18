@@ -16,12 +16,14 @@ use Yii;
  */
 class Produto extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'Produto';
+
     }
 
     /**
@@ -30,11 +32,12 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'categoria_id'], 'required'],
-            [['categoria_id'], 'integer'],
-            [['nome'], 'string', 'max' => 45],
-            [['categoria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => ['categoria_id' => 'categoria_id']],
+            [ [ 'nome', 'categoria_id' ], 'required' ],
+            [ [ 'categoria_id' ], 'integer' ],
+            [ [ 'nome' ], 'string', 'max' => 45 ],
+            [ [ 'categoria_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::className(), 'targetAttribute' => [ 'categoria_id' => 'categoria_id' ] ],
         ];
+
     }
 
     /**
@@ -49,6 +52,7 @@ class Produto extends \yii\db\ActiveRecord
             'Categoria.descricao' => 'Categoria',
             'categoria.descricao' => 'Categoria',
         ];
+
     }
 
     /**
@@ -56,7 +60,8 @@ class Produto extends \yii\db\ActiveRecord
      */
     public function getOfertas()
     {
-        return $this->hasMany(Oferta::className(), ['produto_id' => 'produto_id']);
+        return $this->hasMany(Oferta::className(), [ 'produto_id' => 'produto_id' ]);
+
     }
 
     /**
@@ -64,7 +69,8 @@ class Produto extends \yii\db\ActiveRecord
      */
     public function getCategoria()
     {
-        return $this->hasOne(Categoria::className(), ['categoria_id' => 'categoria_id']);
+        return $this->hasOne(Categoria::className(), [ 'categoria_id' => 'categoria_id' ]);
+
     }
-    
+
 }

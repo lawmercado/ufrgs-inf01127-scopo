@@ -17,6 +17,7 @@ use app\modules\base\models\Usuario;
  */
 class ProdutorController extends BaseController
 {
+
     /**
      * @inheritdoc
      */
@@ -28,26 +29,27 @@ class ProdutorController extends BaseController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index','create','update','view', 'delete'],
+                'only' => [ 'index', 'create', 'update', 'view', 'delete' ],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
                     ],
                     [
-                        'actions' => ['view'],
+                        'actions' => [ 'view' ],
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_PRODUTOR],
+                        'roles' => [ Usuario::PAPEL_PRODUTOR ],
                     ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => [ 'POST' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -58,12 +60,13 @@ class ProdutorController extends BaseController
     {
         $searchModel = new ProdutorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
-        
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
 
     /**
@@ -71,19 +74,20 @@ class ProdutorController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id = 99999, $senha = 'Indisponivel')
+    public function actionView( $id = 99999, $senha = 'Indisponivel' )
     {
-        if($id == 99999){
-            $id = Produtor::findOne(["pessoa_id" => Yii::$app->user->identity->pessoa_id]);
+        if ( $id == 99999 )
+        {
+            $id = Produtor::findOne([ "pessoa_id" => Yii::$app->user->identity->pessoa_id ]);
         }
-        
+
         $model = $this->findModel($id);
-        
+
         return $this->render('view', [
             'model' => $model,
             'senha' => $senha,
-            
         ]);
+
     }
 
     /**
@@ -96,30 +100,34 @@ class ProdutorController extends BaseController
         $model = new Produtor();
         $pessoa = new Pessoa();
         $usuario = new Usuario();
-        
-        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
+
+        if ( $model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) )
+        {
             $pessoa->save();
-            
-            $model->pessoa_id = $pessoa->pessoa_id;            
+
+            $model->pessoa_id = $pessoa->pessoa_id;
             $model->save();
-            
+
             $usuario->pessoa_id = $pessoa->pessoa_id;
             $usuario->login = $model->cnpj;
-            
+
             $senha = $this->geraSenha(6, true, true, false);
-            $usuario->senha = $senha;  
-            
+            $usuario->senha = $senha;
+
             $usuario->papel_id = Usuario::PAPEL_PRODUTOR;
             $usuario->save();
-            
-            return $this->redirect(['view', 'id' => $model->produtor_id, 'senha' => $senha]);
-        } else {
+
+            return $this->redirect([ 'view', 'id' => $model->produtor_id, 'senha' => $senha ]);
+        }
+        else
+        {
             return $this->render('create', [
                 'model' => $model,
                 'pessoa' => $pessoa,
                 'usuario' => $usuario,
             ]);
         }
+
     }
 
     /**
@@ -128,24 +136,28 @@ class ProdutorController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate( $id )
     {
         $model = $this->findModel($id);
         $pessoa = $model->pessoa;
         $usuario = $model->usuario;
-        
-        if ($model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post())) {
+
+        if ( $model->load(Yii::$app->request->post()) && $pessoa->load(Yii::$app->request->post()) )
+        {
             $pessoa->save();
             $model->save();
-            
-            return $this->redirect(['view', 'id' => $model->produtor_id]);
-        } else {
+
+            return $this->redirect([ 'view', 'id' => $model->produtor_id ]);
+        }
+        else
+        {
             return $this->render('update', [
                 'model' => $model,
                 'pessoa' => $pessoa,
                 'usuario' => $usuario
             ]);
         }
+
     }
 
     /**
@@ -154,13 +166,14 @@ class ProdutorController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete( $id )
     {
         $model = $this->findModel($id);
         $model->pessoa->delete();
         $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect([ 'index' ]);
+
     }
 
     /**
@@ -170,18 +183,20 @@ class ProdutorController extends BaseController
      * @return Produtor the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel( $id )
     {
-        if (($model = Produtor::findOne($id)) !== null) {
+        if ( ($model = Produtor::findOne($id)) !== null )
+        {
             return $model;
-        } else {
+        }
+        else
+        {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-    
 
-    
-    function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = false)
+    }
+
+    function geraSenha( $tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = false )
     {
         $lmin = 'abcdefghijklmnopqrstuvwxyz';
         $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -190,30 +205,40 @@ class ProdutorController extends BaseController
         $retorno = '';
         $caracteres = '';
         $caracteres .= $lmin;
-        
-        if ($maiusculas) $caracteres .= $lmai;
-        if ($numeros) $caracteres .= $num;
-        if ($simbolos) $caracteres .= $simb;
-        
+
+        if ( $maiusculas )
+            $caracteres .= $lmai;
+        if ( $numeros )
+            $caracteres .= $num;
+        if ( $simbolos )
+            $caracteres .= $simb;
+
         $len = strlen($caracteres);
-        
-        for ($n = 1; $n <= $tamanho; $n++) {
+
+        for ( $n = 1; $n <= $tamanho; $n ++ )
+        {
             $rand = mt_rand(1, $len);
-            $retorno .= $caracteres[$rand-1];
+            $retorno .= $caracteres[$rand - 1];
         }
         return $retorno;
+
     }
-    
-    function debug($mensagem = 'teste'){
+
+    function debug( $mensagem = 'teste' )
+    {
         Yii::trace($mensagem);
         $this->debug_to_console("TESTE");
-    }
-    
-    function debug_to_console( $data ) {
-    $output = $data;
-    if ( is_array( $output ) )
-        $output = implode( ',', $output);
 
-    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
     }
+
+    function debug_to_console( $data )
+    {
+        $output = $data;
+        if ( is_array($output) )
+            $output = implode(',', $output);
+
+        echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+
+    }
+
 }

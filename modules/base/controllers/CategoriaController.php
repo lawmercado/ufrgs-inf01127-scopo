@@ -16,6 +16,7 @@ use app\modules\base\models\Usuario;
  */
 class CategoriaController extends BaseController
 {
+
     /**
      * @inheritdoc
      */
@@ -27,21 +28,22 @@ class CategoriaController extends BaseController
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => ['index','create','update','view', 'delete'],
+                'only' => [ 'index', 'create', 'update', 'view', 'delete' ],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [Usuario::PAPEL_ADMINISTRADOR],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
                     ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => [ 'POST' ],
                 ],
             ],
         ];
+
     }
 
     /**
@@ -57,6 +59,7 @@ class CategoriaController extends BaseController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
 
     /**
@@ -64,11 +67,12 @@ class CategoriaController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView( $id )
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+
     }
 
     /**
@@ -80,13 +84,17 @@ class CategoriaController extends BaseController
     {
         $model = new Categoria();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->categoria_id]);
-        } else {
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect([ 'view', 'id' => $model->categoria_id ]);
+        }
+        else
+        {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+
     }
 
     /**
@@ -95,17 +103,21 @@ class CategoriaController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate( $id )
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->categoria_id]);
-        } else {
+        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
+            return $this->redirect([ 'view', 'id' => $model->categoria_id ]);
+        }
+        else
+        {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
+
     }
 
     /**
@@ -114,11 +126,12 @@ class CategoriaController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete( $id )
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect([ 'index' ]);
+
     }
 
     /**
@@ -128,12 +141,17 @@ class CategoriaController extends BaseController
      * @return Categoria the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel( $id )
     {
-        if (($model = Categoria::findOne($id)) !== null) {
+        if ( ($model = Categoria::findOne($id)) !== null )
+        {
             return $model;
-        } else {
+        }
+        else
+        {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+
     }
+
 }

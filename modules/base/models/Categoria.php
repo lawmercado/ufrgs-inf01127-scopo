@@ -14,12 +14,14 @@ use Yii;
  */
 class Categoria extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'Categoria';
+
     }
 
     /**
@@ -28,9 +30,10 @@ class Categoria extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao'], 'required'],
-            [['descricao'], 'string', 'max' => 45],
+            [ [ 'descricao' ], 'required' ],
+            [ [ 'descricao' ], 'string', 'max' => 45 ],
         ];
+
     }
 
     /**
@@ -42,6 +45,7 @@ class Categoria extends \yii\db\ActiveRecord
             'categoria_id' => 'ID',
             'descricao' => 'Descrição',
         ];
+
     }
 
     /**
@@ -49,6 +53,8 @@ class Categoria extends \yii\db\ActiveRecord
      */
     public function getProdutos()
     {
-        return $this->hasMany(Produto::className(), ['categoria_id' => 'categoria_id']);
+        return $this->hasMany(Produto::className(), [ 'categoria_id' => 'categoria_id' ]);
+
     }
+
 }
