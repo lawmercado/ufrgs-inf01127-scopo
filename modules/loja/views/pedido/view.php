@@ -112,13 +112,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 "label" => "Preço por Kg",
-                "value" => "R$" . Yii::$app->formatter->asDecimal($model->oferta->preco)
+                "value" => "R$ " . Yii::$app->formatter->asDecimal($model->oferta->preco)
             ],
             [
                 "label" => "Total",
                 "value" => function($model)
                 {
-                    return "R$" . Yii::$app->formatter->asDecimal($model->oferta->quantidade * $model->oferta->preco);
+                    return "R$ " . Yii::$app->formatter->asDecimal($model->quantidade * $model->oferta->preco);
                 }
             ],
         ],
