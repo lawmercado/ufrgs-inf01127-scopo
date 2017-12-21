@@ -133,7 +133,7 @@ class PedidoController extends LojaController
 
         if( $model->load(Yii::$app->request->post()) && $model->save() )
         {
-            return $this->redirect([ 'view', 'id' => $model->pedido_id]);
+            return $this->redirect(['view', 'id' => $model->pedido_id]);
         }
         else
         {
@@ -163,7 +163,7 @@ class PedidoController extends LojaController
             {
                 Yii::$app->session->setFlash("success", "Pedido atualizado com sucesso!");
 
-                return $this->redirect([ "index"]);
+                //return $this->redirect([ "index"]);
             }
             else
             {

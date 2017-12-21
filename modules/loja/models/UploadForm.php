@@ -16,15 +16,15 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg, png, jpeg'],
         ];
     }
 
-    public function upload($model)
+    public function upload($path)
     {
         if( $this->validate() )
         {
-            $this->imageFile->saveAs('images/' . $model->oferta_id . '.' . $this->imageFile->extension);
+            $this->imageFile->saveAs($path);
             return true;
         }
         else

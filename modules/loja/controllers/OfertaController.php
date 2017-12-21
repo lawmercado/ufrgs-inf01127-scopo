@@ -68,7 +68,9 @@ class OfertaController extends LojaController
         if( $model->load(Yii::$app->request->post()) && $model->save() )
         {
             $upload->imageFile = UploadedFile::getInstance($upload, 'imageFile');
-            $upload->upload($model);
+            $path = 'images/' . $model->oferta_id . '.' . $upload->imageFile->extension;
+            $upload->upload($path);
+            
             return $this->redirect([ 'view', 'id' => $model->oferta_id]);
         }
         else

@@ -5,7 +5,6 @@ namespace app\modules\loja\models;
 use Yii;
 use app\modules\base\models\Produto;
 use app\modules\base\models\Produtor;
-use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "Oferta".
@@ -26,7 +25,7 @@ use yii\web\UploadedFile;
  */
 class Oferta extends \yii\db\ActiveRecord
 {
-
+    
     /**
      * @inheritdoc
      */
@@ -108,6 +107,20 @@ class Oferta extends \yii\db\ActiveRecord
         $newOferta->save();
         $this->save();
 
+        $images = scandir(Yii::getAlias("@webroot").'/images/');
+        
+        $path = "";
+        $newPath = "";
+        
+        foreach($images as $image) {
+            if( strpos($image, "{$this->oferta_id}") === 0 ) {
+                $path = $image;
+                $newPath = str_replace($this->oferta_id, $newOferta->oferta_id, $image);
+            }
+        }
+        
+        rename(Yii::getAlias("@webroot") . "/images/" . $path, Yii::getAlias("@webroot") . "/images/" . $newPath);
+        
         return $newOferta->oferta_id;
     }
 
