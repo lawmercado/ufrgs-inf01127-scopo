@@ -10,54 +10,52 @@ use app\modules\loja\models\Pedido;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Pedido */
 
-$this->title = 'Atualizar pedido';
-$this->params['breadcrumbs'][] = [ 'label' => 'Pedidos', 'url' => [ 'index' ] ];
-$this->params['breadcrumbs'][] = [ 'label' => "Pedido #{$model->pedido_id}", 'url' => [ 'view', 'id' => $model->pedido_id ] ];
+$this->title                   = 'Atualizar pedido';
+$this->params['breadcrumbs'][] = [ 'label' => 'Pedidos', 'url' => [ 'index']];
+$this->params['breadcrumbs'][] = [ 'label' => "Pedido #{$model->pedido_id}", 'url' => [ 'view', 'id' => $model->pedido_id]];
 $this->params['breadcrumbs'][] = 'Atualizar';
-
 ?>
 <div class="pedido-update">
 
-    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if ( count($model->getErrors("status_id")) > 0 ): ?>
-        <?= Html::error($model, "status_id", [ "class" => "alert alert-danger" ]) ?>
+    <?php if( count($model->getErrors("status_id")) > 0 ): ?>
+        <?= Html::error($model, "status_id", [ "class" => "alert alert-danger"]) ?>
     <?php endif; ?>
 
     <p>
         <?php
-
-        $form = ActiveForm::begin();
+        $form      = ActiveForm::begin();
         $pessoa_id = Yii::$app->user->identity->pessoa_id;
-        $papel_id = Yii::$app->user->identity->papel_id;
+        $papel_id  = Yii::$app->user->identity->papel_id;
         $status_id = $model->status_id;
 
-        switch ( $papel_id )
+        switch( $papel_id )
         {
             case Usuario::PAPEL_PRODUTOR:
-                if ( $status_id == Pedido::STATUS_PENDENTE )
+                if( $status_id == Pedido::STATUS_PENDENTE )
                 {
-                    echo Html::submitButton("Aprovar", [ 'name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_EMANDAMENTO, 'class' => 'btn btn-success' ]);
+                    echo Html::submitButton("Aprovar", [ 'name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_EMANDAMENTO, 'class' => 'btn btn-success']);
                     echo Html::submitButton("Cancelar", [
-                        'name' => 'status_id',
+                        'name'  => 'status_id',
                         'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO,
                         'class' => 'btn btn-danger',
-                        'data' => [
+                        'data'  => [
                             'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
                         ],
                     ]);
                 }
-                elseif ( $status_id == Pedido::STATUS_EMANDAMENTO )
+                elseif( $status_id == Pedido::STATUS_EMANDAMENTO )
                 {
-                    echo Html::a('Chat', [ 'mensagem/create', 'pedido_id' => $model->pedido_id ], [ 'class' => 'btn btn-primary' ]);
-                    echo Html::submitButton("Finalizar", [ 'name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_FINALIZADO, 'class' => 'btn btn-success' ]);
+                    echo Html::a('Chat', [ 'mensagem/create', 'pedido_id' => $model->pedido_id], [ 'class' => 'btn btn-primary']);
+                    echo Html::submitButton("Finalizar", [ 'name' => 'status_id', 'value' => app\modules\loja\models\Pedido::STATUS_FINALIZADO, 'class' => 'btn btn-success']);
                     echo Html::submitButton("Cancelar", [
-                        'name' => 'status_id',
+                        'name'  => 'status_id',
                         'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO,
                         'class' => 'btn btn-danger',
-                        'data' => [
+                        'data'  => [
                             'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
                         ]
                     ]);
@@ -66,25 +64,25 @@ $this->params['breadcrumbs'][] = 'Atualizar';
                 break;
 
             case Usuario::PAPEL_CONSUMIDOR:
-                if ( $status_id == Pedido::STATUS_EMANDAMENTO )
+                if( $status_id == Pedido::STATUS_EMANDAMENTO )
                 {
-                    echo Html::a('Chat', [ 'mensagem/create', 'pedido_id' => $model->pedido_id ], [ 'class' => 'btn btn-primary' ]);
+                    echo Html::a('Chat', [ 'mensagem/create', 'pedido_id' => $model->pedido_id], [ 'class' => 'btn btn-primary']);
                     echo Html::submitButton("Cancelar", [
-                        'name' => 'status_id',
+                        'name'  => 'status_id',
                         'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO,
                         'class' => 'btn btn-danger',
-                        'data' => [
+                        'data'  => [
                             'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
                         ]
                     ]);
                 }
-                else if ( $status_id == Pedido::STATUS_PENDENTE )
+                else if( $status_id == Pedido::STATUS_PENDENTE )
                 {
                     echo Html::submitButton("Cancelar", [
-                        'name' => 'status_id',
+                        'name'  => 'status_id',
                         'value' => app\modules\loja\models\Pedido::STATUS_CANCELADO,
                         'class' => 'btn btn-danger',
-                        'data' => [
+                        'data'  => [
                             'confirm' => 'Você tem certeza que quer cancelar esse pedido?',
                         ]
                     ]);
@@ -92,25 +90,23 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
                 break;
         }
-
         ?>
         <?php ActiveForm::end(); ?> 
     </p>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 'attribute' => 'momento',
-                'value' => Yii::$app->formatter->asDateTime($model->momento),
+                'value'     => Yii::$app->formatter->asDateTime($model->momento),
             ],
             [
                 'label' => 'Status',
                 'value' => function($model)
                 {
-                    switch ( $model->status_id )
+                    switch( $model->status_id )
                     {
                         case 1: return 'Pendente';
                             break;
@@ -125,13 +121,11 @@ $this->params['breadcrumbs'][] = 'Atualizar';
             ],
         ],
     ])
-
     ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 "label" => "Produtor",
@@ -146,13 +140,11 @@ $this->params['breadcrumbs'][] = 'Atualizar';
             ],
         ],
     ])
-
     ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 "label" => "Consumidor",
@@ -167,13 +159,11 @@ $this->params['breadcrumbs'][] = 'Atualizar';
             ],
         ],
     ])
-
     ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 "label" => "Produto",
@@ -195,7 +185,6 @@ $this->params['breadcrumbs'][] = 'Atualizar';
             ],
         ],
     ])
-
     ?>
 
 </div>

@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 
 class UploadForm extends Model
 {
+
     /**
      * @var UploadedFile
      */
@@ -18,15 +19,18 @@ class UploadForm extends Model
             [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg'],
         ];
     }
-    
+
     public function upload($model)
     {
-        if ($this->validate()) {
+        if( $this->validate() )
+        {
             $this->imageFile->saveAs('images/' . $model->oferta_id . '.' . $this->imageFile->extension);
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
-}
 
+}

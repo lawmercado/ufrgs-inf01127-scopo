@@ -8,6 +8,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\loja\models\UploadForm;
 use yii\web\UploadedFile;
+
 /**
  * OfertaController implements the CRUD actions for Oferta model.
  */
@@ -21,13 +22,12 @@ class OfertaController extends LojaController
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
-                    'delete' => [ 'POST' ],
+                    'delete' => [ 'POST'],
                 ],
             ],
         ];
-
     }
 
     /**
@@ -36,12 +36,11 @@ class OfertaController extends LojaController
      */
     public function actionIndex()
     {
-        $ofertas = Oferta::find()->where([ 'corrente' => TRUE ])->andFilterCompare("quantidade", 0, ">")->orderBy([ 'preco' => SORT_ASC ])->all();
+        $ofertas = Oferta::find()->where([ 'corrente' => TRUE])->andFilterCompare("quantidade", 0, ">")->orderBy([ 'preco' => SORT_ASC])->all();
 
         return $this->render('index', [
-            'ofertas' => $ofertas
+                    'ofertas' => $ofertas
         ]);
-
     }
 
     /**
@@ -49,12 +48,11 @@ class OfertaController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionView( $id )
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
-
     }
 
     /**
@@ -64,25 +62,23 @@ class OfertaController extends LojaController
      */
     public function actionCreate()
     {
-        $model = new Oferta();
-        $upload = new UploadForm();         
-        
-        if ( $model->load(Yii::$app->request->post()) && $model->save())
-        {        
+        $model  = new Oferta();
+        $upload = new UploadForm();
+
+        if( $model->load(Yii::$app->request->post()) && $model->save() )
+        {
             $upload->imageFile = UploadedFile::getInstance($upload, 'imageFile');
             $upload->upload($model);
-            return $this->redirect([ 'view', 'id' => $model->oferta_id ]);
+            return $this->redirect([ 'view', 'id' => $model->oferta_id]);
         }
         else
-        {          
-            
+        {
+
             return $this->render('create', [
-                'model' => $model,
-                'upload' => $upload,
-                
+                        'model'  => $model,
+                        'upload' => $upload,
             ]);
         }
-
     }
 
     /**
@@ -91,21 +87,20 @@ class OfertaController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate( $id )
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        if( $model->load(Yii::$app->request->post()) && $model->save() )
         {
-            return $this->redirect([ 'view', 'id' => $model->oferta_id ]);
+            return $this->redirect([ 'view', 'id' => $model->oferta_id]);
         }
         else
         {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
-
     }
 
     /**
@@ -114,12 +109,11 @@ class OfertaController extends LojaController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete( $id )
+    public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect([ 'index' ]);
-
+        return $this->redirect([ 'index']);
     }
 
     /**
@@ -129,9 +123,9 @@ class OfertaController extends LojaController
      * @return Oferta the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( $id )
+    protected function findModel($id)
     {
-        if ( ($model = Oferta::findOne($id)) !== null )
+        if( ($model = Oferta::findOne($id)) !== null )
         {
             return $model;
         }
@@ -139,11 +133,6 @@ class OfertaController extends LojaController
         {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
     }
-    
-    
-    
-    
 
 }

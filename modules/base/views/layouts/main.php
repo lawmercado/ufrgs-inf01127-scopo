@@ -1,5 +1,4 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -11,21 +10,21 @@ use yii\bootstrap\Alert;
 
 AppAsset::register($this);
 
-$menu = [];
+$menu     = [];
 $hotlinks = [
     "Início" => Url::home()
 ];
 
-if ( ! Yii::$app->user->isGuest )
+if( !Yii::$app->user->isGuest )
 {
 
-    switch ( Yii::$app->user->identity->papel_id )
+    switch( Yii::$app->user->identity->papel_id )
     {
         case Usuario::PAPEL_ADMINISTRADOR:
             $menu = [
-                "Categorias" => Url::toRoute([ 'categoria/index' ]),
-                "Produtos" => Url::toRoute([ 'produto/index' ]),
-                "Produtores" => Url::toRoute([ 'produtor/index' ])
+                "Categorias" => Url::toRoute([ 'categoria/index']),
+                "Produtos"   => Url::toRoute([ 'produto/index']),
+                "Produtores" => Url::toRoute([ 'produtor/index'])
             ];
 
             break;
@@ -42,10 +41,9 @@ if ( ! Yii::$app->user->isGuest )
 else
 {
     $menu = [
-        "Entrar" => Url::toRoute([ '/base/default/login' ])
+        "Entrar" => Url::toRoute([ '/base/default/login'])
     ];
 }
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -70,23 +68,23 @@ else
             </div>
 
             <div class="row-right">
-                <?php foreach ( $hotlinks as $label => $link ): ?>
+                <?php foreach( $hotlinks as $label => $link ): ?>
                     <a href="<?= $link ?>"><?= Html::encode($label) ?></a>
                 <?php endforeach ?>
 
                 |
 
-                <?php if ( ! Yii::$app->user->isGuest ): ?>
-                    <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute([ '/base/default/logout' ]) ?>" data-method="post">Sair?</a></p>
+                <?php if( !Yii::$app->user->isGuest ): ?>
+                    <p>Oi, <strong><?= Yii::$app->user->identity->pessoa->nome ?></strong>. <a href="<?= Url::toRoute([ '/base/default/logout']) ?>" data-method="post">Sair?</a></p>
                 <?php else: ?>
-                    <a href="<?= Url::toRoute([ '/base/default/login' ]) ?>" data-method="post">Entrar</a></p>
+                    <a href="<?= Url::toRoute([ '/base/default/login']) ?>" data-method="post">Entrar</a></p>
                 <?php endif; ?>
 
             </div>
 
             <nav class="menu">
                 <ul>
-                    <?php foreach ( $menu as $label => $link ): ?>
+                    <?php foreach( $menu as $label => $link ): ?>
                         <li><a href="<?= $link ?>"><?= Html::encode($label) ?></a></li>
                     <?php endforeach ?>
                 </ul>
@@ -94,14 +92,14 @@ else
         </header>
 
         <section>
-            <?php if ( Yii::$app->session->hasFlash('success') ): ?>
-                <?php Alert::begin([ "options" => [ "class" => "alert-success" ] ]); ?>
+            <?php if( Yii::$app->session->hasFlash('success') ): ?>
+                <?php Alert::begin([ "options" => [ "class" => "alert-success"]]); ?>
                 <?= Yii::$app->session->getFlash('success') ?>
                 <?php Alert::end(); ?>
             <?php endif; ?>
 
-            <?php if ( Yii::$app->session->hasFlash('error') ): ?>
-                <?php Alert::begin([ "options" => [ "class" => "alert-danger" ] ]); ?>
+            <?php if( Yii::$app->session->hasFlash('error') ): ?>
+                <?php Alert::begin([ "options" => [ "class" => "alert-danger"]]); ?>
                 <?= Yii::$app->session->getFlash('error') ?>
                 <?php Alert::end(); ?>
             <?php endif; ?>

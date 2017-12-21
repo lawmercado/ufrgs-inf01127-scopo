@@ -9,36 +9,32 @@ use yii\widgets\Breadcrumbs;
 /* @var $senha string */
 
 
-$this->title = "Produtor {$model->produtor_id}";
-$this->params['breadcrumbs'][] = [ 'label' => 'Produtores', 'url' => [ 'index' ] ];
+$this->title                   = "Produtor {$model->produtor_id}";
+$this->params['breadcrumbs'][] = [ 'label' => 'Produtores', 'url' => [ 'index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="produtor-view">
 
-    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
 
     <h1 class="titulo"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Atualizar', [ 'update', 'id' => $model->produtor_id ], [ 'class' => 'btn btn-primary' ]) ?>
+        <?= Html::a('Atualizar', [ 'update', 'id' => $model->produtor_id], [ 'class' => 'btn btn-primary']) ?>
         <?=
-
-        Html::a('Remover', [ 'delete', 'id' => $model->produtor_id ], [
+        Html::a('Remover', [ 'delete', 'id' => $model->produtor_id], [
             'class' => 'btn btn-danger',
-            'data' => [
+            'data'  => [
                 'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+                'method'  => 'post',
             ],
         ])
-
         ?>
     </p>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             'produtor_id',
             [
@@ -68,7 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
 </div>

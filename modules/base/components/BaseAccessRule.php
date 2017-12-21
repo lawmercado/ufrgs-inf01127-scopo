@@ -10,36 +10,35 @@ class BaseAccessRule extends \yii\filters\AccessRule
     /**
      * @inheritdoc
      */
-    protected function matchRole( $user )
+    protected function matchRole($user)
     {
-        if ( empty($this->roles) )
+        if( empty($this->roles) )
         {
             return true;
         }
-        foreach ( $this->roles as $role )
+        foreach( $this->roles as $role )
         {
-            if ( $role == '?' )
+            if( $role == '?' )
             {
-                if ( $user->getIsGuest() )
+                if( $user->getIsGuest() )
                 {
                     return true;
                 }
             }
-            elseif ( $role == '@' )
+            elseif( $role == '@' )
             {
-                if ( ! $user->getIsGuest() )
+                if( !$user->getIsGuest() )
                 {
                     return true;
                 }
             }
-            elseif ( ! $user->getIsGuest() && $role == $user->identity->papel_id )
+            elseif( !$user->getIsGuest() && $role == $user->identity->papel_id )
             { // Check if the user is logged in, and the roles match
                 return true;
             }
         }
 
         return false;
-
     }
 
 }

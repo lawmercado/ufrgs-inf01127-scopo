@@ -24,26 +24,25 @@ class ProdutoController extends BaseController
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class'      => AccessControl::className(),
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => [ 'index', 'create', 'update', 'view', 'delete' ],
-                'rules' => [
+                'only'       => [ 'index', 'create', 'update', 'view', 'delete'],
+                'rules'      => [
                     [
                         'allow' => true,
-                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
+                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
-                    'delete' => [ 'POST' ],
+                    'delete' => [ 'POST'],
                 ],
             ],
         ];
-
     }
 
     /**
@@ -52,14 +51,13 @@ class ProdutoController extends BaseController
      */
     public function actionIndex()
     {
-        $searchModel = new ProdutoSearch();
+        $searchModel  = new ProdutoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel'  => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
-
     }
 
     /**
@@ -67,12 +65,11 @@ class ProdutoController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView( $id )
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
-
     }
 
     /**
@@ -84,17 +81,16 @@ class ProdutoController extends BaseController
     {
         $model = new Produto();
 
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        if( $model->load(Yii::$app->request->post()) && $model->save() )
         {
-            return $this->redirect([ 'view', 'id' => $model->produto_id ]);
+            return $this->redirect([ 'view', 'id' => $model->produto_id]);
         }
         else
         {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
-
     }
 
     /**
@@ -103,25 +99,24 @@ class ProdutoController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate( $id )
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model     = $this->findModel($id);
         $categoria = $model->categoria;
 
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        if( $model->load(Yii::$app->request->post()) && $model->save() )
         {
             $categoria->save();
             $model->save();
-            return $this->redirect([ 'view', 'id' => $model->produto_id ]);
+            return $this->redirect([ 'view', 'id' => $model->produto_id]);
         }
         else
         {
             return $this->render('update', [
-                'model' => $model,
-                'categoria' => $categoria
+                        'model'     => $model,
+                        'categoria' => $categoria
             ]);
         }
-
     }
 
     /**
@@ -130,12 +125,11 @@ class ProdutoController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete( $id )
+    public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect([ 'index' ]);
-
+        return $this->redirect([ 'index']);
     }
 
     /**
@@ -145,9 +139,9 @@ class ProdutoController extends BaseController
      * @return Produto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( $id )
+    protected function findModel($id)
     {
-        if ( ($model = Produto::findOne($id)) !== null )
+        if( ($model = Produto::findOne($id)) !== null )
         {
             return $model;
         }
@@ -155,7 +149,6 @@ class ProdutoController extends BaseController
         {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
     }
 
 }

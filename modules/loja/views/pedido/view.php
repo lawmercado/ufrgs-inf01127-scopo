@@ -8,41 +8,39 @@ use \app\modules\loja\models\Pedido;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\Pedido */
 
-$this->title = "Pedido #{$model->pedido_id}";
-$this->params['breadcrumbs'][] = [ 'label' => 'Pedidos', 'url' => [ 'index' ] ];
+$this->title                   = "Pedido #{$model->pedido_id}";
+$this->params['breadcrumbs'][] = [ 'label' => 'Pedidos', 'url' => [ 'index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="pedido-view">
 
-    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if ( $model->status_id != Pedido::STATUS_CANCELADO && $model->status_id != Pedido::STATUS_FINALIZADO ): ?>
+    <?php if( $model->status_id != Pedido::STATUS_CANCELADO && $model->status_id != Pedido::STATUS_FINALIZADO ): ?>
         <p>
-            <?= Html::a('Atualizar', [ 'update', 'id' => $model->pedido_id ], [ 'class' => 'btn btn-primary' ]) ?>
+            <?= Html::a('Atualizar', [ 'update', 'id' => $model->pedido_id], [ 'class' => 'btn btn-primary']) ?>
 
-            <?php if ( $model->status_id == Pedido::STATUS_EMANDAMENTO ): ?>
-                <?= Html::a('Chat', [ 'mensagem/create', 'pedido_id' => $model->pedido_id ], [ 'class' => 'btn btn-primary' ]); ?>
+            <?php if( $model->status_id == Pedido::STATUS_EMANDAMENTO ): ?>
+                <?= Html::a('Chat', [ 'mensagem/create', 'pedido_id' => $model->pedido_id], [ 'class' => 'btn btn-primary']); ?>
             <?php endif; ?>
         </p>
     <?php endif; ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 'attribute' => 'momento',
-                'value' => Yii::$app->formatter->asDateTime($model->momento),
+                'value'     => Yii::$app->formatter->asDateTime($model->momento),
             ],
             [
                 'label' => 'Status',
                 'value' => function($model)
                 {
-                    switch ( $model->status_id )
+                    switch( $model->status_id )
                     {
                         case Pedido::STATUS_PENDENTE: return 'Pendente';
                         case Pedido::STATUS_EMANDAMENTO: return 'Em andamento';
@@ -53,13 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 "label" => "Produtor",
@@ -74,13 +70,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 "label" => "Consumidor",
@@ -95,13 +89,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
     <?=
-
     DetailView::widget([
-        'model' => $model,
+        'model'      => $model,
         'attributes' => [
             [
                 "label" => "Produto",
@@ -123,7 +115,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
 

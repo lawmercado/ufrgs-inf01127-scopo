@@ -11,20 +11,18 @@ use yii\widgets\ActiveForm;
 /* @var $consumidor app\modules\loja\models\Consumidor */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = 'Confirmação do pedido';
+$this->title                   = 'Confirmação do pedido';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="pedido-create">
 
-    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
 
     <h1 class="titulo">Resumo do pedido</h1>
 
     <?=
-
     DetailView::widget([
-        'model' => $oferta,
+        'model'      => $oferta,
         'attributes' => [
             [
                 "label" => "Produtor",
@@ -39,18 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
 
 
     <?=
-
     DetailView::widget([
-        'model' => $oferta,
+        'model'      => $oferta,
         'attributes' => [
             [
-                "label" => "Produto",
+                "label"     => "Produto",
                 "attribute" => 'produto.nome'
             ],
             [
@@ -66,16 +62,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ])
-
     ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'quantidade')->textInput([ 'type' => 'number' ]); ?>
+    <?= $form->field($model, 'quantidade')->textInput([ 'type' => 'number']); ?>
 
-    <?= $form->field($model, 'consumidor_id')->hiddenInput([ 'value' => $consumidor->consumidor_id ])->label(false); ?>
+    <?= $form->field($model, 'consumidor_id')->hiddenInput([ 'value' => $consumidor->consumidor_id])->label(false); ?>
 
-    <?= $form->field($model, 'oferta_id')->hiddenInput([ 'value' => $oferta->oferta_id ])->label(false); ?>
+    <?= $form->field($model, 'oferta_id')->hiddenInput([ 'value' => $oferta->oferta_id])->label(false); ?>
 
     <div class="termo">
         <p>Tanto a entrega quanto o pagamento são tratados diretamente com o Produtor.</p>
@@ -83,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <p><strong>Ao clicar no botão abaixo, você concorda com os termos acima.</strong></p>
     </div>
 
-    <?= Html::submitButton("Confirmar", [ 'class' => "botao" ]) ?>
+    <?= Html::submitButton("Confirmar", [ 'class' => "botao"]) ?>
 
     <?php ActiveForm::end(); ?>
 

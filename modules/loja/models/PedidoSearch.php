@@ -19,10 +19,9 @@ class PedidoSearch extends Pedido
     public function rules()
     {
         return [
-            [ [ 'pedido_id', 'quantidade', 'oferta_id', 'consumidor_id', 'status_id' ], 'integer' ],
-            [ [ 'momento' ], 'safe' ],
+            [ [ 'pedido_id', 'quantidade', 'oferta_id', 'consumidor_id', 'status_id'], 'integer'],
+            [ [ 'momento'], 'safe'],
         ];
-
     }
 
     /**
@@ -32,7 +31,6 @@ class PedidoSearch extends Pedido
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
-
     }
 
     /**
@@ -42,7 +40,7 @@ class PedidoSearch extends Pedido
      *
      * @return ActiveDataProvider
      */
-    public function search( $params )
+    public function search($params)
     {
         $query = Pedido::find();
 
@@ -54,7 +52,7 @@ class PedidoSearch extends Pedido
 
         $this->load($params);
 
-        if ( ! $this->validate() )
+        if( !$this->validate() )
         {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -63,18 +61,17 @@ class PedidoSearch extends Pedido
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'pedido_id' => $this->pedido_id,
-            'momento' => $this->momento,
-            'quantidade' => $this->quantidade,
-            'oferta_id' => $this->oferta_id,
+            'pedido_id'     => $this->pedido_id,
+            'momento'       => $this->momento,
+            'quantidade'    => $this->quantidade,
+            'oferta_id'     => $this->oferta_id,
             'consumidor_id' => $this->consumidor_id
         ]);
 
         return $dataProvider;
-
     }
 
-    public static function searchByStatusAndOffers( $status_id, $ofertas )
+    public static function searchByStatusAndOffers($status_id, $ofertas)
     {
         $query = Pedido::find();
 
@@ -90,7 +87,6 @@ class PedidoSearch extends Pedido
         $query->orderBy("momento DESC");
 
         return $dataProvider;
-
     }
 
 }

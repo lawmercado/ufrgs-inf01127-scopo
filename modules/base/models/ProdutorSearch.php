@@ -19,11 +19,10 @@ class ProdutorSearch extends Produtor
     public function rules()
     {
         return [
-            [ [ 'produtor_id', 'pessoa_id' ], 'integer' ],
-            [ [ 'cnpj' ], 'safe' ],
-            [ [ 'Pessoa.nome', 'Pessoa.estado', 'Pessoa.cidade', 'Pessoa.email' ], 'safe' ],
+            [ [ 'produtor_id', 'pessoa_id'], 'integer'],
+            [ [ 'cnpj'], 'safe'],
+            [ [ 'Pessoa.nome', 'Pessoa.estado', 'Pessoa.cidade', 'Pessoa.email'], 'safe'],
         ];
-
     }
 
     /**
@@ -33,7 +32,6 @@ class ProdutorSearch extends Produtor
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
-
     }
 
     /**
@@ -43,7 +41,7 @@ class ProdutorSearch extends Produtor
      *
      * @return ActiveDataProvider
      */
-    public function search( $params )
+    public function search($params)
     {
         $query = Produtor::find();
 
@@ -53,12 +51,12 @@ class ProdutorSearch extends Produtor
             'query' => $query,
         ]);
 
-        $query->joinWith([ 'pessoa' ]);
+        $query->joinWith([ 'pessoa']);
 
 
         $this->load($params);
 
-        if ( ! $this->validate() )
+        if( !$this->validate() )
         {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -68,24 +66,22 @@ class ProdutorSearch extends Produtor
         // grid filtering conditions
         $query->andFilterWhere([
             'produtor_id' => $this->produtor_id,
-            'pessoa_id' => $this->pessoa_id,
+            'pessoa_id'   => $this->pessoa_id,
         ]);
 
-        $query->andFilterWhere([ 'like', 'cnpj', $this->cnpj ]);
-        $query->andFilterWhere([ 'like', 'Pessoa.nome', $this->getAttribute('Pessoa.nome') ]);
-        $query->andFilterWhere([ 'like', 'Pessoa.estado', $this->getAttribute('Pessoa.estado') ]);
-        $query->andFilterWhere([ 'like', 'Pessoa.cidade', $this->getAttribute('Pessoa.cidade') ]);
-        $query->andFilterWhere([ 'like', 'Pessoa.email', $this->getAttribute('Pessoa.email') ]);
+        $query->andFilterWhere([ 'like', 'cnpj', $this->cnpj]);
+        $query->andFilterWhere([ 'like', 'Pessoa.nome', $this->getAttribute('Pessoa.nome')]);
+        $query->andFilterWhere([ 'like', 'Pessoa.estado', $this->getAttribute('Pessoa.estado')]);
+        $query->andFilterWhere([ 'like', 'Pessoa.cidade', $this->getAttribute('Pessoa.cidade')]);
+        $query->andFilterWhere([ 'like', 'Pessoa.email', $this->getAttribute('Pessoa.email')]);
 
         return $dataProvider;
-
     }
 
     public function attributes()
     {
         // add related fields to searchable attributes
-        return array_merge(parent::attributes(), [ 'Pessoa.nome', 'Pessoa.cidade', 'Pessoa.email', 'Pessoa.estado' ]);
-
+        return array_merge(parent::attributes(), [ 'Pessoa.nome', 'Pessoa.cidade', 'Pessoa.email', 'Pessoa.estado']);
     }
 
 }

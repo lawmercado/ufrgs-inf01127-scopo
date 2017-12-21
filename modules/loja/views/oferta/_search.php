@@ -6,18 +6,15 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\modules\loja\models\OfertaSearch */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="oferta-search">
 
     <?php
-
     $form = ActiveForm::begin([
-        'action' => [ 'index' ],
-        'method' => 'get',
+                'action' => [ 'index'],
+                'method' => 'get',
     ]);
-
     ?>
 
     <?= $form->field($model, 'oferta_id') ?>
@@ -30,13 +27,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'corrente') ?>
 
-    <?php // echo $form->field($model, 'produto_id') ?>
+    <?php // echo $form->field($model, 'produto_id')  ?>
 
-    <?php // echo $form->field($model, 'produtor_id')  ?>
+    <?php // echo $form->field($model, 'produtor_id')   ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Buscar', [ 'class' => 'btn btn-primary' ]) ?>
-        <?= Html::a('Limpar', [ 'index' ], [ 'class' => 'btn btn-default' ]) ?>
+        <?= Html::submitButton('Buscar', [ 'class' => 'btn btn-primary']) ?>
+        <?= Html::a('Limpar', [ 'index'], [ 'class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

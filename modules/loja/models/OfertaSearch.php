@@ -19,11 +19,10 @@ class OfertaSearch extends Oferta
     public function rules()
     {
         return [
-            [ [ 'oferta_id', 'quantidade', 'corrente', 'produto_id', 'produtor_id' ], 'integer' ],
-            [ [ 'momento' ], 'safe' ],
-            [ [ 'preco_unidade' ], 'number' ],
+            [ [ 'oferta_id', 'quantidade', 'corrente', 'produto_id', 'produtor_id'], 'integer'],
+            [ [ 'momento'], 'safe'],
+            [ [ 'preco_unidade'], 'number'],
         ];
-
     }
 
     /**
@@ -33,7 +32,6 @@ class OfertaSearch extends Oferta
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
-
     }
 
     /**
@@ -43,7 +41,7 @@ class OfertaSearch extends Oferta
      *
      * @return ActiveDataProvider
      */
-    public function search( $params )
+    public function search($params)
     {
         $query = Oferta::find();
 
@@ -55,7 +53,7 @@ class OfertaSearch extends Oferta
 
         $this->load($params);
 
-        if ( ! $this->validate() )
+        if( !$this->validate() )
         {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
@@ -64,17 +62,16 @@ class OfertaSearch extends Oferta
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'oferta_id' => $this->oferta_id,
-            'momento' => $this->momento,
-            'quantidade' => $this->quantidade,
+            'oferta_id'     => $this->oferta_id,
+            'momento'       => $this->momento,
+            'quantidade'    => $this->quantidade,
             'preco_unidade' => $this->preco_unidade,
-            'corrente' => $this->corrente,
-            'produto_id' => $this->produto_id,
-            'produtor_id' => $this->produtor_id,
+            'corrente'      => $this->corrente,
+            'produto_id'    => $this->produto_id,
+            'produtor_id'   => $this->produtor_id,
         ]);
 
         return $dataProvider;
-
     }
 
 }

@@ -7,7 +7,6 @@ use yii\widgets\ActiveForm;
 /* @var $model app\modules\base\models\Produtor */
 /* @var $pessoa app\modules\base\models\Pessoa */
 /* @var $form yii\widgets\ActiveForm */
-
 ?>
 
 <div class="produtor-form">
@@ -18,7 +17,7 @@ use yii\widgets\ActiveForm;
 
 
         <div class="filtro-cnpj">
-            <?= $form->field($model, 'cnpj')->textInput([ 'maxlength' => true ]) ?>
+            <?= $form->field($model, 'cnpj')->textInput([ 'maxlength' => true]) ?>
         </div>
         <div class="filtro-nome" style="width: 66%;">    
             <?= $form->field($pessoa, 'nome')->textInput() ?>
@@ -45,7 +44,7 @@ use yii\widgets\ActiveForm;
     </br></br></br></br></br></br>
 
     <div class="form-group filtro-botao">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' ]) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', [ 'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

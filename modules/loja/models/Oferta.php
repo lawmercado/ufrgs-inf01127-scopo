@@ -26,7 +26,6 @@ use yii\web\UploadedFile;
  */
 class Oferta extends \yii\db\ActiveRecord
 {
-    
 
     /**
      * @inheritdoc
@@ -34,7 +33,6 @@ class Oferta extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Oferta';
-
     }
 
     /**
@@ -43,15 +41,13 @@ class Oferta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ [ 'momento' ], 'safe' ],
-            [ [ 'quantidade', 'preco', 'produto_id', 'produtor_id' ], 'required' ],
-            [ [ 'quantidade', 'corrente', 'produto_id', 'produtor_id' ], 'integer' ],
-            [ [ 'preco' ], 'number' ],
-            [ [ 'produto_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => [ 'produto_id' => 'produto_id' ] ],
-            [ [ 'produtor_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Produtor::className(), 'targetAttribute' => [ 'produtor_id' => 'produtor_id' ] ],
-            
+            [ [ 'momento'], 'safe'],
+            [ [ 'quantidade', 'preco', 'produto_id', 'produtor_id'], 'required'],
+            [ [ 'quantidade', 'corrente', 'produto_id', 'produtor_id'], 'integer'],
+            [ [ 'preco'], 'number'],
+            [ [ 'produto_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => [ 'produto_id' => 'produto_id']],
+            [ [ 'produtor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Produtor::className(), 'targetAttribute' => [ 'produtor_id' => 'produtor_id']],
         ];
-
     }
 
     /**
@@ -60,15 +56,14 @@ class Oferta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'oferta_id' => 'ID',
-            'momento' => 'Momento da criação',
-            'quantidade' => 'Quantidade em kg',
-            'preco' => 'Preço por kg',
-            'corrente' => 'Corrente',
-            'produto_id' => 'Produto associado',
+            'oferta_id'   => 'ID',
+            'momento'     => 'Momento da criação',
+            'quantidade'  => 'Quantidade em kg',
+            'preco'       => 'Preço por kg',
+            'corrente'    => 'Corrente',
+            'produto_id'  => 'Produto associado',
             'produtor_id' => 'Produtor associado',
         ];
-
     }
 
     /**
@@ -76,8 +71,7 @@ class Oferta extends \yii\db\ActiveRecord
      */
     public function getProduto()
     {
-        return $this->hasOne(Produto::className(), [ 'produto_id' => 'produto_id' ]);
-
+        return $this->hasOne(Produto::className(), [ 'produto_id' => 'produto_id']);
     }
 
     /**
@@ -85,8 +79,7 @@ class Oferta extends \yii\db\ActiveRecord
      */
     public function getProdutor()
     {
-        return $this->hasOne(Produtor::className(), [ 'produtor_id' => 'produtor_id' ]);
-
+        return $this->hasOne(Produtor::className(), [ 'produtor_id' => 'produtor_id']);
     }
 
     /**
@@ -94,19 +87,18 @@ class Oferta extends \yii\db\ActiveRecord
      */
     public function getPedidos()
     {
-        return $this->hasMany(Pedido::className(), [ 'oferta_id' => 'oferta_id' ]);
-
+        return $this->hasMany(Pedido::className(), [ 'oferta_id' => 'oferta_id']);
     }
 
-    public function alterarQuantidade( $quantidade, $isReserva )
+    public function alterarQuantidade($quantidade, $isReserva)
     {
-        $newOferta = new Oferta();
-        $newOferta->produto_id = $this->produto_id;
+        $newOferta              = new Oferta();
+        $newOferta->produto_id  = $this->produto_id;
         $newOferta->produtor_id = $this->produtor_id;
-        $newOferta->preco = $this->preco;
-        $newOferta->quantidade = $isReserva ? $this->quantidade - $quantidade : $this->quantidade + $quantidade;
+        $newOferta->preco       = $this->preco;
+        $newOferta->quantidade  = $isReserva ? $this->quantidade - $quantidade : $this->quantidade + $quantidade;
 
-        if ( $newOferta->quantidade < 0 )
+        if( $newOferta->quantidade < 0 )
         {
             throw new \yii\web\HttpException(500, "Quantidade de produtos atualmente ofertados ({$this->quantidade}) não é suficiente. Verifique os demais pedidos em andamento!");
         }
@@ -117,12 +109,6 @@ class Oferta extends \yii\db\ActiveRecord
         $this->save();
 
         return $newOferta->oferta_id;
-
     }
-    
-    
-    
-  
-    
 
 }

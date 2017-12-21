@@ -21,7 +21,6 @@ class Papel extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Papel';
-
     }
 
     /**
@@ -30,10 +29,9 @@ class Papel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ [ 'descricao' ], 'required' ],
-            [ [ 'descricao' ], 'string', 'max' => 20 ],
+            [ [ 'descricao'], 'required'],
+            [ [ 'descricao'], 'string', 'max' => 20],
         ];
-
     }
 
     /**
@@ -42,10 +40,9 @@ class Papel extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'papel_id' => 'Identificador',
+            'papel_id'  => 'Identificador',
             'descricao' => 'Descrição',
         ];
-
     }
 
     /**
@@ -53,8 +50,7 @@ class Papel extends \yii\db\ActiveRecord
      */
     public function getUsuarios()
     {
-        return $this->hasMany(Usuario::className(), [ 'papel_id' => 'papel_id' ]);
-
+        return $this->hasMany(Usuario::className(), [ 'papel_id' => 'papel_id']);
     }
 
 }

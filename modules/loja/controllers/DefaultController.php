@@ -15,7 +15,6 @@ class DefaultController extends LojaController
     public function actionIndex()
     {
         return $this->render('index');
-
     }
 
 }

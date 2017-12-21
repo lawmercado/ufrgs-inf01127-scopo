@@ -26,7 +26,6 @@ class Mensagem extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Mensagem';
-
     }
 
     /**
@@ -35,14 +34,13 @@ class Mensagem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ [ 'momento' ], 'safe' ],
-            [ [ 'mensagem', 'pedido_id', 'pessoa_id' ], 'required' ],
-            [ [ 'pedido_id', 'pessoa_id' ], 'integer' ],
-            [ [ 'mensagem' ], 'string', 'max' => 280 ],
-            [ [ 'pedido_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Pedido::className(), 'targetAttribute' => [ 'pedido_id' => 'pedido_id' ] ],
-            [ [ 'pessoa_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => [ 'pessoa_id' => 'pessoa_id' ] ],
+            [ [ 'momento'], 'safe'],
+            [ [ 'mensagem', 'pedido_id', 'pessoa_id'], 'required'],
+            [ [ 'pedido_id', 'pessoa_id'], 'integer'],
+            [ [ 'mensagem'], 'string', 'max' => 280],
+            [ [ 'pedido_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pedido::className(), 'targetAttribute' => [ 'pedido_id' => 'pedido_id']],
+            [ [ 'pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => [ 'pessoa_id' => 'pessoa_id']],
         ];
-
     }
 
     /**
@@ -52,12 +50,11 @@ class Mensagem extends \yii\db\ActiveRecord
     {
         return [
             'mensagem_id' => 'Identificador',
-            'momento' => 'Momento da criação',
-            'mensagem' => 'Mensagem',
-            'pedido_id' => 'Pedido associado',
-            'pessoa_id' => 'Pessoa associada',
+            'momento'     => 'Momento da criação',
+            'mensagem'    => 'Mensagem',
+            'pedido_id'   => 'Pedido associado',
+            'pessoa_id'   => 'Pessoa associada',
         ];
-
     }
 
     /**
@@ -65,8 +62,7 @@ class Mensagem extends \yii\db\ActiveRecord
      */
     public function getPedido()
     {
-        return $this->hasOne(Pedido::className(), [ 'pedido_id' => 'pedido_id' ]);
-
+        return $this->hasOne(Pedido::className(), [ 'pedido_id' => 'pedido_id']);
     }
 
     /**
@@ -74,8 +70,7 @@ class Mensagem extends \yii\db\ActiveRecord
      */
     public function getPessoa()
     {
-        return $this->hasOne(Pessoa::className(), [ 'pessoa_id' => 'pessoa_id' ]);
-
+        return $this->hasOne(Pessoa::className(), [ 'pessoa_id' => 'pessoa_id']);
     }
 
 }

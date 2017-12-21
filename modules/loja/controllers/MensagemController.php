@@ -26,32 +26,31 @@ class MensagemController extends LojaController
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class'      => AccessControl::className(),
                 'ruleConfig' => [
                     'class' => BaseAccessRule::className(),
                 ],
-                'only' => [ 'index', 'create' ],
-                'rules' => [
+                'only'       => [ 'index', 'create'],
+                'rules'      => [
                     [
-                        'actions' => [ 'index' ],
-                        'allow' => true,
-                        'roles' => [ Usuario::PAPEL_ADMINISTRADOR ],
+                        'actions' => [ 'index'],
+                        'allow'   => true,
+                        'roles'   => [ Usuario::PAPEL_ADMINISTRADOR],
                     ],
                     [
-                        'actions' => [ 'create' ],
-                        'allow' => true,
-                        'roles' => [ Usuario::PAPEL_CONSUMIDOR, Usuario::PAPEL_PRODUTOR ],
+                        'actions' => [ 'create'],
+                        'allow'   => true,
+                        'roles'   => [ Usuario::PAPEL_CONSUMIDOR, Usuario::PAPEL_PRODUTOR],
                     ],
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'verbs'  => [
+                'class'   => VerbFilter::className(),
                 'actions' => [
-                    'delete' => [ 'POST' ],
+                    'delete' => [ 'POST'],
                 ],
             ],
         ];
-
     }
 
     /**
@@ -60,14 +59,13 @@ class MensagemController extends LojaController
      */
     public function actionIndex()
     {
-        $searchModel = new MensagemSearch();
+        $searchModel  = new MensagemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel'  => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
-
     }
 
     /**
@@ -75,28 +73,27 @@ class MensagemController extends LojaController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate( $pedido_id )
+    public function actionCreate($pedido_id)
     {
-        $pedido = Pedido::findOne([ "pedido_id" => $pedido_id ]);
-        $pessoa = Pessoa::findOne([ "pessoa_id" => Yii::$app->user->identity->pessoa_id ]);
-        $mensagens = Mensagem::findAll([ "pedido_id" => $pedido_id ]);
+        $pedido    = Pedido::findOne([ "pedido_id" => $pedido_id]);
+        $pessoa    = Pessoa::findOne([ "pessoa_id" => Yii::$app->user->identity->pessoa_id]);
+        $mensagens = Mensagem::findAll([ "pedido_id" => $pedido_id]);
 
         $model = new Mensagem();
 
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
+        if( $model->load(Yii::$app->request->post()) && $model->save() )
         {
-            return $this->redirect([ 'create', 'pedido_id' => $pedido_id ]);
+            return $this->redirect([ 'create', 'pedido_id' => $pedido_id]);
         }
         else
         {
             return $this->render('create', [
-                'model' => $model,
-                'pedido' => $pedido,
-                'pessoa' => $pessoa,
-                'mensagens' => $mensagens
+                        'model'     => $model,
+                        'pedido'    => $pedido,
+                        'pessoa'    => $pessoa,
+                        'mensagens' => $mensagens
             ]);
         }
-
     }
 
     /**
@@ -106,9 +103,9 @@ class MensagemController extends LojaController
      * @return Mensagem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel( $id )
+    protected function findModel($id)
     {
-        if ( ($model = Mensagem::findOne($id)) !== null )
+        if( ($model = Mensagem::findOne($id)) !== null )
         {
             return $model;
         }
@@ -116,7 +113,6 @@ class MensagemController extends LojaController
         {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-
     }
 
 }

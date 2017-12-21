@@ -24,7 +24,6 @@ class Consumidor extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'Consumidor';
-
     }
 
     /**
@@ -33,13 +32,12 @@ class Consumidor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [ [ 'cpf', 'pessoa_id' ], 'required' ],
-            [ [ 'pessoa_id' ], 'integer' ],
-            [ [ 'cpf' ], 'integer' ],
-            [ [ 'cpf' ], 'string', 'max' => 11, 'min' => 11 ],
-            [ [ 'pessoa_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => [ 'pessoa_id' => 'pessoa_id' ] ],
+            [ [ 'cpf', 'pessoa_id'], 'required'],
+            [ [ 'pessoa_id'], 'integer'],
+            [ [ 'cpf'], 'integer'],
+            [ [ 'cpf'], 'string', 'max' => 11, 'min' => 11],
+            [ [ 'pessoa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pessoa::className(), 'targetAttribute' => [ 'pessoa_id' => 'pessoa_id']],
         ];
-
     }
 
     /**
@@ -49,14 +47,13 @@ class Consumidor extends \yii\db\ActiveRecord
     {
         return [
             'consumidor_id' => 'ID',
-            'cpf' => 'CPF',
-            'pessoa_id' => 'Pessoa associada',
-            'Pessoa.nome' => 'Nome',
+            'cpf'           => 'CPF',
+            'pessoa_id'     => 'Pessoa associada',
+            'Pessoa.nome'   => 'Nome',
             'Pessoa.cidade' => 'Cidade',
             'Pessoa.estado' => 'UF',
-            'Pessoa.email' => 'E-mail',
+            'Pessoa.email'  => 'E-mail',
         ];
-
     }
 
     /**
@@ -64,8 +61,7 @@ class Consumidor extends \yii\db\ActiveRecord
      */
     public function getPessoa()
     {
-        return $this->hasOne(Pessoa::className(), [ 'pessoa_id' => 'pessoa_id' ]);
-
+        return $this->hasOne(Pessoa::className(), [ 'pessoa_id' => 'pessoa_id']);
     }
 
     /**
@@ -73,8 +69,7 @@ class Consumidor extends \yii\db\ActiveRecord
      */
     public function getPedidos()
     {
-        return $this->hasMany(Pedido::className(), [ 'consumidor_id' => 'consumidor_id' ]);
-
+        return $this->hasMany(Pedido::className(), [ 'consumidor_id' => 'consumidor_id']);
     }
 
 }

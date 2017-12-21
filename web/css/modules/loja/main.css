@@ -60,32 +60,20 @@ div.oferta:hover {
 }
 
 div.oferta > div {
+    position: relative;
     display: block;
     height: 50%;
     width: 100%;
     max-width: 265px;
     margin: 10px auto;
-    background-color: #ccf;
-    
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: 100% auto;
 }
-
-div.oferta > div > img::before{
-    content: "oi";
-    height: 100%;
-    vertical-align: middle;
-    display: inline-block;
-}
-
-div.oferta > div > img{    
-    display: inline-block;
-    height: auto;
-    width: 100%;    
-    vertical-align: middle;   
-}
-
 
 [hidden] {
-  display: none !important;
+    display: none !important;
 }
 
 .input[type=file] {

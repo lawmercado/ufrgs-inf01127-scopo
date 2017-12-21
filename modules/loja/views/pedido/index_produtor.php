@@ -10,226 +10,217 @@ use yii\widgets\Breadcrumbs;
 /* @var $dataProviderFinalizado yii\data\ActiveDataProvider */
 /* @var $dataProviderCancelado yii\data\ActiveDataProvider */
 
-$this->title = 'Pedidos';
+$this->title                   = 'Pedidos';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="pedido-index_produtor">
 
-    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [], ]) ?>
+    <?= Breadcrumbs::widget([ 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', [tip'model' => $searchModel]);  ?>
+    <?php // echo $this->render('_search', [tip'model' => $searchModel]);   ?>
 
     <h2 class="status-pedido">Pendente</h2>
     <?=
-
     GridView::widget([
         'dataProvider' => $dataProviderPendente,
-        'columns' => [
+        'columns'      => [
             [
-                'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\SerialColumn',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'label' => 'ID',
-                'attribute' => 'pedido_id',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'label'          => 'ID',
+                'attribute'      => 'pedido_id',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
                 'attribute' => 'momento',
-                'value' => function($model)
+                'value'     => function($model)
                 {
                     return Yii::$app->formatter->asDateTime($model->momento);
                 },
-                'headerOptions' => [ 'style' => 'width:20%;' ],
+                'headerOptions' => [ 'style' => 'width:20%;'],
             ],
             [
-                'label' => 'Consumidor',
+                'label'     => 'Consumidor',
                 'attribute' => 'consumidor.pessoa.nome',
             ],
             [
-                'attribute' => 'consumidor.pessoa.cidade',
-                'headerOptions' => [ 'style' => 'width:15%;' ],
+                'attribute'     => 'consumidor.pessoa.cidade',
+                'headerOptions' => [ 'style' => 'width:15%;'],
             ],
             [
-                'label' => 'Produto',
-                'attribute' => 'oferta.produto.nome',
-                'headerOptions' => [ 'style' => 'width:10%;' ],
+                'label'         => 'Produto',
+                'attribute'     => 'oferta.produto.nome',
+                'headerOptions' => [ 'style' => 'width:10%;'],
             ],
             [
-                'attribute' => 'quantidade',
-                'headerOptions' => [ 'style' => 'width:1%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'attribute'      => 'quantidade',
+                'headerOptions'  => [ 'style' => 'width:1%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => [ 'style' => 'width:10%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\ActionColumn',
+                'headerOptions'  => [ 'style' => 'width:10%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
         ],
     ]);
-
     ?>
 
     <h2 class="status-pedido">Em andamento</h2>
     <?=
-
     GridView::widget([
         'dataProvider' => $dataProviderEmAndamento,
-        'columns' => [
+        'columns'      => [
             [
-                'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\SerialColumn',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'label' => 'ID',
-                'attribute' => 'pedido_id',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'label'          => 'ID',
+                'attribute'      => 'pedido_id',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
                 'attribute' => 'momento',
-                'value' => function($model)
+                'value'     => function($model)
                 {
                     return Yii::$app->formatter->asDateTime($model->momento);
                 },
-                'headerOptions' => [ 'style' => 'width:20%;' ],
+                'headerOptions' => [ 'style' => 'width:20%;'],
             ],
             [
-                'label' => 'Consumidor',
+                'label'     => 'Consumidor',
                 'attribute' => 'consumidor.pessoa.nome',
             ],
             [
-                'attribute' => 'consumidor.pessoa.cidade',
-                'headerOptions' => [ 'style' => 'width:15%;' ],
+                'attribute'     => 'consumidor.pessoa.cidade',
+                'headerOptions' => [ 'style' => 'width:15%;'],
             ],
             [
-                'label' => 'Produto',
-                'attribute' => 'oferta.produto.nome',
-                'headerOptions' => [ 'style' => 'width:10%;' ],
+                'label'         => 'Produto',
+                'attribute'     => 'oferta.produto.nome',
+                'headerOptions' => [ 'style' => 'width:10%;'],
             ],
             [
-                'attribute' => 'quantidade',
-                'headerOptions' => [ 'style' => 'width:1%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'attribute'      => 'quantidade',
+                'headerOptions'  => [ 'style' => 'width:1%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => [ 'style' => 'width:10%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\ActionColumn',
+                'headerOptions'  => [ 'style' => 'width:10%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
         ],
     ]);
-
     ?>
 
     <h2 class="status-pedido">Finalizados</h2>
     <?=
-
     GridView::widget([
         'dataProvider' => $dataProviderFinalizado,
-        'columns' => [
+        'columns'      => [
             [
-                'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\SerialColumn',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'label' => 'ID',
-                'attribute' => 'pedido_id',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'label'          => 'ID',
+                'attribute'      => 'pedido_id',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
                 'attribute' => 'momento',
-                'value' => function($model)
+                'value'     => function($model)
                 {
                     return Yii::$app->formatter->asDateTime($model->momento);
                 },
-                'headerOptions' => [ 'style' => 'width:20%;' ],
+                'headerOptions' => [ 'style' => 'width:20%;'],
             ],
             [
-                'label' => 'Consumidor',
+                'label'     => 'Consumidor',
                 'attribute' => 'consumidor.pessoa.nome',
             ],
             [
-                'attribute' => 'consumidor.pessoa.cidade',
-                'headerOptions' => [ 'style' => 'width:15%;' ],
+                'attribute'     => 'consumidor.pessoa.cidade',
+                'headerOptions' => [ 'style' => 'width:15%;'],
             ],
             [
-                'label' => 'Produto',
-                'attribute' => 'oferta.produto.nome',
-                'headerOptions' => [ 'style' => 'width:10%;' ],
+                'label'         => 'Produto',
+                'attribute'     => 'oferta.produto.nome',
+                'headerOptions' => [ 'style' => 'width:10%;'],
             ],
             [
-                'attribute' => 'quantidade',
-                'headerOptions' => [ 'style' => 'width:1%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'attribute'      => 'quantidade',
+                'headerOptions'  => [ 'style' => 'width:1%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => [ 'style' => 'width:10%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\ActionColumn',
+                'headerOptions'  => [ 'style' => 'width:10%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
         ],
     ]);
-
     ?>
 
     <h2 class="status-pedido">Cancelados</h2>    
     <?=
-
     GridView::widget([
         'dataProvider' => $dataProviderCancelado,
-        'columns' => [
+        'columns'      => [
             [
-                'class' => 'yii\grid\SerialColumn',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\SerialColumn',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'label' => 'ID',
-                'attribute' => 'pedido_id',
-                'headerOptions' => [ 'style' => 'width:5%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'label'          => 'ID',
+                'attribute'      => 'pedido_id',
+                'headerOptions'  => [ 'style' => 'width:5%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
                 'attribute' => 'momento',
-                'value' => function($model)
+                'value'     => function($model)
                 {
                     return Yii::$app->formatter->asDateTime($model->momento);
                 },
-                'headerOptions' => [ 'style' => 'width:20%;' ],
+                'headerOptions' => [ 'style' => 'width:20%;'],
             ],
             [
-                'label' => 'Consumidor',
+                'label'     => 'Consumidor',
                 'attribute' => 'consumidor.pessoa.nome',
             ],
             [
-                'attribute' => 'consumidor.pessoa.cidade',
-                'headerOptions' => [ 'style' => 'width:15%;' ],
+                'attribute'     => 'consumidor.pessoa.cidade',
+                'headerOptions' => [ 'style' => 'width:15%;'],
             ],
             [
-                'label' => 'Produto',
-                'attribute' => 'oferta.produto.nome',
-                'headerOptions' => [ 'style' => 'width:10%;' ],
+                'label'         => 'Produto',
+                'attribute'     => 'oferta.produto.nome',
+                'headerOptions' => [ 'style' => 'width:10%;'],
             ],
             [
-                'attribute' => 'quantidade',
-                'headerOptions' => [ 'style' => 'width:1%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'attribute'      => 'quantidade',
+                'headerOptions'  => [ 'style' => 'width:1%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => [ 'style' => 'width:10%; text-align: center' ],
-                'contentOptions' => [ 'style' => 'text-align: center' ],
+                'class'          => 'yii\grid\ActionColumn',
+                'headerOptions'  => [ 'style' => 'width:10%; text-align: center'],
+                'contentOptions' => [ 'style' => 'text-align: center'],
             ],
         ],
     ]);
-
     ?>
 </div>
