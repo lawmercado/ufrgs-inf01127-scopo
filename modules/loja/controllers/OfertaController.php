@@ -6,7 +6,8 @@ use Yii;
 use app\modules\loja\models\Oferta;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\modules\loja\models\UploadForm;
+use yii\web\UploadedFile;
 /**
  * OfertaController implements the CRUD actions for Oferta model.
  */
@@ -64,15 +65,21 @@ class OfertaController extends LojaController
     public function actionCreate()
     {
         $model = new Oferta();
-
-        if ( $model->load(Yii::$app->request->post()) && $model->save() )
-        {
+        $upload = new UploadForm();         
+        
+        if ( $model->load(Yii::$app->request->post()) && $model->save())
+        {        
+            $upload->imageFile = UploadedFile::getInstance($upload, 'imageFile');
+            $upload->upload($model);
             return $this->redirect([ 'view', 'id' => $model->oferta_id ]);
         }
         else
-        {
+        {          
+            
             return $this->render('create', [
                 'model' => $model,
+                'upload' => $upload,
+                
             ]);
         }
 
@@ -134,5 +141,9 @@ class OfertaController extends LojaController
         }
 
     }
+    
+    
+    
+    
 
 }

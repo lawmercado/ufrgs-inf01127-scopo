@@ -5,6 +5,7 @@ namespace app\modules\loja\models;
 use Yii;
 use app\modules\base\models\Produto;
 use app\modules\base\models\Produtor;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "Oferta".
@@ -20,9 +21,12 @@ use app\modules\base\models\Produtor;
  * @property Produto $produto
  * @property Produtor $produtor
  * @property Pedido[] $pedidos
+ * 
+ * 
  */
 class Oferta extends \yii\db\ActiveRecord
 {
+    
 
     /**
      * @inheritdoc
@@ -45,6 +49,7 @@ class Oferta extends \yii\db\ActiveRecord
             [ [ 'preco' ], 'number' ],
             [ [ 'produto_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => [ 'produto_id' => 'produto_id' ] ],
             [ [ 'produtor_id' ], 'exist', 'skipOnError' => true, 'targetClass' => Produtor::className(), 'targetAttribute' => [ 'produtor_id' => 'produtor_id' ] ],
+            
         ];
 
     }
@@ -114,5 +119,10 @@ class Oferta extends \yii\db\ActiveRecord
         return $newOferta->oferta_id;
 
     }
+    
+    
+    
+  
+    
 
 }

@@ -65,7 +65,31 @@ div.oferta > div {
     width: 100%;
     max-width: 265px;
     margin: 10px auto;
-    background-color: #5a574b;
+    background-color: #ccf;
+    
+}
+
+div.oferta > div > img::before{
+    content: "oi";
+    height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+div.oferta > div > img{    
+    display: inline-block;
+    height: auto;
+    width: 100%;    
+    vertical-align: middle;   
+}
+
+
+[hidden] {
+  display: none !important;
+}
+
+.input[type=file] {
+    font-size: 30px;
 }
 
 div.oferta p {
@@ -90,9 +114,17 @@ div.oferta p.oferta-preco, div.oferta p.oferta-produto {
     line-height: 1.2em;
 }
 
-.campo-oferta-preco, .campo-oferta-quantidade, .campo-oferta-produtor, .campo-oferta-produto{
+.campo-oferta-preco, .campo-oferta-quantidade, .campo-oferta-input, .campo-oferta-produtor, .campo-oferta-produto{
     width: 30%;
     margin:auto;
+}
+
+.campo-oferta-input > div > input > file{
+    font-size: 20px;
+}
+
+.campo-oferta-input > div > #help-block{
+    font-size: 30px;
 }
 
 .campo-oferta{
@@ -101,7 +133,19 @@ div.oferta p.oferta-preco, div.oferta p.oferta-produto {
 
 .filtro-pesquisa{
     margin-top: 10px;
+    font-size: 15px;
+    margin-left: 1%;
 }
+
+.oferta-index > div > a{
+    color: #fff;
+}
+
+.oferta-index > div > a:hover{
+    color: #000;
+}
+
+
 
 .filtro-quantidade{
     width: 10%;

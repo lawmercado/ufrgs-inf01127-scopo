@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         if ( isset($_POST['pesquisa']) )
         {
             echo '<span class="filtro-pesquisa badge badge-primary">' . $_POST['pesquisa'] . '</span>';
+            echo Html::a('Limpar', [ 'index' ], [ 'class' => 'filtro-pesquisa badge badge-primary' ]) ;
 
 
             $filtro = $_POST['pesquisa'];
@@ -62,7 +63,7 @@ function mostraOferta( $oferta, $filtro )
 
         echo '
         <div class="oferta">
-            <div><img /></div>
+            <div><img src="images/'.$oferta->oferta_id.'.jpg"></div>
             <p class="oferta-produto">' . $oferta->produto->categoria->descricao
 
         ?>::<?= $oferta->produto->nome . '</p>
@@ -82,7 +83,7 @@ function mostraOferta( $oferta, $filtro )
 
             echo '
             <div class="oferta">
-                <div><img /></div>
+                <div><img src="images/'.$oferta->oferta_id.'.jpg"></div>
                 <p class="oferta-produto">' . $oferta->produto->categoria->descricao
 
             ?>::<?= $oferta->produto->nome . '</p>

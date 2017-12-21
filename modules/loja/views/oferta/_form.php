@@ -16,9 +16,17 @@ use app\modules\base\models\Produto;
 
 <div class="oferta-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <div class="campo-oferta">
+        
+        
+        <div class="campo-oferta-input">
+            <?= $form->field($upload, 'imageFile')->fileInput()->label("Imagem") ?>            
+        </div>
+        
+        
+        
         <div class="campo-oferta-quantidade">
             <?= $form->field($model, 'quantidade')->textInput([ 'type' => 'number' ]) ?>
         </div>   
