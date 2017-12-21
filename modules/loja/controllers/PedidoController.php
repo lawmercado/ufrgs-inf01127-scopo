@@ -163,7 +163,7 @@ class PedidoController extends LojaController
             {
                 Yii::$app->session->setFlash("success", "Pedido atualizado com sucesso!");
 
-                //return $this->redirect([ "index"]);
+                return $this->redirect(["index"]);
             }
             else
             {
