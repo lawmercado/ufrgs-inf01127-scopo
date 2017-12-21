@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?php $form = ActiveForm::begin(); ?>
-    <div class="filtro-quantidade">
+    <div class="quantidade-pedido">
         <?= $form->field($model, 'quantidade')->textInput([ 'type' => 'number']); ?>
     </div>
 
