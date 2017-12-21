@@ -65,9 +65,11 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <div class="quantidade-pedido">
 
-    <?= $form->field($model, 'quantidade')->textInput([ 'type' => 'number']); ?>
-
+        <?= $form->field($model, 'quantidade')->textInput([ 'type' => 'number']); ?>
+    </div>
     <?= $form->field($model, 'consumidor_id')->hiddenInput([ 'value' => $consumidor->consumidor_id])->label(false); ?>
 
     <?= $form->field($model, 'oferta_id')->hiddenInput([ 'value' => $oferta->oferta_id])->label(false); ?>
