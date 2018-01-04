@@ -39,9 +39,9 @@ if( !Yii::$app->user->isGuest )
             ];
 
             $hotlinks = $hotlinks + [
+                "Meu perfil"   => Url::toRoute("/base/produtor/view"),
                 "Meus pedidos" => Url::toRoute("/loja/pedido"),
                 "Criar oferta" => Url::toRoute("/loja/oferta/create"),
-                "Meu perfil"   => Url::toRoute("/base/produtor/view"),
             ];
 
             break;

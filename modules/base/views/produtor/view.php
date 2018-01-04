@@ -19,19 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1 class="titulo"><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Atualizar', [ 'update', 'id' => $model->produtor_id], [ 'class' => 'btn btn-primary']) ?>
-        <?=
-        Html::a('Remover', [ 'delete', 'id' => $model->produtor_id], [
-            'class' => 'btn btn-danger',
-            'data'  => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method'  => 'post',
-            ],
-        ])
-        ?>
-    </p>
-
     <?=
     DetailView::widget([
         'model'      => $model,
